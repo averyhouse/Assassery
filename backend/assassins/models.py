@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import settings
+from django.contrib.auth.models import User, BaseUserManager, AbstractUser
+from django.utils.translation import ugettext_lazy as _
 
 class Assassin(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -40,7 +42,7 @@ class Person(models.Model):
     id = models.IntegerField(primary_key = True)
     username = models.CharField(max_length = 30)
     password = models.CharField(max_length = 60)
-    owner = models.ForeignKey(User, related_name="player", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="player", on_delete=models.CASCADE, null=True)
     email = models.CharField(max_length = 30)
     messenger = models.CharField(max_length = 30)
 
@@ -50,4 +52,7 @@ class Person(models.Model):
 class Respawn(models.Model):
     id = models.IntegerField(primary_key = True)
 
-#print(Assassin.getModel(2133807).name)
+class User(AbstractUser):
+    USERNAME_FIELD = 'email'
+    email = models.EmailField(_('email address'), unique=True) # changes email to unique and blank to false
+    REQUIRED_FIELDS = [] # removes email from REQUIRED_FIELDS

@@ -4,14 +4,10 @@ Pipfile.lock
 __pycache__
 
 # Jetbrains IDEs
-.idea/misc.xml
-.idea/workspace.xml
-.idea/inspectionProfiles/profiles_settings.xml
-.idea/vcs.xml
-.idea/modules.xml
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/Assassery.iml
+.idea/
 
 # Misc
 .DS_Store
+
+node_modules
+migrations
