@@ -13,13 +13,18 @@ class Assassin(models.Model):
         return Assassin.objects.get(id = userID)
 
     def nextTarget(self):
-        t = Assassin.getModel(self.target);
+        t = Assassin.getModel(self.target)
         while(t.dead):
             t = Assassin.getModel(t.target)
-        self.target = t.target
-        self.save()
+        return t.id
+
+    def kill(self):
+        t = Assasin.getModel(self.nextTarget())
+        n = t.nextTarget()
         t.dead = True
         t.save()
+        self.target = n
+        self.save()
 
     def _str_(self):
         return self.alias
@@ -39,5 +44,8 @@ class Person(models.Model):
 
     def _str_(self):
         return self.username
+
+class Respawn(models.Model):
+    id = models.IntegerField(primary_key = True)
 
 #print(Assassin.getModel(2133807).name)
