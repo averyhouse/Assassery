@@ -5,4 +5,4 @@ class AssAssmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'alias', 'team', 'target', 'dead')
 
 admin.site.register(Assassin, AssAssmin)
-#Assassin.getModel(12).nextTarget()
+#Assassin.getModel(12).kill()

@@ -19,7 +19,7 @@ class Assassin(models.Model):
         return t.id
 
     def kill(self):
-        t = Assasin.getModel(self.nextTarget())
+        t = Assassin.getModel(self.nextTarget())
         n = t.nextTarget()
         t.dead = True
         t.save()
