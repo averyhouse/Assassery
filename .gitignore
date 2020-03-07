@@ -1,8 +1,9 @@
-backend/backend/__pycache__/settings.cpython-37.pyc
+# Python
 Pipfile
 Pipfile.lock
-backend/backend/__pycache__/__init__.cpython-37.pyc
-backend/backend/__pycache__/urls.cpython-37.pyc
+__pycache__
+
+# Jetbrains IDEs
 .idea/misc.xml
 .idea/workspace.xml
 .idea/inspectionProfiles/profiles_settings.xml
@@ -11,3 +12,6 @@ backend/backend/__pycache__/urls.cpython-37.pyc
 .idea/dataSources.xml
 .idea/dataSources.local.xml
 .idea/Assassery.iml
+
+# Misc
+.DS_Store
