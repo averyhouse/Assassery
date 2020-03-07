@@ -6,7 +6,7 @@ import './index.css';
 import './assets/css/nav.css'
 
 import Login from './pages/Login';
-import Dashboard from './Dashboard';
+import Dashboard from './pages/Dashboard';
 import QRGenerator from './pages/QRGenerator';
 import QRScanner from './pages/QRScanner';
 
