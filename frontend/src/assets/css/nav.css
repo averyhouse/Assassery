@@ -1,0 +1,28 @@
+.navbar {
+    border-bottom: 1px solid #000000;
+    margin: 0;
+    top: 0;
+}
+
+.navbar ul {
+    background: #79c3f3;
+    list-style-type: none;
+    margin: 0;
+    padding: 0.5rem;
+    display: flex;
+}
+    
+.navbar li {
+    flex-direction: row;
+    flex: 1;
+    justify-content: space-evenly;
+}
+
+.navbar a {
+    display: block;
+    color: #99aca5;
+    padding: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+}
+
