@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Assassin(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -39,6 +40,7 @@ class Person(models.Model):
     id = models.IntegerField(primary_key = True)
     username = models.CharField(max_length = 30)
     password = models.CharField(max_length = 60)
+    owner = models.ForeignKey(User, related_name="player", on_delete=models.CASCADE, null=True)
     email = models.CharField(max_length = 30)
     messenger = models.CharField(max_length = 30)
 
