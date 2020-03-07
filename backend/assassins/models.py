@@ -12,6 +12,15 @@ class Assassin(models.Model):
     def getModel(userID):
         return Assassin.objects.get(id = userID)
 
+    def nextTarget(self):
+        t = Assassin.getModel(self.target);
+        while(t.dead):
+            t = Assassin.getModel(t.target)
+        self.target = t.target
+        self.save()
+        t.dead = True
+        t.save()
+
     def _str_(self):
         return self.alias
 
