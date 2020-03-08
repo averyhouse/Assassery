@@ -4,7 +4,7 @@ from knox.models import AuthToken
 import knox
 
 from .models import Assassin, User
-from .serializers import AssassinSerializer, CreateUserSerializer, UserSerializer, LoginUserSerializer
+from .serializers import AssassinSerializer, CreateUserSerializer, UserSerializer, LoginUserSerializer, KillSerializer
 
 
 class AssassinViewSet(viewsets.ModelViewSet):
@@ -56,3 +56,17 @@ class UserAPI(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class KillAPI(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = KillSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        kill = serializer.validated_data
+        if request.user.id == kill['killerID']:
+            getModel(request.user.id).kill(kill['killedID'])
+            return Response({'result': 'success'})
+        return Response({'result': 'failure'})
