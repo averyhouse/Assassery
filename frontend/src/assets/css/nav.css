@@ -1,21 +1,37 @@
 .navbar {
-    border-bottom: 1px solid #ffffff;
     margin: 0;
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: row;
     top: 0;
+    justify-content: space-between;
 }
 
-.navbar ul {
-    background: #79c3f3;
-    list-style-type: none;
-    margin: 0;
-    padding: 0.5rem;
+.navbar logo {
+    padding: 0.25rem;
     display: flex;
+    margin-left: 1rem;
+    margin-top: 0.3rem;
 }
-    
-.navbar li {
+
+.navbar logo h1 {
+    font-family: "Snell Roundhand", cursive;
+    margin-top: 0.5rem;
+    font-size: 4em;
+}
+
+/* List Elements */
+.navbar ul {
+    list-style-type: none;
+    display: flex;
     flex-direction: row;
-    flex: 1;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin-right: 5rem;
+}
+
+.navbar li {
+    wrap-option: nowrap;
+    padding: 1.25rem;
 }
 
 .navbar a {
@@ -25,9 +41,4 @@
     padding: 0.5rem;
     text-align: center;
     text-decoration: none;
-}
-
-/*TODO: Remove this.*/
-h1 {
-    font-family: "Comic Sans MS", sans-serif;
 }
