@@ -42,7 +42,18 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'assassins'
+    #DataFlair #Send emails
+    'Email_Client'
 ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'AveryAssassins@gmail.com'
+EMAIL_HOST_PASSWORD = 'Avery$2020!'
+EMAIL_USE_SSL = False
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -135,3 +146,4 @@ AUTH_USER_MODEL = 'assassins.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
 }
+
