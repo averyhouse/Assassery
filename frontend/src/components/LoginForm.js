@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./LoginForm.css";
+import "../assets/css/LoginForm.css";
 
 export default class LoginForm extends Component {
 
@@ -45,7 +45,7 @@ export default class LoginForm extends Component {
         <label>
           Password:
           <br />
-          <input type="text" value={this.state.password} onChange={this.handleChangePassword} />
+          <input type="password" value={this.state.password} onChange={this.handleChangePassword} />
         </label>
         <br />
         <input type="submit" value="Submit" />
