@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Leaderboard.css';
+import '../assets/css/Leaderboard.css';
 
 export default class Leaderboard extends Component {
     renderTableHeader() {

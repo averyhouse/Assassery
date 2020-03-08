@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './KillFeed.css';
+import '../assets/css/KillFeed.css';
 
 export default class KillFeed extends Component {
     renderTableHeader() {

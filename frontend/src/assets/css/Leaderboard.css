@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-#players td, #kills th {
+#players td, #players th {
   border: 1px solid #ddd;
   padding: 8px;
 }
