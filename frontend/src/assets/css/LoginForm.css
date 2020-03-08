@@ -3,7 +3,20 @@
   font-family: arial, sans-serif;
 }
 
-input[type=text]{
+input[type=text] {
+  width: 25%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  margin-top: 1cm;
+  margin-bottom: 1cm;
+  display: block;
+  margin : 0.25cm auto;
+}
+
+input[type=password] {
   width: 25%;
   padding: 12px;
   border: 1px solid #ccc;
