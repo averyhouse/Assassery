@@ -19,18 +19,19 @@ import AveryLogo from './assets/images/avery.svg';
 ReactDOM.render(
     <Router>
         <div class="navbar">
-            <Link to={`/`}>
-                <logo>
-                    <img width="75" height="75" src={AveryLogo} alt="Avery Logo :("/>
-                    <h1>ss</h1>
-                    <img width="75" height="75" src={AveryLogo} alt="Avery Logo :("/>
-                    <h1>ssery</h1>
-                </logo>
-            </Link>
             <ul>
-                <li><Link to={`/qr`}>Your QR Code</Link></li>
-                <li><Link to={`/scan`}>QR Scanner</Link></li>
-                <li><Link to={`/login`}>Login</Link></li>
+
+                <li><Link to={`/login`}>LOGIN</Link></li>
+                <li><Link to={`/scan`}>QR SCANNER</Link></li>
+                <li><Link to={`/qr`}>YOUR QR CODE</Link></li>
+                <logo>
+                    <Link to={`/`}>
+                        <img width="50" height="50" src={AveryLogo} alt="Avery Logo :("/>
+                        ss
+                        <img width="50" height="50" src={AveryLogo} alt="Avery Logo :("/>
+                        ssery
+                    </Link>
+                </logo>
             </ul>
         </div>
 
