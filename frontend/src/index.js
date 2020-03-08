@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import QRGenerator from './pages/QRGenerator';
 import QRScanner from './pages/QRScanner';
+import LoginForm from './components/LoginForm';
 
 // Images //
 import AveryLogo from './assets/images/avery.svg';
@@ -41,6 +42,7 @@ ReactDOM.render(
                 <Route path="/login" component={Login}/>
                 <Route path="/qr" component={QRGenerator}/>
                 <Route path="/scan" component={QRScanner}/>
+                <LoginForm />
             </main>
         </div>
     </Router>,
