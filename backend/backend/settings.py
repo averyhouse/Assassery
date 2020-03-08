@@ -41,13 +41,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'knox',
-    'assassins'
+    'assassins',
+    "post_office"
     #DataFlair #Send emails
-    'Email_Client'
 ]
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'post_office.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
