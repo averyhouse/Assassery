@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Assassin, User
+from .models import Assassin, User, KillFeed
 from django.contrib.auth import authenticate, settings
 
 class AssassinSerializer(serializers.ModelSerializer):
@@ -32,4 +32,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email')
+
+class KillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KillFeed
+        fields = ('killerID', 'killedID', 'message', 'timeStamp')
 
