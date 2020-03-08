@@ -38,6 +38,9 @@ class KillFeed(models.Model):
     message = models.TextField()
     timeStamp = models.DateField()
 
+    def _str_(self):
+        return Assassin.getModel(killerID).alias + " killed " + Assassin.getModel(killedID).alias + " by " + self.message
+
 class Respawn(models.Model):
     id = models.IntegerField(primary_key = True)
 
