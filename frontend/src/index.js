@@ -1,7 +1,7 @@
 // Important Things //
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 // CSS Stylesheets //
 import './index.css';
@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import QRGenerator from './pages/QRGenerator';
 import QRScanner from './pages/QRScanner';
+import NotFound from './pages/NotFound';
 import LoginForm from './components/LoginForm';
 
 // Images //
@@ -38,10 +39,13 @@ ReactDOM.render(
 
         <div class="main">
             <main>
+                <Switch>
                 <Route exact path="/" component={Dashboard}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/qr" component={QRGenerator}/>
                 <Route path="/scan" component={QRScanner}/>
+                <Route component={NotFound} />
+                </Switch>
                 <LoginForm />
             </main>
         </div>
