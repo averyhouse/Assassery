@@ -10,6 +10,7 @@ django = "*"
 django-rest-framework = "*"
 django-cors-headers = "*"
 django-rest-knox = "*"
+django-post-office = "*"
 
 [requires]
 python_version = "3.7"
