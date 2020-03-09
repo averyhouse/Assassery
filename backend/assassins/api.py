@@ -1,3 +1,5 @@
+from django.core.mail import send_mail
+from django.contrib.auth import settings
 from rest_framework import viewsets, permissions, generics, authentication
 from rest_framework.response import Response
 from knox.models import AuthToken
