@@ -12,28 +12,22 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import QRGenerator from './pages/QRGenerator';
 import QRScanner from './pages/QRScanner';
-import NotFound from './pages/NotFound';
+// import NotFound from './pages/NotFound';
 import LoginForm from './components/LoginForm';
 
 // Images //
-import AveryLogo from './assets/images/avery.svg';
+import AssasseryLogo from './assets/images/assassery_dark_logo.png';
 
 ReactDOM.render(
     <Router>
         <div class="navbar">
             <ul>
-
                 <li><Link to={`/login`}>LOGIN</Link></li>
                 <li><Link to={`/scan`}>QR SCANNER</Link></li>
                 <li><Link to={`/qr`}>YOUR QR CODE</Link></li>
-                <logo>
-                    <Link to={`/`}>
-                        <img width="50" height="50" src={AveryLogo} alt="Avery Logo :("/>
-                        ss
-                        <img width="50" height="50" src={AveryLogo} alt="Avery Logo :("/>
-                        ssery
-                    </Link>
-                </logo>
+                <div class = "logo">
+                    <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"}/></Link>
+                </div>
             </ul>
         </div>
 
@@ -44,7 +38,7 @@ ReactDOM.render(
                 <Route path="/login" component={Login}/>
                 <Route path="/qr" component={QRGenerator}/>
                 <Route path="/scan" component={QRScanner}/>
-                <Route component={NotFound} />
+                {/*<Route component={NotFound} />*/}
                 </Switch>
                 <LoginForm />
             </main>

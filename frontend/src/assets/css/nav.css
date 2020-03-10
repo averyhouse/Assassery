@@ -25,11 +25,6 @@
     float: right;
 }
 
-.navbar logo a {
-    padding-right: 0.5em;
-    padding-left: 0.5em;
-}
-
 .navbar li a {
     display: block;
     height: 1.5cm;
@@ -45,22 +40,18 @@ li a:hover {
     background-color: #111111;
 }
 
-.navbar logo {
+.navbar .logo {
     float: left;
 }
 
-.navbar logo a {
+.navbar .logo a {
     display: flex;
     height: 1.5cm;
-    color: #ffffff;
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-
-    font-family: "Snell Roundhand", cursive;
-    font-size: 2em;
 }
 
-logo a:hover {
+.navbar .logo a:hover {
     background-color: #111111;
 }
