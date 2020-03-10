@@ -25,7 +25,7 @@ ReactDOM.render(
                 <li><Link to={`/login`}>LOGIN</Link></li>
                 <li><Link to={`/scan`}>QR SCANNER</Link></li>
                 <li><Link to={`/qr`}>YOUR QR CODE</Link></li>
-                <div class = "logo">
+                <div class="logo">
                     <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"}/></Link>
                 </div>
             </ul>
@@ -34,13 +34,13 @@ ReactDOM.render(
         <div class="main">
             <main>
                 <Switch>
-                <Route exact path="/" component={Dashboard}/>
-                <Route path="/login" component={Login}/>
-                <Route path="/qr" component={QRGenerator}/>
-                <Route path="/scan" component={QRScanner}/>
-                {/*<Route component={NotFound} />*/}
+                    <Route exact path="/" component={Dashboard}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/qr" component={QRGenerator}/>
+                    <Route path="/scan" component={QRScanner}/>
+                    {/*<Route component={NotFound} />*/}
                 </Switch>
-                <LoginForm />
+                <LoginForm/>
             </main>
         </div>
     </Router>,
