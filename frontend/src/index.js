@@ -1,7 +1,7 @@
 // Important Things //
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Link, Route, Switch, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -34,7 +34,7 @@ class RootContainerComponent extends Component {
         this.props.loadUser();
     }
 
-    PrivateRoute = ({component: ChildComponent, ...rest}) => {
+    PrivateRoute = ({ component: ChildComponent, ...rest }) => {
         return <Route {...rest} render={props => {
             if (this.props.auth.isLoading) {
                 return <em>Loading...</em>;
@@ -47,7 +47,7 @@ class RootContainerComponent extends Component {
     }
 
     render() {
-        let {PrivateRoute} = this;
+        let { PrivateRoute } = this;
         return (
             <Router>
                 <div class="navbar">
@@ -56,7 +56,7 @@ class RootContainerComponent extends Component {
                         <li><Link to={`/scan`}>QR SCANNER</Link></li>
                         <li><Link to={`/qr`}>YOUR QR CODE</Link></li>
                         <div class="logo">
-                            <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"}/></Link>
+                            <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"} /></Link>
                         </div>
                     </ul>
                 </div>
@@ -64,11 +64,11 @@ class RootContainerComponent extends Component {
                 <div class="main">
                     <main>
                         <Switch>
-                            <Route exact path="/" component={Dashboard}/>
-                            <Route path="/login" component={Login}/>
-                            <Route path="/register" component={Register}/>
-                            <PrivateRoute path="/qr" component={QRGenerator}/>
-                            <PrivateRoute path="/scan" component={QRScanner}/>
+                            <Route exact path="/" component={Dashboard} />
+                            <Route path="/login" component={Login} />
+                            <Route path="/register" component={Register} />
+                            <PrivateRoute path="/qr" component={QRGenerator} />
+                            <PrivateRoute path="/scan" component={QRScanner} />
                             {/*<Route component={NotFound} />*/}
                         </Switch>
                     </main>
@@ -77,7 +77,7 @@ class RootContainerComponent extends Component {
         );
     }
 }
-    
+
 const mapStateToProps = state => {
     return {
         auth: state.auth,
@@ -91,9 +91,9 @@ const mapDispatchToProps = dispatch => {
         }
     }
 }
-  
+
 let RootContainer = connect(mapStateToProps, mapDispatchToProps)(RootContainerComponent);
-  
+
 
 ReactDOM.render(
     <Provider store={store}>

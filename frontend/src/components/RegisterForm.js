@@ -1,7 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
+import { auth } from '../actions'
+import { connect } from 'react-redux';
 import "../assets/css/LoginForm.css";
 
-export default class LoginForm extends Component {
+class RegisterForm extends Component {
 
     constructor(props) {
         super(props)
@@ -19,28 +21,30 @@ export default class LoginForm extends Component {
     }
 
     handleChangeName(event) {
-        this.setState({name: event.target.value});
+        this.setState({ name: event.target.value });
     }
 
     handleChangeAlias(event) {
-        this.setState({alias: event.target.value});
+        this.setState({ alias: event.target.value });
     }
 
     handleChangeEmail(event) {
-        this.setState({email: event.target.value});
+        this.setState({ email: event.target.value });
     }
 
     handleChangePassword(event) {
-        this.setState({password: event.target.value});
+        this.setState({ password: event.target.value });
     }
 
     validateForm() {
         return this.state.email.length > 0 && this.state.password.length > 0
-                && this.state.name.length > 0 && this.state.alias.length > 0;
+            && this.state.name.length > 0 && this.state.alias.length > 0;
     }
 
     handleSubmit(event) {
         event.preventDefault();
+        this.props.register(this.state.name, this.state.email,
+            this.state.password, this.state.alias);
     }
 
     render() {
@@ -48,34 +52,63 @@ export default class LoginForm extends Component {
             <div>
                 <h1 id='title'>Register</h1>
                 <form onSubmit={this.handleSubmit}>
+                    {this.props.errors.length > 0 && (
+                        <ul>
+                            {this.props.errors.map(error => (
+                                <li key={error.field}>{error.message}</li>
+                            ))}
+                        </ul>
+                    )}
                     <label>
                         Name:
-                        <br/>
-                        <input type="text" value={this.state.name} onChange={this.handleChangeName}/>
+                        <br />
+                        <input type="text" value={this.state.name} onChange={this.handleChangeName} />
                     </label>
-                    <br/>
+                    <br />
                     <label>
                         Alias:
-                        <br/>
-                        <input type="text" value={this.state.alias} onChange={this.handleChangeAlias}/>
+                        <br />
+                        <input type="text" value={this.state.alias} onChange={this.handleChangeAlias} />
                     </label>
-                    <br/>
+                    <br />
                     <label>
                         Email:
-                        <br/>
-                        <input type="text" value={this.state.email} onChange={this.handleChangeEmail}/>
+                        <br />
+                        <input type="text" value={this.state.email} onChange={this.handleChangeEmail} />
                     </label>
-                    <br/>
+                    <br />
                     <label>
                         Password:
-                        <br/>
-                        <input type="password" value={this.state.password} onChange={this.handleChangePassword}/>
+                        <br />
+                        <input type="password" value={this.state.password} onChange={this.handleChangePassword} />
                     </label>
-                    <br/>
-                    <input type="submit" value="Submit"/>
+                    <br />
+                    <input type="submit" value="Submit" />
                 </form>
 
             </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    let errors = [];
+    if (state.auth.errors) {
+        errors = Object.keys(state.auth.errors).map(field => {
+            return { field, message: state.auth.errors[field] };
+        });
+    }
+    return {
+        errors,
+        isAuthenticated: state.auth.isAuthenticated
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        register: (username, email, password, alias) =>
+            dispatch(auth.register(username, email, password, alias)),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

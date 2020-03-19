@@ -1,5 +1,4 @@
-import React, {Component} from "react";
-import {Link, Redirect} from "react-router-dom";
+import React, { Component } from "react";
 import { auth } from '../actions'
 import { connect } from 'react-redux';
 import "../assets/css/LoginForm.css";
@@ -18,11 +17,11 @@ export class LoginForm extends Component {
     }
 
     handleChangeEmail(event) {
-        this.setState({email: event.target.value});
+        this.setState({ email: event.target.value });
     }
 
     handleChangePassword(event) {
-        this.setState({password: event.target.value});
+        this.setState({ password: event.target.value });
     }
 
     validateForm() {
@@ -35,9 +34,6 @@ export class LoginForm extends Component {
     }
 
     render() {
-        if (this.props.isAuthenticated) {
-            return <Redirect to="/" />
-        }
         return (
             <div>
                 <h1 id='title'>Login</h1>
@@ -51,17 +47,17 @@ export class LoginForm extends Component {
                     )}
                     <label>
                         Email:
-                        <br/>
-                        <input type="text" value={this.state.email} onChange={this.handleChangeEmail}/>
+                        <br />
+                        <input type="text" value={this.state.email} onChange={this.handleChangeEmail} />
                     </label>
-                    <br/>
+                    <br />
                     <label>
                         Password:
-                        <br/>
-                        <input type="password" value={this.state.password} onChange={this.handleChangePassword}/>
+                        <br />
+                        <input type="password" value={this.state.password} onChange={this.handleChangePassword} />
                     </label>
-                    <br/>
-                    <input type="submit" value="Submit"/>
+                    <br />
+                    <input type="submit" value="Submit" />
                 </form>
 
             </div>
@@ -73,7 +69,7 @@ const mapStateToProps = state => {
     let errors = [];
     if (state.auth.errors) {
         errors = Object.keys(state.auth.errors).map(field => {
-            return {field, message: state.auth.errors[field]};
+            return { field, message: state.auth.errors[field] };
         });
     }
     return {
@@ -81,7 +77,7 @@ const mapStateToProps = state => {
         isAuthenticated: state.auth.isAuthenticated
     };
 }
-  
+
 const mapDispatchToProps = dispatch => {
     return {
         login: (username, password) => {
