@@ -2,6 +2,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import assasseryFrontend from './reducers';
 
 // CSS Stylesheets //
 import './assets/css/index.css';
@@ -18,7 +21,10 @@ import LoginForm from './components/LoginForm';
 // Images //
 import AssasseryLogo from './assets/images/assassery_dark_logo.png';
 
+let store = createStore(assasseryFrontend);
+
 ReactDOM.render(
+    <Provider store={store}>
     <Router>
         <div class="navbar">
             <ul>
@@ -43,6 +49,7 @@ ReactDOM.render(
                 <LoginForm/>
             </main>
         </div>
-    </Router>,
+    </Router>
+    </Provider>,
     document.getElementById('app')
 );

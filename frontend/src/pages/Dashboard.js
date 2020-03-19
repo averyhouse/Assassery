@@ -1,15 +1,31 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import KillFeed from '../components/KillFeed';
 import Leaderboard from '../components/Leaderboard';
 import '../assets/css/Dashboard.css';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
     render() {
         return (
             <div class='flex-container'>
+                <h1>Welcome {this.props.user}!</h1>
                 <div class='flex-element'><KillFeed/></div>
                 <div class='flex-element'><Leaderboard/></div>
             </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user: state.user.name,
+        auth: state.user.auth
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

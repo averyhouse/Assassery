@@ -1,3 +1,5 @@
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 module.exports = {
     module: {
       rules: [
@@ -22,5 +24,10 @@ module.exports = {
             ]
         }
       ]
-    }
+    },
+    plugins: [
+      new CleanWebpackPlugin({
+        cleanAfterEveryBuildPatterns: ['static']
+      })
+    ]
   };
