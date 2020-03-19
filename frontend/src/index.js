@@ -12,11 +12,11 @@ import './assets/css/nav.css';
 
 // Pages //
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import QRGenerator from './pages/QRGenerator';
 import QRScanner from './pages/QRScanner';
 // import NotFound from './pages/NotFound';
-import LoginForm from './components/LoginForm';
 
 // Images //
 import AssasseryLogo from './assets/images/assassery_dark_logo.png';
@@ -42,11 +42,11 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={Dashboard}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/register" component={Register}/>
                     <Route path="/qr" component={QRGenerator}/>
                     <Route path="/scan" component={QRScanner}/>
                     {/*<Route component={NotFound} />*/}
                 </Switch>
-                <LoginForm/>
             </main>
         </div>
     </Router>
