@@ -48,11 +48,20 @@ class RootContainerComponent extends Component {
 
     render() {
         let { PrivateRoute } = this;
+        let login;
+        console.log(this.props.auth);
+        if (!this.props.auth.isAuthenticated) {
+            login = <Link to={`/login`}>LOGIN</Link>
+        } else {
+            login = <button onClick={this.props.logout}>LOGOUT</button>
+        }
         return (
             <Router>
                 <div class="navbar">
                     <ul>
-                        <li><Link to={`/login`}>LOGIN</Link></li>
+                        <li>
+                            {login}
+                        </li>
                         <li><Link to={`/scan`}>QR SCANNER</Link></li>
                         <li><Link to={`/qr`}>YOUR QR CODE</Link></li>
                         <div class="logo">
@@ -88,6 +97,9 @@ const mapDispatchToProps = dispatch => {
     return {
         loadUser: () => {
             return dispatch(auth.loadUser());
+        },
+        logout: () => {
+            return dispatch(auth.logout());
         }
     }
 }

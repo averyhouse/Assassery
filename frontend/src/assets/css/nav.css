@@ -25,7 +25,7 @@
     float: right;
 }
 
-.navbar li a {
+.navbar li a, .navbar li button {
     display: block;
     height: 1.5cm;
     color: #ffffff;
@@ -36,7 +36,7 @@
     cursor: pointer;
 }
 
-li a:hover {
+li a:hover, .navbar li button:hover {
     background-color: #111111;
 }
 
