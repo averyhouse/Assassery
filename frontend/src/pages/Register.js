@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import RegisterForm from '../components/RegisterForm';
+import connect from '../connection';
 
-export default class Register extends Component {
+class Register extends Component {
     render() {
         return (
             <RegisterForm/>
         );
     }
 }
+
+export default connect(Register);

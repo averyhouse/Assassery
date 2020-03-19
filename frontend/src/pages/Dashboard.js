@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import connect from '../connection';
 import KillFeed from '../components/KillFeed';
 import Leaderboard from '../components/Leaderboard';
 import '../assets/css/Dashboard.css';
@@ -16,16 +16,4 @@ class Dashboard extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        user: state.user.name,
-        auth: state.user.auth
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(Dashboard);

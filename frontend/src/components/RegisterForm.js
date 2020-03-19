@@ -40,7 +40,6 @@ export default class LoginForm extends Component {
     }
 
     handleSubmit(event) {
-        alert(this.state.email + " " + this.state.password);
         event.preventDefault();
     }
 
@@ -58,7 +57,7 @@ export default class LoginForm extends Component {
                     <label>
                         Alias:
                         <br/>
-                        <input type="password" value={this.state.alias} onChange={this.handleChangeAlias}/>
+                        <input type="text" value={this.state.alias} onChange={this.handleChangeAlias}/>
                     </label>
                     <br/>
                     <label>

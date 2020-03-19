@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import LoginForm from '../components/LoginForm';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import connect from '../connection';
 
-export default class Login extends Component {
+class Login extends Component {
     render() {
         return (
             <div>
@@ -12,3 +13,5 @@ export default class Login extends Component {
         );
     }
 }
+
+export default connect(Login);

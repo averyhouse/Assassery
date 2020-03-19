@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
+import connect from '../connection';
 
-export default class QRScanner extends Component {
+class QRScanner extends Component {
     render() {
         return (
             <div>Scan!</div>
         );
     }
 }
+
+export default connect(QRScanner);
