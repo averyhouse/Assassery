@@ -32,4 +32,35 @@ export const loadUser = () => {
           }
         })
     }
+}
+
+export const login = (email, password) => {
+  return (dispatch, getState) => {
+    return fetch(
+    "/api/auth/login/", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({email, password})
+    }).then(res => {
+      if (res.status < 500) {
+        return res.json().then(data => {
+          return {status: res.status, data};
+        })
+      } else {
+        console.log("Server error!");
+        throw res;
+      }
+    }).then(res => {
+      if (res.status === 200) {
+        dispatch({type: 'LOGIN_SUCCESSFUL', data: res.data });
+        return res.data;
+      } else if (res.status === 403 || res.status === 401) {
+        dispatch({type: 'AUTHENTICATION_ERROR', data: res.data});
+        throw res.data;
+      } else {
+        dispatch({type: 'LOGIN_FAILED', data: res.data});
+        throw res.data;
+      }
+    })
   }
+}

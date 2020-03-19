@@ -1,7 +1,10 @@
 import React, {Component} from "react";
+import {Link, Redirect} from "react-router-dom";
+import { auth } from '../actions'
+import { connect } from 'react-redux';
 import "../assets/css/LoginForm.css";
 
-export default class LoginForm extends Component {
+export class LoginForm extends Component {
 
     constructor(props) {
         super(props)
@@ -28,13 +31,24 @@ export default class LoginForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        this.props.login(this.state.email, this.state.password);
     }
 
     render() {
+        if (this.props.isAuthenticated) {
+            return <Redirect to="/" />
+        }
         return (
             <div>
                 <h1 id='title'>Login</h1>
                 <form onSubmit={this.handleSubmit}>
+                    {this.props.errors.length > 0 && (
+                        <ul>
+                            {this.props.errors.map(error => (
+                                <li key={error.field}>{error.message}</li>
+                            ))}
+                        </ul>
+                    )}
                     <label>
                         Email:
                         <br/>
@@ -54,3 +68,26 @@ export default class LoginForm extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    let errors = [];
+    if (state.auth.errors) {
+        errors = Object.keys(state.auth.errors).map(field => {
+            return {field, message: state.auth.errors[field]};
+        });
+    }
+    return {
+        errors,
+        isAuthenticated: state.auth.isAuthenticated
+    };
+}
+  
+const mapDispatchToProps = dispatch => {
+    return {
+        login: (username, password) => {
+            return dispatch(auth.login(username, password));
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
