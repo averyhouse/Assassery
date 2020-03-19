@@ -10,11 +10,11 @@ class AssassinSerializer(serializers.ModelSerializer):
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('alias', 'username', 'password', 'email', 'messenger')
+        fields = ('name', 'username', 'password', 'email', 'messenger')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(alias=validated_data['alias'], username=validated_data['username'],
+        user = User.objects.create_user(name=validated_data['name'], username=validated_data['username'],
                                         email=validated_data['email'],
                                         password=validated_data['password'], messenger=validated_data['messenger'])
         return user

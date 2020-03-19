@@ -9,12 +9,12 @@ class RegisterForm extends Component {
         super(props)
         this.state = {
             name: '',
-            alias: '',
+            username: '',
             email: '',
             password: ''
         };
         this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangeAlias = this.handleChangeAlias.bind(this);
+        this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,8 +24,8 @@ class RegisterForm extends Component {
         this.setState({ name: event.target.value });
     }
 
-    handleChangeAlias(event) {
-        this.setState({ alias: event.target.value });
+    handleChangeUsername(event) {
+        this.setState({ username: event.target.value });
     }
 
     handleChangeEmail(event) {
@@ -44,7 +44,7 @@ class RegisterForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.props.register(this.state.name, this.state.email,
-            this.state.password, this.state.alias);
+            this.state.password, this.state.username);
     }
 
     render() {
@@ -66,9 +66,9 @@ class RegisterForm extends Component {
                     </label>
                     <br />
                     <label>
-                        Alias:
+                        Username:
                         <br />
-                        <input type="text" value={this.state.alias} onChange={this.handleChangeAlias} />
+                        <input type="text" value={this.state.username} onChange={this.handleChangeUsername} />
                     </label>
                     <br />
                     <label>
@@ -106,8 +106,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        register: (username, email, password, alias) =>
-            dispatch(auth.register(username, email, password, alias)),
+        register: (name, email, password, username) =>
+            dispatch(auth.register(name, email, password, username)),
     };
 }
 

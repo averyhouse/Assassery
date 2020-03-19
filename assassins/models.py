@@ -6,17 +6,17 @@ import datetime
 
 class User(AbstractUser):
     messenger = models.CharField(max_length=30, null=True)
-    alias = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
     USERNAME_FIELD = 'email'
     email = models.EmailField(_('email address'), unique=True) # changes email to unique and blank to false
-    REQUIRED_FIELDS = ['name', 'alias'] # removes email from REQUIRED_FIELDS
+    REQUIRED_FIELDS = ['username', 'name'] # removes email from REQUIRED_FIELDS
 
     @staticmethod
     def getModel(userID):
         return User.objects.get(id=userID)
 
     def __str__(self):
-        return self.username
+        return self.name
 
 class Assassin(models.Model):
     id = models.IntegerField(primary_key=True)

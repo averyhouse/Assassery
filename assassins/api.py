@@ -17,12 +17,11 @@ class AssassinViewSet(viewsets.ModelViewSet):
 # curl --request POST \
 #   --url http://localhost:8000/api/auth/register/ \
 #   --header 'content-type: application/json' \
-#   --data '{"username": "USERNAME", "email": "EMAIL", "password": "PASSWORD", "alias": "ALIAS" }'
+#   --data '{"username": "USERNAME", "email": "EMAIL", "password": "PASSWORD", "name": "NAME" }'
 class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateUserSerializer
 
     def post(self, request, *args, **kwargs):
-        print(request.data)
         if 'messenger' not in request.data:
             request.data['messenger'] = None
         serializer = self.get_serializer(data=request.data)

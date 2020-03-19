@@ -17,7 +17,7 @@ class AssAssmin(admin.ModelAdmin):
     get_target_player.short_description = 'Target'  #Renames column head
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'username', 'alias', 'email', 'messenger')
+    list_display = ('id', 'username', 'name', 'email', 'messenger')
 
 class KillAdmin(admin.ModelAdmin):
     list_display = ('killer', 'killed', 'message', 'timeStamp')
