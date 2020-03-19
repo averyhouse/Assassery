@@ -5,16 +5,17 @@ from django.contrib.auth import authenticate, settings
 class AssassinSerializer(serializers.ModelSerializer):
   class Meta:
     model = Assassin
-    fields = ('id', 'name', 'alias', 'team', 'target', 'dead')
+    fields = ('id', 'team', 'target', 'dead')
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'email', 'messenger')
+        fields = ('alias', 'username', 'password', 'email', 'messenger')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(username=validated_data['username'], email=validated_data['email'],
+        user = User.objects.create_user(alias=validated_data['alias'], username=validated_data['username'],
+                                        email=validated_data['email'],
                                         password=validated_data['password'], messenger=validated_data['messenger'])
         return user
 
@@ -31,7 +32,7 @@ class LoginUserSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ('username', 'email')
 
 class KillSerializer(serializers.ModelSerializer):
     class Meta:

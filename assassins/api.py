@@ -17,7 +17,7 @@ class AssassinViewSet(viewsets.ModelViewSet):
 # curl --request POST \
 #   --url http://localhost:8000/api/auth/register/ \
 #   --header 'content-type: application/json' \
-#   --data '{"username": "USERNAME", "email": "EMAIL", "password": "PASSWORD" }'
+#   --data '{"username": "USERNAME", "email": "EMAIL", "password": "PASSWORD", "alias": "ALIAS" }'
 class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateUserSerializer
 
