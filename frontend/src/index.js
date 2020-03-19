@@ -1,10 +1,15 @@
 // Important Things //
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch, Redirect} from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { connect } from 'react-redux';
+
+// Redux
 import assasseryFrontend from './reducers';
+import { auth } from './actions';
 
 // CSS Stylesheets //
 import './assets/css/index.css';
@@ -21,35 +26,78 @@ import QRScanner from './pages/QRScanner';
 // Images //
 import AssasseryLogo from './assets/images/assassery_dark_logo.png';
 
-let store = createStore(assasseryFrontend);
+let store = createStore(assasseryFrontend, applyMiddleware(thunk));
+
+class RootContainerComponent extends Component {
+
+    componentDidMount() {
+        this.props.loadUser();
+    }
+
+    PrivateRoute = ({component: ChildComponent, ...rest}) => {
+        return <Route {...rest} render={props => {
+            if (this.props.auth.isLoading) {
+                return <em>Loading...</em>;
+            } else if (!this.props.auth.isAuthenticated) {
+                return <Redirect to="/login" />;
+            } else {
+                return <ChildComponent {...props} />
+            }
+        }} />
+    }
+
+    render() {
+        let {PrivateRoute} = this;
+        return (
+            <Router>
+                <div class="navbar">
+                    <ul>
+                        <li><Link to={`/login`}>LOGIN</Link></li>
+                        <li><Link to={`/scan`}>QR SCANNER</Link></li>
+                        <li><Link to={`/qr`}>YOUR QR CODE</Link></li>
+                        <div class="logo">
+                            <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"}/></Link>
+                        </div>
+                    </ul>
+                </div>
+
+                <div class="main">
+                    <main>
+                        <Switch>
+                            <Route exact path="/" component={Dashboard}/>
+                            <Route path="/login" component={Login}/>
+                            <Route path="/register" component={Register}/>
+                            <PrivateRoute path="/qr" component={QRGenerator}/>
+                            <PrivateRoute path="/scan" component={QRScanner}/>
+                            {/*<Route component={NotFound} />*/}
+                        </Switch>
+                    </main>
+                </div>
+            </Router>
+        );
+    }
+}
+    
+const mapStateToProps = state => {
+    return {
+        auth: state.auth,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loadUser: () => {
+            return dispatch(auth.loadUser());
+        }
+    }
+}
+  
+let RootContainer = connect(mapStateToProps, mapDispatchToProps)(RootContainerComponent);
+  
 
 ReactDOM.render(
     <Provider store={store}>
-    <Router>
-        <div class="navbar">
-            <ul>
-                <li><Link to={`/login`}>LOGIN</Link></li>
-                <li><Link to={`/scan`}>QR SCANNER</Link></li>
-                <li><Link to={`/qr`}>YOUR QR CODE</Link></li>
-                <div class="logo">
-                    <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"}/></Link>
-                </div>
-            </ul>
-        </div>
-
-        <div class="main">
-            <main>
-                <Switch>
-                    <Route exact path="/" component={Dashboard}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
-                    <Route path="/qr" component={QRGenerator}/>
-                    <Route path="/scan" component={QRScanner}/>
-                    {/*<Route component={NotFound} />*/}
-                </Switch>
-            </main>
-        </div>
-    </Router>
+        <RootContainer />
     </Provider>,
     document.getElementById('app')
 );

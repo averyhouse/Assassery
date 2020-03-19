@@ -27,7 +27,6 @@ export default class LoginForm extends Component {
     }
 
     handleSubmit(event) {
-        alert(this.state.email + " " + this.state.password);
         event.preventDefault();
     }
 

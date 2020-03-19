@@ -3,19 +3,16 @@ import { user } from './actions';
 
 const mapStateToProps = state => {
     return {
-        user: state.user.name,
-        auth: state.user.auth
+        token: state.auth.token,
+        isAuthenticated: state.auth.isAuthenticated,
+        isLoading: state.auth.isLoading,
+        user: state.auth.user,
+        errors: state.auth.errors
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: (name, auth) => {
-            dispatch(user.login(name, auth));
-        },
-        logout: () => {
-            dispatch(user.logout());
-        }
     }
 }
 

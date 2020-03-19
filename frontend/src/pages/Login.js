@@ -7,7 +7,7 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <LoginForm/>
+                <LoginForm {...this.props}/>
                 <Link to={`/register`}>register</Link>
             </div>
         );

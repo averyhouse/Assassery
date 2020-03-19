@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import user from "./user";
+import auth from "./auth";
 
 
 const assasseryFrontend = combineReducers({
-  user,
+  auth,
 })
 
 export default assasseryFrontend;
