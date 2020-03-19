@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 // CSS Stylesheets //
-import './index.css';
+import './assets/css/index.css';
 import './assets/css/nav.css';
 
 // Pages //
@@ -44,5 +44,5 @@ ReactDOM.render(
             </main>
         </div>
     </Router>,
-    document.getElementById('root')
+    document.getElementById('app')
 );

@@ -1,4 +1,4 @@
-"""Assassery URL Configuration
+"""backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -17,14 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from rest_framework import routers
-from assassins import views, endpoints
+import assassins.views
+import assassins.endpoints
 
 router = routers.DefaultRouter()
-router.register(r'assassins', views.AssassinView, 'assassins')
+router.register(r'assassins', assassins.views.AssassinView, 'assassins')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(endpoints)),
+    path('api/', include(assassins.endpoints)),
     path('api/auth', include('knox.urls')),
-    path('', TemplateView.as_view(template_name="index.html"))
+    path('', include('frontend.urls'))
 ]

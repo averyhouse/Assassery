@@ -8,3 +8,9 @@ __pycache__
 # Misc
 .DS_Store
 backend/assassins/migrations
+
+# Frontend
+frontend/node_modules
+npm-debug.log
+webpack-stats.dev.json
+frontend/package-lock.json

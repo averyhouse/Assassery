@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-#players td, #players th {
+#players td, .players th {
     border: 1px solid #ddd;
     padding: 8px;
 }
