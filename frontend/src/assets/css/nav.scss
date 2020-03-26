@@ -53,4 +53,16 @@
             background-color: $selectgray;
         }
     }
+
+    .menu {
+        @include medium() {
+            display: none;
+        }
+    }
+
+    .link {
+        @include small() {
+            display: none;
+        }
+    }
 }

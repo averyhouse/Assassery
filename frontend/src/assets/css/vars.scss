@@ -1,6 +1,26 @@
+/* Colors */
 $averyred: #842a30;
 $vibrantred: #7a0707;
 $darkgray: #333;
 $selectgray: #111;
 $tablebordergray: #ddd;
 $offwhite: #f1f1f1;
+
+/* Responsive layout */
+@mixin small() {
+    @media only screen and (max-width: 640px) {
+        @content;
+    }
+}
+
+@mixin medium() {
+    @media only screen and (min-width: 641px) {
+        @content;
+    }
+}
+
+@mixin large() {
+    @media only screen and (min-width: 769px) {
+
+    }
+}

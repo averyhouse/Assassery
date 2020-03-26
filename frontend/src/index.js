@@ -58,12 +58,12 @@ class RootContainerComponent extends Component {
             <Router>
                 <div class="navbar">
                     <ul>
-                        <li class="hamburger"><Link>ham</Link></li>
-                        <li>
+                        <li class="menu"><Link>ham</Link></li>
+                        <li class="link">
                             {login}
                         </li>
-                        <li><Link to={`/scan`}>QR SCANNER</Link></li>
-                        <li><Link to={`/qr`}>YOUR QR CODE</Link></li>
+                        <li class="link"><Link to={`/scan`}>QR SCANNER</Link></li>
+                        <li class="link"><Link to={`/qr`}>YOUR QR CODE</Link></li>
                         <div class="logo">
                             <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"} /></Link>
                         </div>
