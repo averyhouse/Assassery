@@ -33,6 +33,16 @@ class RootContainerComponent extends Component {
         this.props.loadUser();
     }
 
+    toggleMobileMenu() {
+        let nav = document.getElementsByClassName("nav-list")[0];
+        if (nav.classList.contains("open")) {
+            nav.classList.remove("open");
+        } else {
+            nav.classList.add("open");
+        }
+        return false;
+    }
+
     PrivateRoute = ({ component: ChildComponent, ...rest }) => {
         return <Route {...rest} render={props => {
             if (this.props.auth.isLoading) {
@@ -52,21 +62,21 @@ class RootContainerComponent extends Component {
         if (!this.props.auth.isAuthenticated) {
             login = <Link to={`/login`}>LOGIN</Link>
         } else {
-            login = <Link onClick={this.props.logout}>LOGOUT</Link>
+            login = <Link to="#" onClick={this.props.logout}>LOGOUT</Link>
         }
         return (
             <Router>
                 <div class="navbar">
-                    <ul>
-                        <li class="menu"><Link>ham</Link></li>
+                    <ul class="nav-list">
+                        <li class="logo">
+                            <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"} /></Link>
+                        </li>
+                        <li class="menu"><Link to="#" onClick={this.toggleMobileMenu}>ham</Link></li>
                         <li class="link">
                             {login}
                         </li>
                         <li class="link"><Link to={`/scan`}>QR SCANNER</Link></li>
                         <li class="link"><Link to={`/qr`}>YOUR QR CODE</Link></li>
-                        <div class="logo">
-                            <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"} /></Link>
-                        </div>
                     </ul>
                 </div>
 

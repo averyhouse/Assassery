@@ -6,6 +6,11 @@ $selectgray: #111;
 $tablebordergray: #ddd;
 $offwhite: #f1f1f1;
 
+/* Sizes */
+$navbarheight: 4rem;
+$navbarlinkpadding: 1rem;
+$navbarlinkheight: 3rem;
+
 /* Responsive layout */
 @mixin small() {
     @media only screen and (max-width: 640px) {
