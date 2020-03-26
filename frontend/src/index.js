@@ -12,8 +12,7 @@ import assasseryFrontend from './reducers';
 import { auth } from './actions';
 
 // CSS Stylesheets //
-import './assets/css/index.css';
-import './assets/css/nav.css';
+import './assets/css/index.scss';
 
 // Pages //
 import Login from './pages/Login';
@@ -53,12 +52,13 @@ class RootContainerComponent extends Component {
         if (!this.props.auth.isAuthenticated) {
             login = <Link to={`/login`}>LOGIN</Link>
         } else {
-            login = <button onClick={this.props.logout}>LOGOUT</button>
+            login = <Link onClick={this.props.logout}>LOGOUT</Link>
         }
         return (
             <Router>
                 <div class="navbar">
                     <ul>
+                        <li class="hamburger"><Link>ham</Link></li>
                         <li>
                             {login}
                         </li>

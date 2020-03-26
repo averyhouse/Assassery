@@ -1,3 +1,5 @@
+@import 'vars';
+
 .title {
     text-align: center;
     font-family: arial, sans-serif;
@@ -36,7 +38,7 @@ label {
 }
 
 input[type=submit] {
-    background-color: #7a0707;
+    background-color: $vibrantred;
     color: white;
     padding: 12px 20px;
     border: none;

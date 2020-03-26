@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import '../assets/css/Leaderboard.css';
+import React, { Component } from 'react';
+import '../assets/css/Leaderboard.scss';
 
 export default class Leaderboard extends Component {
     renderTableHeader() {
@@ -15,8 +15,8 @@ export default class Leaderboard extends Component {
                 <h1 id='title'>Leaderboard</h1>
                 <table id='players'>
                     <tbody>
-                    <tr>{this.renderTableHeader()}</tr>
-                    {this.renderTableData()}
+                        <tr>{this.renderTableHeader()}</tr>
+                        {this.renderTableData()}
                     </tbody>
                 </table>
             </div>
@@ -27,15 +27,15 @@ export default class Leaderboard extends Component {
         super(props)
         this.state = {
             players: [
-                {alias: 'big chungus', kills: 3, deaths: 0},
-                {alias: 'big shaq', kills: 2, deaths: 2}
+                { alias: 'big chungus', kills: 3, deaths: 0 },
+                { alias: 'big shaq', kills: 2, deaths: 2 }
             ]
         }
     }
 
     renderTableData() {
         return this.state.players.map((player, index) => {
-            const {alias, kills, deaths} = player
+            const { alias, kills, deaths } = player
             return (
                 <tr key={alias}>
                     <td>{alias}</td>
