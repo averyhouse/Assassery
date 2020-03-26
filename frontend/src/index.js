@@ -29,8 +29,30 @@ let store = createStore(assasseryFrontend, applyMiddleware(thunk));
 
 class RootContainerComponent extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            width: window.innerWidth, height: window.innerHeight
+        };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
     componentDidMount() {
         this.props.loadUser();
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+        console.log(this.state);
     }
 
     toggleMobileMenu() {
@@ -68,10 +90,10 @@ class RootContainerComponent extends Component {
             <Router>
                 <div class="navbar">
                     <ul class="nav-list">
+                        <li class="menu"><Link to="#" onClick={this.toggleMobileMenu}>ham</Link></li>
                         <li class="logo">
                             <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"} /></Link>
                         </li>
-                        <li class="menu"><Link to="#" onClick={this.toggleMobileMenu}>ham</Link></li>
                         <li class="link">
                             {login}
                         </li>

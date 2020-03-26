@@ -19,8 +19,6 @@
         background-color: $darkgray;
 
         li {
-            float: right;
-
             a {
                 background-color: $darkgray;
                 display: block;
@@ -45,16 +43,18 @@
         }
 
         .logo {
-            float: left;
-
             a {
-                z-index: 100;
+                margin: 0 auto;
                 padding: 0;
                 display: flex;
                 height: $navbarheight;
                 align-items: center;
                 text-decoration: none;
                 cursor: pointer;
+
+                img {
+                    margin: 0 auto;
+                }
             }
 
             a:hover {
@@ -63,12 +63,20 @@
         }
 
         .menu {
+            float: right;
             a {
                 height: $navbarheight;
             }
         }
 
         @include medium() {
+            li {
+                float: right;
+            }
+
+            .logo {
+                float: left;
+            }
             .link {
                 display: block;
 
