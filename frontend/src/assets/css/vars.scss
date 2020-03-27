@@ -1,15 +1,23 @@
 /* Colors */
 $averyred: #842a30;
 $vibrantred: #7a0707;
+$errorred: #ffcccc;
 $darkgray: #333;
 $selectgray: #111;
 $tablebordergray: #ddd;
 $offwhite: #f1f1f1;
 
 /* Sizes */
-$navbarheight: 4rem;
-$navbarlinkpadding: 1rem;
-$navbarlinkheight: 3rem;
+$navbarheight: 4em;
+$navbarlinkpadding: 1em;
+$navbarlinkheight: 3em;
+
+/* Default contents behavior */
+.wrapper {
+    float: left;
+    padding: 1rem;
+    width: 100%;
+}
 
 /* Responsive layout */
 @mixin small() {

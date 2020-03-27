@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginForm from '../components/LoginForm';
 import { BrowserRouter as Link, Redirect } from 'react-router-dom';
 import connect from '../connection';
+import "../assets/css/LoginForm.scss";
 
 class Login extends Component {
     render() {
@@ -9,9 +10,8 @@ class Login extends Component {
             return <Redirect to="/" />
         }
         return (
-            <div>
+            <div class="wrapper">
                 <LoginForm />
-                <Link to={`/register`}>register</Link>
             </div>
         );
     }

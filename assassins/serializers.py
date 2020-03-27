@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from .models import Assassin, User, KillFeed
 from django.contrib.auth import authenticate, settings
+import re
+
+caltech_email = re.compile("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@caltech.edu")
 
 class AssassinSerializer(serializers.ModelSerializer):
   class Meta:
@@ -22,6 +25,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
 class LoginUserSerializer(serializers.Serializer):
     email = serializers.CharField()
     password = serializers.CharField()
+
+    def validate_email(self, value):
+        print(value)
+        if not re.fullmatch(caltech_email, value):
+            raise serializers.ValidationError("Please input a Caltech email.")
+        return value
 
     def validate(self, data):
         user = authenticate(**data)

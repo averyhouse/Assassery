@@ -29,8 +29,8 @@ let store = createStore(assasseryFrontend, applyMiddleware(thunk));
 
 // These are sizes of screens that prompt changes in styling. 
 // Make sure to update them concurrently with assets/css/vars.scss
-let mediumWidth = 641;
-let largeWidth = 769;
+let mediumWidth = 640;
+let largeWidth = 768;
 
 class RootContainerComponent extends Component {
 
@@ -57,7 +57,11 @@ class RootContainerComponent extends Component {
             width: window.innerWidth,
             height: window.innerHeight
         });
-        console.log(this.state);
+        if (this.state.width > mediumWidth) {
+            [...document.getElementsByClassName("open")].forEach(element => {
+                element.classList.remove("open");
+            });
+        }
     }
 
     toggleMobileMenu() {
@@ -87,9 +91,9 @@ class RootContainerComponent extends Component {
         let login;
         console.log(this.props.auth);
         if (!this.props.auth.isAuthenticated) {
-            login = <Link to={`/login`}>LOGIN</Link>
+            login = <Link to={`/login`} onClick={this.toggleMobileMenu}>LOGIN</Link>
         } else {
-            login = <Link to="#" onClick={this.props.logout}>LOGOUT</Link>
+            login = <Link to="#" onClick={() => { this.props.logout(); this.toggleMobileMenu(); }}>LOGOUT</Link>
         }
         return (
             <Router>
@@ -103,10 +107,10 @@ class RootContainerComponent extends Component {
                             {login}
                         </li>
                         {this.props.auth.isAuthenticated &&
-                            <li class="link"><Link to={`/scan`}>QR SCANNER</Link></li>
+                            <li class="link"><Link to={`/scan`} onClick={this.toggleMobileMenu}>QR SCANNER</Link></li>
                         }
                         {this.props.auth.isAuthenticated &&
-                            <li class="link"><Link to={`/qr`}>YOUR QR CODE</Link></li>
+                            <li class="link"><Link to={`/qr`} onClick={this.toggleMobileMenu}>YOUR QR CODE</Link></li>
                         }
                     </ul>
                 </div>

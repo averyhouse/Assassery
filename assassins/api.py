@@ -8,7 +8,6 @@ import knox
 from .models import Assassin, User
 from .serializers import AssassinSerializer, CreateUserSerializer, UserSerializer, LoginUserSerializer, KillSerializer
 
-
 class AssassinViewSet(viewsets.ModelViewSet):
     queryset = Assassin.objects.all()
     permission_classes = [permissions.AllowAny, ]

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
 import connect from '../connection';
+import "../assets/css/RegisterForm.scss";
+
 
 class Register extends Component {
     render() {
@@ -9,9 +11,8 @@ class Register extends Component {
             return <Redirect to="/" />
         }
         return (
-            <div>
+            <div class="wrapper">
                 <RegisterForm />
-                <Link to={`/login`}>login</Link>
             </div>
         );
     }

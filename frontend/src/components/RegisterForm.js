@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { auth } from '../actions'
 import { connect } from 'react-redux';
-import "../assets/css/LoginForm.scss";
+import "../assets/css/RegisterForm.scss";
 
 class RegisterForm extends Component {
 
@@ -50,15 +50,15 @@ class RegisterForm extends Component {
     render() {
         return (
             <div>
-                <h1 id='title'>Register</h1>
+                <h1 id="registerTitle">Register</h1>
                 <form onSubmit={this.handleSubmit}>
-                    {this.props.errors.length > 0 && (
+                    {/*this.props.errors.length > 0 && (
                         <ul>
                             {this.props.errors.map(error => (
                                 <li key={error.field}>{error.message}</li>
                             ))}
                         </ul>
-                    )}
+                            )*/}
                     <label>
                         Name:
                         <br />

@@ -1,18 +1,13 @@
 @import 'vars';
 
-.loginForm {
+.registerForm {
     width: 95%;
     margin-top: 5rem;
 }
 
-#loginTitle {
+#registerTitle {
     text-align: left;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.error {
-    background-color: $errorred;
-    padding: 0.2em;
 }
 
 input[type=text], input[type=password] {
