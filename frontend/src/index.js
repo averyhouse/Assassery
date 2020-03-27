@@ -20,12 +20,17 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import QRGenerator from './pages/QRGenerator';
 import QRScanner from './pages/QRScanner';
-// import NotFound from './pages/NotFound';
+import NotFound from './pages/NotFound';
 
 // Images //
 import AssasseryLogo from './assets/images/assassery_dark_logo.png';
 
 let store = createStore(assasseryFrontend, applyMiddleware(thunk));
+
+// These are sizes of screens that prompt changes in styling. 
+// Make sure to update them concurrently with assets/css/vars.scss
+let mediumWidth = 641;
+let largeWidth = 769;
 
 class RootContainerComponent extends Component {
 
@@ -97,8 +102,12 @@ class RootContainerComponent extends Component {
                         <li class="link">
                             {login}
                         </li>
-                        <li class="link"><Link to={`/scan`}>QR SCANNER</Link></li>
-                        <li class="link"><Link to={`/qr`}>YOUR QR CODE</Link></li>
+                        {this.props.auth.isAuthenticated &&
+                            <li class="link"><Link to={`/scan`}>QR SCANNER</Link></li>
+                        }
+                        {this.props.auth.isAuthenticated &&
+                            <li class="link"><Link to={`/qr`}>YOUR QR CODE</Link></li>
+                        }
                     </ul>
                 </div>
 
@@ -110,7 +119,7 @@ class RootContainerComponent extends Component {
                             <Route path="/register" component={Register} />
                             <PrivateRoute path="/qr" component={QRGenerator} />
                             <PrivateRoute path="/scan" component={QRScanner} />
-                            {/*<Route component={NotFound} />*/}
+                            <Route component={NotFound} />
                         </Switch>
                     </main>
                 </div>
