@@ -26,7 +26,9 @@ SECRET_KEY = '895=)w_a^0+w!+2h7gxce)+4y_)@5xbs_u#w=7l1nb#8#d%)gu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'a291c76d.ngrok.io'
+]
 
 
 # Application definition
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'assassins',
     'frontend',
+    'messenger'
 ]
 
 

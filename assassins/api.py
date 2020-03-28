@@ -1,4 +1,3 @@
-from django.core.mail import send_mail
 from django.contrib.auth import settings
 from rest_framework import viewsets, permissions, generics, authentication
 from rest_framework.response import Response
@@ -8,10 +7,12 @@ import knox
 from .models import Assassin, User
 from .serializers import AssassinSerializer, CreateUserSerializer, UserSerializer, LoginUserSerializer, KillSerializer
 
+
 class AssassinViewSet(viewsets.ModelViewSet):
     queryset = Assassin.objects.all()
     permission_classes = [permissions.AllowAny, ]
     serializer_class = AssassinSerializer
+
 
 # curl --request POST \
 #   --url http://localhost:8000/api/auth/register/ \
@@ -31,6 +32,7 @@ class RegistrationAPI(generics.GenericAPIView):
             "token": AuthToken.objects.create(user)[1]
         })
 
+
 # curl --request POST \
 #   --url http://localhost:8000/api/auth/login/ \
 #   --header 'content-type: application/json' \
@@ -46,6 +48,7 @@ class LoginAPI(generics.GenericAPIView):
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1]
         })
+
 
 # curl --request GET \
 #   --url http://localhost:8000/api/auth/user/ \

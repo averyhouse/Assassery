@@ -19,6 +19,7 @@ from django.views.generic import TemplateView
 from rest_framework import routers
 import assassins.views
 import assassins.endpoints
+import messenger.endpoints
 
 router = routers.DefaultRouter()
 router.register(r'assassins', assassins.views.AssassinView, 'assassins')
@@ -27,5 +28,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(assassins.endpoints)),
     path('api/auth', include('knox.urls')),
-    path('', include('frontend.urls'))
+    path('messenger/', include(messenger.endpoints)),
+    path('', include('frontend.urls')),
 ]

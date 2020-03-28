@@ -52,13 +52,6 @@ class RegisterForm extends Component {
             <div>
                 <h1 id="registerTitle">Register</h1>
                 <form onSubmit={this.handleSubmit}>
-                    {/*this.props.errors.length > 0 && (
-                        <ul>
-                            {this.props.errors.map(error => (
-                                <li key={error.field}>{error.message}</li>
-                            ))}
-                        </ul>
-                            )*/}
                     <label>
                         Name:
                         <br />
