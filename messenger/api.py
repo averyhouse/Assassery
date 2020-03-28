@@ -3,16 +3,18 @@ from rest_framework.response import Response
 from django.http.response import HttpResponse
 import json
 import requests
+from ..vars import *
+
 
 def post_message(fbid, message):
-    post_message_url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHF4Dqq7I4BAKYLGEr5Rf557H8SKaPCiXWjxhGeTaNrgJzaghHALCLH3f890o5CpoZCaFZANs13BTmyZCvPmalZCFZAbGpcO6OPW2lA76EKWZChq1WzjEX5VzkilMZCoShIYUS3Ycr4O3yHihGxusgTzQZCFaPJEQU7jUjAvi67SQZDZD'
+    post_message_url = 'https://graph.facebook.com/v2.6/me/messages?access_token=' + facebook_access_token
     response_msg = json.dumps({"recipient": {"id": fbid}, "message": {"text": message}})
     requests.post(post_message_url, headers={"Content-Type": "application/json"}, data=response_msg)
 
 class MessengerAPI(generics.GenericAPIView):
 
     def get(self, request):
-        if self.request.GET["hub.verify_token"] == "averyalways":
+        if self.request.GET["hub.verify_token"] == facebook_verify_token:
             return HttpResponse(self.request.GET["hub.challenge"])
         else:
             return HttpResponse("Error, invalid token")
