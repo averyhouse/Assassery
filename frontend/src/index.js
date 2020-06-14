@@ -24,6 +24,7 @@ import NotFound from './pages/NotFound';
 
 // Images //
 import AssasseryLogo from './assets/images/assassery_dark_logo.png';
+import camera_icon from './assets/images/camera_icon.png';
 
 let store = createStore(assasseryFrontend, applyMiddleware(thunk));
 

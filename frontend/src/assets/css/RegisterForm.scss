@@ -10,6 +10,15 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+#photo {
+    border-radius: 50%;
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: $ultraviolet;
+}
+
 input[type=text], input[type=password] {
     width: 100%;
     font-size: 1.25rem;
@@ -24,6 +33,12 @@ input[type=text], input[type=password] {
 label {
     display: block;
     text-align: left;
+}
+
+.image-upload {
+    input {
+        display: none;
+    }
 }
 
 input[type=submit] {

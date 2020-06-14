@@ -3,11 +3,14 @@ import { auth } from '../actions'
 import { connect } from 'react-redux';
 import "../assets/css/RegisterForm.scss";
 
+import camera_icon from '../assets/images/camera_icon.png';
+
 class RegisterForm extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
+            photo: camera_icon,
             name: '',
             username: '',
             email: '',
@@ -43,6 +46,7 @@ class RegisterForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        console.log(`photo: ${this.state.photo}`);
         this.props.register(this.state.name, this.state.email,
             this.state.password, this.state.username);
     }
@@ -55,11 +59,38 @@ class RegisterForm extends Component {
         }
     }
 
+    handleChangePhoto() {
+        var file = document.getElementById("file-input").files[0];
+        var reader = new FileReader();
+        reader.onload = (e) => {
+            document.getElementById("photo").src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+
     render() {
         return (
             <div class="registerForm">
                 <h1 id="registerTitle">Register</h1>
                 <form onSubmit={this.handleSubmit}>
+                    <label>
+                        <div class="image-upload">
+                            <label for="file-input">
+                                <img
+                                    id="photo"
+                                    alt={"profile picture"}
+                                    src={this.state.photo}
+                                />
+                            </label>
+                            <input
+                                id="file-input"
+                                type="file"
+                                accept="image/*"
+                                capture="camera"
+                                onChange={this.handleChangePhoto}
+                            />
+                        </div>
+                    </label>
                     {this.props.errors.find(obj => obj.field == 'non_field_errors') &&
                         <div class="error">{this.props.errors.find(obj => obj.field == 'non_field_errors').message}.</div>
                     }<br />
