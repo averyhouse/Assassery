@@ -47,35 +47,74 @@ class RegisterForm extends Component {
             this.state.password, this.state.username);
     }
 
+    togglePasswordVisibility() {
+        if (document.getElementById("password").type == "text") {
+            document.getElementById("password").type = "password";
+        } else {
+            document.getElementById("password").type = "text";
+        }
+    }
+
     render() {
         return (
-            <div>
+            <div class="registerForm">
                 <h1 id="registerTitle">Register</h1>
                 <form onSubmit={this.handleSubmit}>
+                    {this.props.errors.find(obj => obj.field == 'non_field_errors') &&
+                        <div class="error">{this.props.errors.find(obj => obj.field == 'non_field_errors').message}.</div>
+                    }<br />
                     <label>
-                        Name:
-                        <br />
-                        <input type="text" value={this.state.name} onChange={this.handleChangeName} />
+                        <input
+                            id="name"
+                            type="text"
+                            value={this.state.name}
+                            placeholder="Name"
+                            onChange={this.handleChangeName}
+                        />
                     </label>
-                    <br />
+                    {this.props.errors.find(obj => obj.field == 'name') &&
+                        <div class="error">{this.props.errors.find(obj => obj.field == 'name').message}</div>
+                    }<br />
                     <label>
-                        Username:
-                        <br />
-                        <input type="text" value={this.state.username} onChange={this.handleChangeUsername} />
+                        <input
+                            id="username"
+                            type="text"
+                            value={this.state.username}
+                            placeholder="Username"
+                            onChange={this.handleChangeUsername}
+                        />
                     </label>
-                    <br />
+                    {this.props.errors.find(obj => obj.field == 'username') &&
+                        <div class="error">{this.props.errors.find(obj => obj.field == 'username').message}</div>
+                    }<br />
                     <label>
-                        Email:
-                        <br />
-                        <input type="text" value={this.state.email} onChange={this.handleChangeEmail} />
+                        <input
+                            id="email"
+                            type="text"
+                            value={this.state.email}
+                            placeholder="Caltech Email"
+                            title="[name]@caltech.edu"
+                            onChange={this.handleChangeEmail}
+                        />
                     </label>
-                    <br />
+                    {this.props.errors.find(obj => obj.field == 'email') &&
+                        <div class="error">{this.props.errors.find(obj => obj.field == 'email').message}</div>
+                    }<br />
                     <label>
-                        Password:
-                        <br />
-                        <input type="password" value={this.state.password} onChange={this.handleChangePassword} />
+                        <input
+                            id="password"
+                            type="password"
+                            value={this.state.password}
+                            placeholder="Password"
+                            onChange={this.handleChangePassword}
+                        />
                     </label>
-                    <br />
+                    {this.props.errors.find(obj => obj.field == 'password') &&
+                        <div class="error">{this.props.errors.find(obj => obj.field == 'password').message}</div>
+                    }<br />
+                    <label>
+                        <input type="checkbox" onChange={this.togglePasswordVisibility} />Show password
+                    </label>
                     <input type="submit" value="Submit" />
                 </form>
 

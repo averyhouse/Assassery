@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.http.response import HttpResponse
 import json
 import requests
-from ..vars import *
+from .vars import *
 
 
 def post_message(fbid, message):

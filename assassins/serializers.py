@@ -16,6 +16,11 @@ class CreateUserSerializer(serializers.ModelSerializer):
         fields = ('name', 'username', 'password', 'email', 'messenger')
         extra_kwargs = {'password': {'write_only': True}}
 
+    def validate_email(self, value):
+        if not re.fullmatch(caltech_email, value):
+            raise serializers.ValidationError("Please input a Caltech email.")
+        return value
+
     def create(self, validated_data):
         user = User.objects.create_user(name=validated_data['name'], username=validated_data['username'],
                                         email=validated_data['email'],
@@ -27,7 +32,6 @@ class LoginUserSerializer(serializers.Serializer):
     password = serializers.CharField()
 
     def validate_email(self, value):
-        print(value)
         if not re.fullmatch(caltech_email, value):
             raise serializers.ValidationError("Please input a Caltech email.")
         return value
