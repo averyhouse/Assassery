@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from django.views.generic import TemplateView
 from rest_framework import routers
 import assassins.views
@@ -28,6 +30,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(assassins.endpoints)),
     path('api/auth', include('knox.urls')),
-    path('messenger/', include(messenger.endpoints)),
-    path('', include('frontend.urls')),
-]
+    path('messenger/', include(messenger.endpoints))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [path('', include('frontend.urls'))]

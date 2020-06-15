@@ -7,6 +7,7 @@ import datetime
 class User(AbstractUser):
     messenger = models.CharField(max_length=30, null=True)
     name = models.CharField(max_length=30)
+    photo = models.ImageField(upload_to='photos', null=True)
     USERNAME_FIELD = 'email'
     email = models.EmailField(_('email address'), unique=True) # changes email to unique and blank to false
     REQUIRED_FIELDS = ['username', 'name'] # removes email from REQUIRED_FIELDS

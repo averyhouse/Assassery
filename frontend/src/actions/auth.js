@@ -65,12 +65,20 @@ export const login = (email, password) => {
     }
 }
 
-export const register = (name, email, password, username) => {
+export const register = (name, email, password, username, photo) => {
     return (dispatch, getState) => {
+        var data = new FormData();
+        data.append("name", name);
+        data.append("email", email);
+        data.append("password", password);
+        data.append("username", username);
+        data.append("photo", photo);
+        console.log(data.getAll("photo"))
         return fetch("/api/auth/register/", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password, username })
+            headers: {
+            },
+            body: data
         }).then(res => {
             if (res.status < 500) {
                 return res.json().then(data => {

@@ -20,6 +20,7 @@ class RegisterForm extends Component {
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangePhoto = this.handleChangePhoto.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -46,9 +47,8 @@ class RegisterForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(`photo: ${this.state.photo}`);
         this.props.register(this.state.name, this.state.email,
-            this.state.password, this.state.username);
+            this.state.password, this.state.username, this.state.photo);
     }
 
     togglePasswordVisibility() {
@@ -59,8 +59,9 @@ class RegisterForm extends Component {
         }
     }
 
-    handleChangePhoto() {
-        var file = document.getElementById("file-input").files[0];
+    handleChangePhoto(event) {
+        var file = event.target.files[0];
+        this.setState({ photo: file });
         var reader = new FileReader();
         reader.onload = (e) => {
             document.getElementById("photo").src = e.target.result;
@@ -72,7 +73,7 @@ class RegisterForm extends Component {
         return (
             <div class="registerForm">
                 <h1 id="registerTitle">Register</h1>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
                     <label>
                         <div class="image-upload">
                             <label for="file-input">
@@ -85,7 +86,8 @@ class RegisterForm extends Component {
                             <input
                                 id="file-input"
                                 type="file"
-                                accept="image/*"
+                                name="id-photo"
+                                accept="image/png,image/jpg,image/jpeg,image/gif"
                                 capture="camera"
                                 onChange={this.handleChangePhoto}
                             />
@@ -169,8 +171,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        register: (name, email, password, username) =>
-            dispatch(auth.register(name, email, password, username)),
+        register: (name, email, password, username, photo) =>
+            dispatch(auth.register(name, email, password, username, photo)),
     };
 }
 
