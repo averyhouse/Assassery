@@ -71,87 +71,97 @@ class RegisterForm extends Component {
 
     render() {
         return (
-            <div class="registerForm">
-                <h1 id="registerTitle">Register</h1>
-                <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
-                    <label>
-                        <div class="image-upload">
-                            <label for="file-input">
-                                <img
-                                    id="photo"
-                                    alt={"profile picture"}
-                                    src={this.state.photo}
-                                />
-                            </label>
-                            <input
-                                id="file-input"
-                                type="file"
-                                name="id-photo"
-                                accept="image/png,image/jpg,image/jpeg,image/gif"
-                                capture="camera"
-                                onChange={this.handleChangePhoto}
-                            />
+            <div class="outer">
+                <div class="middle">
+                    <div class="inner">
+                        <div class="registerForm">
+                            <h1 id="registerTitle">Register</h1>
+                            <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
+                                <div class="image-form">
+                                    <label>
+                                        <div class="image-upload">
+                                            <label for="file-input">
+                                                <img
+                                                    id="photo"
+                                                    alt={"profile picture"}
+                                                    src={this.state.photo}
+                                                />
+                                            </label>
+                                            <input
+                                                id="file-input"
+                                                type="file"
+                                                name="id-photo"
+                                                accept="image/png,image/jpg,image/jpeg,image/gif"
+                                                capture="camera"
+                                                onChange={this.handleChangePhoto}
+                                            />
+                                        </div>
+                                    </label>
+                                    {this.props.errors.find(obj => obj.field == 'non_field_errors') &&
+                                        <div class="error">{this.props.errors.find(obj => obj.field == 'non_field_errors').message}.</div>
+                                    }<br />
+                                </div>
+                                <div class="text-form">
+                                    <label>
+                                        <input
+                                            id="name"
+                                            type="text"
+                                            value={this.state.name}
+                                            placeholder="Name"
+                                            onChange={this.handleChangeName}
+                                        />
+                                    </label>
+                                    {this.props.errors.find(obj => obj.field == 'name') &&
+                                        <div class="error">{this.props.errors.find(obj => obj.field == 'name').message}</div>
+                                    }<br />
+                                    <label>
+                                        <input
+                                            id="username"
+                                            type="text"
+                                            value={this.state.username}
+                                            placeholder="Username"
+                                            onChange={this.handleChangeUsername}
+                                        />
+                                    </label>
+                                    {this.props.errors.find(obj => obj.field == 'username') &&
+                                        <div class="error">{this.props.errors.find(obj => obj.field == 'username').message}</div>
+                                    }<br />
+                                    <label>
+                                        <input
+                                            id="email"
+                                            type="text"
+                                            value={this.state.email}
+                                            placeholder="Caltech Email"
+                                            title="[name]@caltech.edu"
+                                            onChange={this.handleChangeEmail}
+                                        />
+                                    </label>
+                                    {this.props.errors.find(obj => obj.field == 'email') &&
+                                        <div class="error">{this.props.errors.find(obj => obj.field == 'email').message}</div>
+                                    }<br />
+                                    <label>
+                                        <input
+                                            id="password"
+                                            type="password"
+                                            value={this.state.password}
+                                            placeholder="Password"
+                                            onChange={this.handleChangePassword}
+                                        />
+                                    </label>
+                                    {this.props.errors.find(obj => obj.field == 'password') &&
+                                        <div class="error">{this.props.errors.find(obj => obj.field == 'password').message}</div>
+                                    }<br />
+                                    <label>
+                                        <input type="checkbox" onChange={this.togglePasswordVisibility} />Show password
+                                    </label>
+                                </div>
+                                <input type="submit" value="Submit" />
+                            </form>
                         </div>
-                    </label>
-                    {this.props.errors.find(obj => obj.field == 'non_field_errors') &&
-                        <div class="error">{this.props.errors.find(obj => obj.field == 'non_field_errors').message}.</div>
-                    }<br />
-                    <label>
-                        <input
-                            id="name"
-                            type="text"
-                            value={this.state.name}
-                            placeholder="Name"
-                            onChange={this.handleChangeName}
-                        />
-                    </label>
-                    {this.props.errors.find(obj => obj.field == 'name') &&
-                        <div class="error">{this.props.errors.find(obj => obj.field == 'name').message}</div>
-                    }<br />
-                    <label>
-                        <input
-                            id="username"
-                            type="text"
-                            value={this.state.username}
-                            placeholder="Username"
-                            onChange={this.handleChangeUsername}
-                        />
-                    </label>
-                    {this.props.errors.find(obj => obj.field == 'username') &&
-                        <div class="error">{this.props.errors.find(obj => obj.field == 'username').message}</div>
-                    }<br />
-                    <label>
-                        <input
-                            id="email"
-                            type="text"
-                            value={this.state.email}
-                            placeholder="Caltech Email"
-                            title="[name]@caltech.edu"
-                            onChange={this.handleChangeEmail}
-                        />
-                    </label>
-                    {this.props.errors.find(obj => obj.field == 'email') &&
-                        <div class="error">{this.props.errors.find(obj => obj.field == 'email').message}</div>
-                    }<br />
-                    <label>
-                        <input
-                            id="password"
-                            type="password"
-                            value={this.state.password}
-                            placeholder="Password"
-                            onChange={this.handleChangePassword}
-                        />
-                    </label>
-                    {this.props.errors.find(obj => obj.field == 'password') &&
-                        <div class="error">{this.props.errors.find(obj => obj.field == 'password').message}</div>
-                    }<br />
-                    <label>
-                        <input type="checkbox" onChange={this.togglePasswordVisibility} />Show password
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
-
+                    </div>
+                </div>
             </div>
+
         );
     }
 }

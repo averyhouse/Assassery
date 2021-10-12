@@ -12,6 +12,7 @@ django-cors-headers = "*"
 django-rest-knox = "*"
 django-webpack-loader = "*"
 requests = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

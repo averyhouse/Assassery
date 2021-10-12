@@ -1,5 +1,4 @@
 # Python
-Pipfile.lock
 __pycache__
 
 # Jetbrains IDEs
@@ -15,4 +14,4 @@ npm-debug.log
 webpack-stats.dev.json
 frontend/package-lock.json
 
-vars.py
+messenger/vars.py

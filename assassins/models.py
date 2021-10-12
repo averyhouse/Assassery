@@ -5,9 +5,13 @@ from django.utils.translation import ugettext_lazy as _
 import datetime
 
 class User(AbstractUser):
-    messenger = models.CharField(max_length=30, null=True)
+    """
+    The User model allows people to log in to the Assassery website.
+    It is NOT associated with a player in game.
+    """
+    messenger = models.CharField(max_length=30, null=True, blank=True)
     name = models.CharField(max_length=30)
-    photo = models.ImageField(upload_to='photos', null=True)
+    photo = models.ImageField(upload_to='photos', null=True, blank=True)
     USERNAME_FIELD = 'email'
     email = models.EmailField(_('email address'), unique=True) # changes email to unique and blank to false
     REQUIRED_FIELDS = ['username', 'name'] # removes email from REQUIRED_FIELDS
@@ -20,6 +24,10 @@ class User(AbstractUser):
         return self.name
 
 class Assassin(models.Model):
+    """
+    The Assassin model stores information about a particular player in the game.
+    It does not exist without the game running!
+    """
     id = models.IntegerField(primary_key=True)
     player = models.ForeignKey(User, on_delete=models.CASCADE, related_name='player', null=True, blank=True)
     team = models.IntegerField()
@@ -47,7 +55,15 @@ class Assassin(models.Model):
     def __str__(self):
         return self.player.__str__()
 
+class Team(models.Model):
+    """
+    The Team model stores information about which Assassins are on a team, whether the team is still in play, and name.
+    """
+
 class KillFeed(models.Model):
+    """
+    The KillFeed model stores information about a particular instance of a kill to display on the kill feed.
+    """
     killer = models.ForeignKey(Assassin, on_delete=models.PROTECT, related_name='killer', null=True, blank=True)
     killed = models.ForeignKey(Assassin, on_delete=models.PROTECT, related_name='killed', null=True, blank=True)
     message = models.TextField()
@@ -57,6 +73,9 @@ class KillFeed(models.Model):
         return self.killer.player.__str__() + " killed " + self.killed.player.__str__() + " by " + self.message
 
 class Respawn(models.Model):
+    """
+    The Respawn model stores information about the respawn queue.
+    """
     id = models.IntegerField(primary_key=True)
     assassin = models.ForeignKey(Assassin, on_delete=models.CASCADE, null=True, blank=True)
     timestamp = models.DateTimeField(null=True)

@@ -27,8 +27,8 @@ export default class KillFeed extends Component {
         super(props)
         this.state = {
             kills: [
-                { timestamp: '08:20:19', message: 'I killed myself by drowning in fire' },
-                { timestamp: '04:20:39', message: 'Coronavirus killed everyone by causing respiratory failure' }
+                { timestamp: '08:20:19', message: 'A killed B by drowning them in fire' },
+                { timestamp: '04:20:39', message: 'B killed A with guerrilla tactics' }
             ]
         }
     }
