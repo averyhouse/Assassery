@@ -23,8 +23,8 @@ class RegistrationAPI(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         print(request.FILES)
-        if 'messenger' not in request.data:
-            request.data['messenger'] = None
+        # if 'messenger' not in request.data:
+            # request.data['messenger'] = None
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()

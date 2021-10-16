@@ -14,4 +14,4 @@ npm-debug.log
 webpack-stats.dev.json
 frontend/package-lock.json
 
-messenger/vars.py
+# messenger/vars.py

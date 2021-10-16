@@ -21,7 +21,7 @@ from django.views.generic import TemplateView
 from rest_framework import routers
 import assassins.views
 import assassins.endpoints
-import messenger.endpoints
+# import messenger.endpoints
 
 router = routers.DefaultRouter()
 router.register(r'assassins', assassins.views.AssassinView, 'assassins')
@@ -29,6 +29,6 @@ router.register(r'assassins', assassins.views.AssassinView, 'assassins')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(assassins.endpoints)),
-    path('api/auth', include('knox.urls')),
-    path('messenger/', include(messenger.endpoints))
+    path('api/auth', include('knox.urls')) #,
+    # path('messenger/', include(messenger.endpoints))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [path('', include('frontend.urls'))]

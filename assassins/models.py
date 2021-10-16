@@ -9,7 +9,7 @@ class User(AbstractUser):
     The User model allows people to log in to the Assassery website.
     It is NOT associated with a player in game.
     """
-    messenger = models.CharField(max_length=30, null=True, blank=True)
+    # messenger = models.CharField(max_length=30, null=True, blank=True)
     name = models.CharField(max_length=30)
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
     USERNAME_FIELD = 'email'
