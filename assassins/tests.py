@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from .models import *
 from rest_framework import status
+from rest_framework.test import APIClient
 import base64, os, json
 
 dirname = os.path.realpath('..')
@@ -194,11 +195,9 @@ class UserTestCase(TestCase):
             response = self.client.post(reg_api, data=data, format="json")
         content = json.loads(response.content.decode('utf-8'))
 
-        header = {
-            'authorization' : 'Token ' + content['token']
-        }
-        client = Client()
-        response = client.get(self.api, header=header, content_type='application/json', secure=True)
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + content['token'])
+        response = client.get(self.api, content_type='application/json', secure=True)
         content = json.loads(response.content.decode('utf-8'))
 
         print(response.data)
