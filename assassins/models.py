@@ -11,10 +11,10 @@ class User(AbstractUser):
     """
     # messenger = models.CharField(max_length=30, null=True, blank=True)
     name = models.CharField(max_length=30)
-    photo = models.ImageField(upload_to='photos', null=True, blank=True)
-    USERNAME_FIELD = 'email'
-    email = models.EmailField(_('email address'), unique=True) # changes email to unique and blank to false
-    REQUIRED_FIELDS = ['username', 'name'] # removes email from REQUIRED_FIELDS
+    photo = models.ImageField(upload_to='photos', null=False, blank=False)
+    email = models.EmailField(_('email address'), unique=True)
+    USERNAME_FIELD = 'email' # specifies that the email field should be used as a unique identifier
+    REQUIRED_FIELDS = ['username', 'name'] # removes photo from REQUIRED_FIELDS
 
     @staticmethod
     def getModel(userID):
@@ -23,42 +23,28 @@ class User(AbstractUser):
     def __str__(self):
         return self.name
 
+class Team(models.Model):
+    """
+    The Team model stores the team name and the target team.
+    """
+    name = models.CharField(max_length=30)
+    target = models.OneToOneField('self', on_delete=models.CASCADE, related_name='target_team', null=True)
+
 class Assassin(models.Model):
     """
     The Assassin model stores information about a particular player in the game.
     It does not exist without the game running!
     """
-    id = models.IntegerField(primary_key=True)
-    player = models.ForeignKey(User, on_delete=models.CASCADE, related_name='player', null=True, blank=True)
-    team = models.IntegerField()
-    target = models.ForeignKey('self', on_delete=models.PROTECT, null=True, blank=True)
+    player = models.OneToOneField(User, on_delete=models.CASCADE, related_name='player', null=True, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_members', null=True, blank=True)
     dead = models.BooleanField()
 
     @staticmethod
     def getModel(userID):
         return Assassin.objects.get(id=userID)
 
-    def nextTarget(self):
-        t = Assassin.getModel(self.target)
-        while(t.dead):
-            t = Assassin.getModel(t.target)
-        return t.id
-
-    def kill(self, id):
-        t = Assassin.getModel(id)
-        t.dead = True
-        t.save()
-        self.target = self.nextTarget()
-        self.save()
-        KillFeed.objects.create(killer=self, killed=Assassin.getModel(id), message="F", timeStamp=datetime.datetime.now())
-
     def __str__(self):
         return self.player.__str__()
-
-class Team(models.Model):
-    """
-    The Team model stores information about which Assassins are on a team, whether the team is still in play, and name.
-    """
 
 class KillFeed(models.Model):
     """
@@ -76,6 +62,11 @@ class Respawn(models.Model):
     """
     The Respawn model stores information about the respawn queue.
     """
-    id = models.IntegerField(primary_key=True)
     assassin = models.ForeignKey(Assassin, on_delete=models.CASCADE, null=True, blank=True)
     timestamp = models.DateTimeField(null=True)
+
+class Game(models.Model):
+    """
+    Maintains game status.
+    """
+    inprogress = models.BooleanField()

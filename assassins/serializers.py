@@ -8,7 +8,7 @@ caltech_email = re.compile("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@caltech.edu")
 class AssassinSerializer(serializers.ModelSerializer):
   class Meta:
     model = Assassin
-    fields = ('id', 'team', 'target', 'dead')
+    fields = ('id', 'team', 'dead')
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,7 +22,8 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        user = User.objects.create_user(name=validated_data['name'], username=validated_data['username'],
+        user = User.objects.create_user(name=validated_data['name'], 
+                                        username=validated_data['username'],
                                         email=validated_data['email'],
                                         password=validated_data['password'], # messenger=validated_data['messenger'],
                                         photo=validated_data['photo'])

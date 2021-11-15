@@ -45,9 +45,17 @@ class LoginAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
+
+        try:
+            assassin = user.player
+            assassin = AssassinSerializer(assassin).data
+        except User.player.RelatedObjectDoesNotExist:
+            assassin = None
+
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)[1]
+            "token": AuthToken.objects.create(user)[1],
+            "assassin": assassin,
         })
 
 
@@ -71,7 +79,72 @@ class KillAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         kill = serializer.validated_data
-        if request.user.id == kill['killerID']:
-            getModel(request.user.id).kill(kill['killedID'])
-            return Response({'result': 'success'})
-        return Response({'result': 'failure'})
+
+        try:
+            killer = Assassin.objects.get(id=kill['killerID'])
+        except Assassin.DoesNotExist:
+            return Response({
+                'result': 'failure',
+                'message': 'player does not exist'
+            })
+
+        if killer.dead:
+            return Response({
+                'result': 'failure',
+                'message': 'player is dead'
+            })
+
+        try:
+            victim = Assassin.objects.get(id=kill['killedID'])
+        except Assassin.DoesNotExist:
+            return Response({
+                'result': 'failure',
+                'message': 'victim does not exist'
+            })
+
+        if victim.dead:
+            return Response({
+                'result': 'failure',
+                'message': 'victim is already dead'
+            })
+
+        killer_team = killer.team
+        if not killer_team:
+            return Response({
+                'result': 'failure',
+                'message': 'player is not in a team'
+            })
+
+        victim_team = victim.team
+        if not victim_team:
+            return Response({
+                'result': 'failure',
+                'message': 'victim is not in a team'
+            })
+            
+        target_team = killer_team.target_team
+        victim_team = victim.team
+
+        if target_team.id != victim_team.id:
+            return Response({
+                'result': 'failure',
+                'message': 'victim not in target team'
+            })
+
+        victim.dead = True
+        victim.save()
+
+        live_targets = victim_team.team_members.filter(dead=False)
+        if not live_targets:
+            killer_team.target = victim_team.target
+            killer_team.save()
+            victim_team.target = None
+            victim_team.save()
+            if killer_team.id == killer_team.target.id:
+                game = Game.objects.get(id=1)
+                game.inprogress = False
+                game.save()
+
+        kill = serializer.save()
+        
+        return Response({'result': 'success'})
