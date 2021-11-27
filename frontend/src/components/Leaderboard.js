@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import '../assets/css/Leaderboard.scss';
 
 export default class Leaderboard extends Component {
+
     renderTableHeader() {
-        let header = Object.keys(this.state.players[0])
+        let header = Object.keys({alias: '', kills: '', deaths: ''})
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
@@ -23,18 +24,8 @@ export default class Leaderboard extends Component {
         )
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            players: [
-                { alias: 'big chungus', kills: 3, deaths: 0 },
-                { alias: 'big shaq', kills: 2, deaths: 2 }
-            ]
-        }
-    }
-
     renderTableData() {
-        return this.state.players.map((player, index) => {
+        return this.props.players.map((player, index) => {
             const { alias, kills, deaths } = player
             return (
                 <tr key={alias}>

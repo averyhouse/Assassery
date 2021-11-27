@@ -8,7 +8,7 @@ caltech_email = re.compile("[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@caltech.edu")
 class AssassinSerializer(serializers.ModelSerializer):
   class Meta:
     model = Assassin
-    fields = ('id', 'team', 'dead')
+    fields = ('dead', )
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,5 +52,5 @@ class UserSerializer(serializers.ModelSerializer):
 class KillSerializer(serializers.ModelSerializer):
     class Meta:
         model = KillFeed
-        fields = ('killerID', 'killedID', 'message', 'timeStamp')
+        fields = ('killer_username', 'victim_username', 'message', 'timestamp')
 

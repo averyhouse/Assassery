@@ -4,6 +4,8 @@ from django.contrib.auth.models import User, BaseUserManager, AbstractUser
 from django.utils.translation import ugettext_lazy as _
 import datetime
 
+USERNAME_LENGTH = 30
+
 class User(AbstractUser):
     """
     The User model allows people to log in to the Assassery website.
@@ -11,6 +13,7 @@ class User(AbstractUser):
     """
     # messenger = models.CharField(max_length=30, null=True, blank=True)
     name = models.CharField(max_length=30)
+    username = models.CharField(max_length=USERNAME_LENGTH, unique=True)
     photo = models.ImageField(upload_to='photos', null=False, blank=False)
     email = models.EmailField(_('email address'), unique=True)
     USERNAME_FIELD = 'email' # specifies that the email field should be used as a unique identifier
@@ -21,23 +24,25 @@ class User(AbstractUser):
         return User.objects.get(id=userID)
 
     def __str__(self):
-        return self.name
+        return self.username
 
 class Team(models.Model):
     """
     The Team model stores the team name and the target team.
     """
-    name = models.CharField(max_length=30)
-    target = models.OneToOneField('self', on_delete=models.CASCADE, related_name='target_team', null=True)
+    name = models.CharField(max_length=30, null=False, blank=False)
+    target = models.OneToOneField('self', on_delete=models.CASCADE, related_name='hunter_team', null=True, blank=True)
 
 class Assassin(models.Model):
     """
     The Assassin model stores information about a particular player in the game.
     It does not exist without the game running!
     """
-    player = models.OneToOneField(User, on_delete=models.CASCADE, related_name='player', null=True, blank=True)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_members', null=True, blank=True)
-    dead = models.BooleanField()
+    player = models.OneToOneField(User, on_delete=models.CASCADE, related_name='player', null=False, blank=False)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_members', null=False, blank=False)
+    dead = models.BooleanField(default=False)
+    killcount = models.PositiveIntegerField(default=0, null=False, blank=False)
+    deathcount = models.PositiveIntegerField(default=0, null=False, blank=False)
 
     @staticmethod
     def getModel(userID):
@@ -50,13 +55,13 @@ class KillFeed(models.Model):
     """
     The KillFeed model stores information about a particular instance of a kill to display on the kill feed.
     """
-    killer = models.ForeignKey(Assassin, on_delete=models.PROTECT, related_name='killer', null=True, blank=True)
-    killed = models.ForeignKey(Assassin, on_delete=models.PROTECT, related_name='killed', null=True, blank=True)
-    message = models.TextField()
-    timeStamp = models.DateTimeField()
+    killer_username = models.CharField(max_length=USERNAME_LENGTH)
+    victim_username = models.CharField(max_length=USERNAME_LENGTH)
+    message = models.CharField(max_length=255, default="spraying them with water")
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.killer.player.__str__() + " killed " + self.killed.player.__str__() + " by " + self.message
+        return self.killer_username + " killed " + self.victim_username + " by " + self.message
 
 class Respawn(models.Model):
     """
@@ -70,3 +75,4 @@ class Game(models.Model):
     Maintains game status.
     """
     inprogress = models.BooleanField()
+    winner = models.CharField(max_length=30, default='N/A')

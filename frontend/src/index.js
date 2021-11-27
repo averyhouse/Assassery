@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { connect } from 'react-redux';
 
 // Redux
 import assasseryFrontend from './reducers';
@@ -20,6 +19,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import QRGenerator from './pages/QRGenerator';
 import QRScanner from './pages/QRScanner';
+import Status from './pages/Status';
 import NotFound from './pages/NotFound';
 
 // Images //
@@ -41,6 +41,7 @@ class RootContainerComponent extends Component {
             width: window.innerWidth, height: window.innerHeight
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.loadAssassin = this.loadAssassin.bind(this)
     }
 
     componentDidMount() {
@@ -63,6 +64,26 @@ class RootContainerComponent extends Component {
                 element.classList.remove("open");
             });
         }
+    }
+
+    loadAssassin() {
+        let headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${this.props.auth.token}`
+        };
+        fetch(
+            "/api/game/assassin/", {
+            method: "GET",
+            headers: headers,
+        }).then(res => {
+            if (res.status === 200) {
+                res.json().then(
+                    data => this.setState({...this.state, ...data})
+                )
+            } else {
+                this.setState({...this.state, assassin: null})
+            }
+        })
     }
 
     toggleMobileMenu() {
@@ -96,6 +117,9 @@ class RootContainerComponent extends Component {
         } else {
             login = <Link to="#" onClick={() => { this.props.logout(); this.toggleMobileMenu(); }}>LOGOUT</Link>
         }
+        if (!this.state.hasOwnProperty('assassin')) {
+            this.loadAssassin()
+        }
         return (
             <Router>
                 <div class="navbar">
@@ -107,10 +131,13 @@ class RootContainerComponent extends Component {
                         <li class="link">
                             {login}
                         </li>
-                        {this.props.auth.isAuthenticated &&
+                        {this.props.auth.isAuthenticated && this.state.assassin &&
+                            <li class="link"><Link to={`/status`} onClick={this.toggleMobileMenu}>TEAM STATUS</Link></li>
+                        }
+                        {this.props.auth.isAuthenticated && this.state.assassin && !this.state.assassin.dead &&
                             <li class="link"><Link to={`/scan`} onClick={this.toggleMobileMenu}>QR SCANNER</Link></li>
                         }
-                        {this.props.auth.isAuthenticated &&
+                        {this.props.auth.isAuthenticated && this.state.assassin && !this.state.assassin.dead &&
                             <li class="link"><Link to={`/qr`} onClick={this.toggleMobileMenu}>YOUR QR CODE</Link></li>
                         }
                     </ul>
@@ -124,6 +151,7 @@ class RootContainerComponent extends Component {
                             <Route path="/register" component={Register} />
                             <PrivateRoute path="/qr" component={QRGenerator} />
                             <PrivateRoute path="/scan" component={QRScanner} />
+                            <PrivateRoute path="/status" component={Status} />
                             <Route component={NotFound} />
                         </Switch>
                     </main>

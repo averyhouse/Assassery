@@ -1,0 +1,35 @@
+@import 'vars';
+
+#members {
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid $tablebordergray;
+    width: 100%;
+
+    td, th {
+        border: 1px solid $tablebordergray;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: $offwhite;
+    }
+
+    tr:hover {
+        background-color: $tablebordergray;
+    }
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: $ultraviolet;
+        color: white;
+    }
+}
+
+#title {
+    text-align: center;
+    font-family: arial, sans-serif;
+}

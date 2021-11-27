@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import '../assets/css/KillFeed.scss';
 
 export default class KillFeed extends Component {
+    
     renderTableHeader() {
-        let header = Object.keys(this.state.kills[0])
+        let header = Object.keys({timestamp: '', message: ''})
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
@@ -23,18 +24,8 @@ export default class KillFeed extends Component {
         )
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            kills: [
-                { timestamp: '08:20:19', message: 'A killed B by drowning them in fire' },
-                { timestamp: '04:20:39', message: 'B killed A with guerrilla tactics' }
-            ]
-        }
-    }
-
     renderTableData() {
-        return this.state.kills.map((kill, index) => {
+        return this.props.kills.map((kill, index) => {
             const { timestamp, message } = kill
             return (
                 <tr key={name}>

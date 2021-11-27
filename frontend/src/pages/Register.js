@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Redirect } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
-import connect from '../connection';
+import connect from '../connection'
 import "../assets/css/RegisterForm.scss";
 
 

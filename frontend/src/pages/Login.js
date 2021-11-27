@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LoginForm from '../components/LoginForm';
-import { BrowserRouter as Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Redirect } from 'react-router-dom';
 import connect from '../connection';
 import "../assets/css/LoginForm.scss";
 
