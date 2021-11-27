@@ -10,7 +10,7 @@ class QRCapture extends Component {
         this.state = {
             status: 'Scan',
             message: '',
-            result: '075'
+            result: ''
         }
         this.handleScan = this.handleScan.bind(this);
         this.handleError = this.handleError.bind(this);
