@@ -48,18 +48,16 @@ class LoginAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
 
-        '''
         try:
             assassin = user.player
             assassin = AssassinSerializer(assassin).data
         except User.player.RelatedObjectDoesNotExist:
             assassin = None
-        '''
 
         return Response({
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1],
-            # "assassin": assassin
+            "assassin": assassin
         })
 
 
@@ -144,10 +142,7 @@ class AssassinAPI(generics.GenericAPIView):
         try:
             assassin = user.player
         except User.player.RelatedObjectDoesNotExist:
-            return Response({
-                'result': 'failure',
-                'message': 'Player does not exist.'
-            }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            return Response({'assassin' : None})
 
         return Response({'assassin' : AssassinSerializer(assassin).data})
 
@@ -156,12 +151,25 @@ class AssassinAPI(generics.GenericAPIView):
 #   --url http://localhost:8000/api/auth/user/ \
 #   --header 'authorization: Token TOKEN' \
 #   --header 'content-type: application/json' \
-class UserAPI(generics.RetrieveAPIView):
+class UserAPI(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserSerializer
 
-    def get_object(self):
-        return self.request.user
+    def get(self, request):
+        user = self.request.user
+
+        try:
+            assassin = user.player
+            assassin = AssassinSerializer(assassin).data
+        except User.player.RelatedObjectDoesNotExist:
+            assassin = None
+
+        result = {
+            'user' : UserSerializer(user).data,
+            'assassin' : assassin
+        }
+
+        return Response(result)
+    
 
 
 class GameAPI(generics.GenericAPIView):
@@ -170,8 +178,8 @@ class GameAPI(generics.GenericAPIView):
         games = Game.objects.all()
         if not games:
             return Response({
-                'result' : 'failure',
-                'message' : 'No game in DB'
+                'inprogress' : False,
+                'winner' : 'N/A'
             })
         game = games[0]
         return Response({

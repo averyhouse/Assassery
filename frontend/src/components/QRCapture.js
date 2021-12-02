@@ -10,7 +10,7 @@ class QRCapture extends Component {
         this.state = {
             status: 'Scan',
             message: '',
-            result: '075'
+            result: ''
         }
         this.handleScan = this.handleScan.bind(this);
         this.handleError = this.handleError.bind(this);
@@ -46,12 +46,12 @@ class QRCapture extends Component {
         let data = {
             killer_username: this.props.username,
             victim_username: decode(this.state.result)
-        }
+        };
 
-        console.log(data)
+        console.log(data);
 
         if (this.state.message) {
-            data[message] = this.state.message
+            data["message"] = this.state.message;
         }
         
         fetch(
@@ -79,7 +79,7 @@ class QRCapture extends Component {
                 console.log("Error!");
                 throw res;
             }
-        })
+        });
     }
 
     render() {

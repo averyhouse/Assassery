@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { game } from '../actions';
 import QRDisplay from '../components/QRDisplay';
 
 class QRGenerator extends Component {
@@ -14,6 +15,7 @@ class QRGenerator extends Component {
     }
 
     componentDidMount() {
+        this.props.loadGame();
         let headers = {
             "Content-Type": "application/json",
             "Authorization": `Token ${this.props.token}`
@@ -38,14 +40,11 @@ class QRGenerator extends Component {
     }
 
     render() {
-        if (!this.props.isAuthenticated) {
+        if (!this.props.isAuthenticated || !this.props.game.inProgress || this.state.fail) {
             return <Redirect to="/" />
         }
-        if (this.state.loading) {
+        if (this.state.loading || this.props.game.isLoading) {
             return <em>Loading...</em>;
-        }
-        if (this.state.fail) {
-            return <Redirect to="/" />
         }
         return (
             <div class="wrapper">
@@ -58,8 +57,17 @@ class QRGenerator extends Component {
 const mapStateToProps = state => {
     return {
         token: state.auth.token,
-        isAuthenticated: state.auth.isAuthenticated
+        isAuthenticated: state.auth.isAuthenticated,
+        game: state.game
     };
 }
 
-export default connect(mapStateToProps)(QRGenerator);
+const mapDispatchToProps = dispatch => {
+    return {
+        loadGame: () => {
+            return dispatch(game.loadGame());
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QRGenerator);

@@ -3,6 +3,7 @@ const initialState = {
     isAuthenticated: null,
     isLoading: true,
     user: null,
+    assassin: null,
     errors: {},
 };
 
@@ -32,7 +33,7 @@ export default function auth(state = initialState, action) {
         case 'LOGOUT_SUCCESSFUL':
             localStorage.removeItem("token");
             return {
-                ...state, errors: action.data, token: null, user: null,
+                ...state, errors: action.data, token: null, user: null, assassin: null,
                 isAuthenticated: false, isLoading: false
             };
 

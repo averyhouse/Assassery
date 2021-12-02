@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 
 // Redux
 import assasseryFrontend from './reducers';
-import { auth } from './actions';
+import { auth, game } from './actions';
 
 // CSS Stylesheets //
 import './assets/css/index.scss';
@@ -41,11 +41,11 @@ class RootContainerComponent extends Component {
             width: window.innerWidth, height: window.innerHeight
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.loadAssassin = this.loadAssassin.bind(this)
     }
 
     componentDidMount() {
         this.props.loadUser();
+        this.props.loadGame();
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
     }
@@ -64,26 +64,6 @@ class RootContainerComponent extends Component {
                 element.classList.remove("open");
             });
         }
-    }
-
-    loadAssassin() {
-        let headers = {
-            "Content-Type": "application/json",
-            "Authorization": `Token ${this.props.auth.token}`
-        };
-        fetch(
-            "/api/game/assassin/", {
-            method: "GET",
-            headers: headers,
-        }).then(res => {
-            if (res.status === 200) {
-                res.json().then(
-                    data => this.setState({...this.state, ...data})
-                )
-            } else {
-                this.setState({...this.state, assassin: null})
-            }
-        })
     }
 
     toggleMobileMenu() {
@@ -117,9 +97,6 @@ class RootContainerComponent extends Component {
         } else {
             login = <Link to="#" onClick={() => { this.props.logout(); this.toggleMobileMenu(); }}>LOGOUT</Link>
         }
-        if (!this.state.hasOwnProperty('assassin')) {
-            this.loadAssassin()
-        }
         return (
             <Router>
                 <div class="navbar">
@@ -131,13 +108,13 @@ class RootContainerComponent extends Component {
                         <li class="link">
                             {login}
                         </li>
-                        {this.props.auth.isAuthenticated && this.state.assassin &&
+                        {this.props.game.inProgress && this.props.auth.assassin &&
                             <li class="link"><Link to={`/status`} onClick={this.toggleMobileMenu}>TEAM STATUS</Link></li>
                         }
-                        {this.props.auth.isAuthenticated && this.state.assassin && !this.state.assassin.dead &&
+                        {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead &&
                             <li class="link"><Link to={`/scan`} onClick={this.toggleMobileMenu}>QR SCANNER</Link></li>
                         }
-                        {this.props.auth.isAuthenticated && this.state.assassin && !this.state.assassin.dead &&
+                        {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead &&
                             <li class="link"><Link to={`/qr`} onClick={this.toggleMobileMenu}>YOUR QR CODE</Link></li>
                         }
                     </ul>
@@ -164,6 +141,7 @@ class RootContainerComponent extends Component {
 const mapStateToProps = state => {
     return {
         auth: state.auth,
+        game: state.game
     }
 }
 
@@ -174,6 +152,9 @@ const mapDispatchToProps = dispatch => {
         },
         logout: () => {
             return dispatch(auth.logout());
+        },
+        loadGame: () => {
+            return dispatch(game.loadGame());
         }
     }
 }
