@@ -172,7 +172,7 @@ class LoginTestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        expected = {'id': 1} # , 'team': 1, 'dead': False, 'killcount' : 0, 'deathcount' : 0}
+        expected = {'dead': False}
         actual = content['assassin']
         self.assertEqual(expected, actual)
 
@@ -519,8 +519,10 @@ class UserTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         expected = {'username': 'JD', 'email': 'jd@caltech.edu'}
-        actual = content
+        actual = content['user']
         self.assertEqual(expected, actual)
+
+        self.assertIsNone(content['assassin'])
 
     def test_expired_token(self):
         reg_api = '/api/auth/register/'
