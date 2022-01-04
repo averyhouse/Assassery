@@ -13,6 +13,7 @@ django-rest-knox = "*"
 django-webpack-loader = "*"
 requests = "*"
 pillow = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3"
