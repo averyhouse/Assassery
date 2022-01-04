@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth import settings
 from django.contrib.auth.models import User, BaseUserManager, AbstractUser
-from django.utils.translation import ugettext_lazy as _
 import datetime
 
 USERNAME_LENGTH = 30
@@ -15,7 +14,7 @@ class User(AbstractUser):
     name = models.CharField(max_length=30)
     username = models.CharField(max_length=USERNAME_LENGTH, unique=True)
     photo = models.ImageField(upload_to='photos', null=False, blank=False)
-    email = models.EmailField(_('email address'), unique=True)
+    email = models.EmailField('email address', unique=True)
     USERNAME_FIELD = 'email' # specifies that the email field should be used as a unique identifier
     REQUIRED_FIELDS = ['username', 'name'] # removes photo from REQUIRED_FIELDS
 
