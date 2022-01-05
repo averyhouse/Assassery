@@ -28,7 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     # 'a291c76d.ngrok.io',
-    '127.0.0.1'
+    '127.0.0.1',
+    'assassery.herokuapp.com'
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
