@@ -1,1 +1,1 @@
-web: gunicorn assassins.wsgi
+web: gunicorn backend.wsgi
