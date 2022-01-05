@@ -14,8 +14,6 @@ django-webpack-loader = "*"
 requests = "*"
 pillow = "*"
 gunicorn = "*"
-psycopg2 = "*"
-django-heroku = "*"
 
 [requires]
 python_version = "3"
