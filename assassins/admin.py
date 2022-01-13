@@ -24,6 +24,13 @@ class RespawnAdmin(admin.ModelAdmin):
 
 class GameAdmin(admin.ModelAdmin):
     list_display = ('id', 'inprogress', 'winner')
+    actions = ['reset']
+
+    @admin.action(description='Reset game')
+    def reset(self, request, queryset):
+        queryset.update(inprogress=True)
+        for obj in queryset:
+            pass
 
 admin.site.register(Assassin, AssAssmin)
 admin.site.register(User, UserAdmin)
