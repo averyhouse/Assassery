@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Assassin, User, KillFeed, Respawn, Team, Game
+from .models import Assassin, User, KillFeed, Team, Game
 
 class AssAssmin(admin.ModelAdmin):
     list_display = ('id', 'get_playername', 'team', 'dead', 'killcount', 'deathcount')
@@ -19,9 +19,6 @@ class TeamAdmin(admin.ModelAdmin):
 class KillAdmin(admin.ModelAdmin):
     list_display = ('id', 'killer_username', 'victim_username', 'message', 'timestamp')
 
-class RespawnAdmin(admin.ModelAdmin):
-    list_display = ('id', 'assassin', 'timestamp')
-
 class GameAdmin(admin.ModelAdmin):
     list_display = ('id', 'inprogress', 'winner')
     actions = ['reset']
@@ -29,12 +26,11 @@ class GameAdmin(admin.ModelAdmin):
     @admin.action(description='Reset game')
     def reset(self, request, queryset):
         queryset.update(inprogress=True)
-        for obj in queryset:
-            pass
+        KillFeed.objects.all().delete()
+        Assassin.objects.all().filter(dead=True).update(dead=False)
 
 admin.site.register(Assassin, AssAssmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(Team, TeamAdmin)
 admin.site.register(KillFeed, KillAdmin)
-admin.site.register(Respawn, RespawnAdmin)
 admin.site.register(Game, GameAdmin)

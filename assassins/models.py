@@ -32,6 +32,9 @@ class Team(models.Model):
     name = models.CharField(max_length=30, null=False, blank=False)
     target = models.OneToOneField('self', on_delete=models.CASCADE, related_name='hunter_team', null=True, blank=True)
 
+    def getMembers(self):
+        return Assassin.objects.get(team=self)
+
 class Assassin(models.Model):
     """
     The Assassin model stores information about a particular player in the game.
@@ -61,13 +64,6 @@ class KillFeed(models.Model):
 
     def __str__(self):
         return self.killer_username + " killed " + self.victim_username + " by " + self.message
-
-class Respawn(models.Model):
-    """
-    The Respawn model stores information about the respawn queue.
-    """
-    assassin = models.ForeignKey(Assassin, on_delete=models.CASCADE, null=True, blank=True)
-    timestamp = models.DateTimeField(null=True)
 
 class Game(models.Model):
     """
