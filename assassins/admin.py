@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Assassin, User, KillFeed, Team, Game
+import random
 
 class AssAssmin(admin.ModelAdmin):
     list_display = ('id', 'get_playername', 'team', 'dead', 'killcount', 'deathcount')
@@ -28,6 +29,14 @@ class GameAdmin(admin.ModelAdmin):
         queryset.update(inprogress=True)
         KillFeed.objects.all().delete()
         Assassin.objects.all().filter(dead=True).update(dead=False)
+        Team.objects.all().update(target=None)
+        teams = list(Team.objects.all())
+        random.shuffle(teams)
+        for i in range(len(teams) - 1):
+            teams[i].target = teams[i + 1]
+            teams[i].save()
+        teams[-1].target = teams[0]
+        teams[-1].save()
 
 admin.site.register(Assassin, AssAssmin)
 admin.site.register(User, UserAdmin)
