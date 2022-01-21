@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import '../assets/css/Team.scss';
 
 export default class Team extends Component {
-    
+
     renderTableHeader() {
-        let header = Object.keys({alias: '', name: '', dead: ''})
+        let header = Object.keys({ alias: '', name: '', dead: '' })
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
@@ -34,8 +34,8 @@ export default class Team extends Component {
     }
 
     renderTableData() {
-        return this.props.team.members.map((kill, index) => {
-            const { alias, name, dead } = kill
+        return this.props.team.members.map((player, index) => {
+            const { alias, name, dead } = player
             return (
                 <tr key={name}>
                     <td>{alias}</td>

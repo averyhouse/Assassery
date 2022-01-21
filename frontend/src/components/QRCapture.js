@@ -4,13 +4,13 @@ import QrReader from 'react-qr-reader';
 import "../assets/css/QRCapture.scss";
 
 class QRCapture extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
-            status: 'Scan',
+            status: 'Captured',
             message: '',
-            result: ''
+            result: '073103111114'
         }
         this.handleScan = this.handleScan.bind(this);
         this.handleError = this.handleError.bind(this);
@@ -48,12 +48,10 @@ class QRCapture extends Component {
             victim_username: decode(this.state.result)
         };
 
-        console.log(data);
-
         if (this.state.message) {
             data["message"] = this.state.message;
         }
-        
+
         fetch(
             "/api/game/kill/", {
             method: "POST",
@@ -103,21 +101,21 @@ class QRCapture extends Component {
             margin: "0.25cm auto",
             border: "1px solid $tablebordergray"
         };
-        
+
         return (
             <div>
                 <h1 id="assassinateTitle">Assassinate</h1>
                 <p>
                     First, scan your victim's QR code. Check that the status is "Captured." Then enter a kill message to be shown on the kill feed. The kill message defaults to "spraying them with water."
                 </p>
-                <div style={camStyle}>
+                {/* <div style={camStyle}>
                     <QrReader id="qrreader"
                         delay={100}
                         style={previewSyle}
                         onError={this.handleError}
                         onScan={this.handleScan}
                     />
-                </div>
+                </div> */}
                 <p style={statusStyle}>
                     Status: {this.state.status}
                 </p>
@@ -143,7 +141,7 @@ function decode(val) {
     let badChars = ['-', '.', 'e', 'E'];
     let fail1 = val.length % 3 != 0;
     let fail2 = isNaN(val);
-    let fail3 = badChars.some(char=>val.includes(char));
+    let fail3 = badChars.some(char => val.includes(char));
     if (fail1 || fail2 || fail3) {
         return "";
     }
@@ -152,7 +150,7 @@ function decode(val) {
     let idx = 0;
     let result = "";
     while (idx < val.length) {
-        let strAscii = val.substring(idx, idx+3);
+        let strAscii = val.substring(idx, idx + 3);
         let intAscii = parseInt(strAscii);
         let c = String.fromCharCode(intAscii);
         result += c;

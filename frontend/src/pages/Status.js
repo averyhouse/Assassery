@@ -1,8 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Team from '../components/Team';
+import TargetTeam from '../components/TargetTeam';
 import { connect } from 'react-redux';
 import { game } from '../actions';
+
+import '../assets/css/Status.scss';
 
 class Status extends Component {
 
@@ -27,10 +30,10 @@ class Status extends Component {
         }).then(res => {
             if (res.status === 200) {
                 res.json().then(
-                    data => this.setState({...this.state, loading: false, ...data})
+                    data => this.setState({ ...this.state, loading: false, ...data })
                 )
             } else {
-                this.setState({loading: false, fail: true})
+                this.setState({ loading: false, fail: true })
             }
         })
     }
@@ -45,14 +48,14 @@ class Status extends Component {
         return (
             <div class='flex-container'>
                 <div class='flex-element'>
-                    <Team relation="Your Team" team={this.state.team}/>
+                    <Team relation="Your Team" team={this.state.team} />
                 </div>
                 <div class='flex-element'>
-                    <Team relation="Target Team" team={this.state.target}/>
+                    <TargetTeam relation="Target Team" team={this.state.target} />
                 </div>
-                <div class='flex-element'>
+                {/* <div class='flex-element'>
                     <Team relation="Hunter Team" team={this.state.hunter}/>
-                </div>
+                </div> */}
             </div>
         )
     }

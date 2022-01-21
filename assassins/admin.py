@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.core.mail import send_mail
 from .models import Assassin, User, KillFeed, Team, Game
 import random
 
@@ -13,12 +14,34 @@ class AssAssmin(admin.ModelAdmin):
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'name', 'email') #, 'messenger')
+    actions = ['email']
+
+    @admin.action(description='Test email')
+    def email(self, request, queryset):
+        emails = [user.email for user in queryset]
+        print(emails)
+        send_mail(
+            '[Assassery] Test mail',
+            'Have a nice day!',
+            None,
+            emails,
+            fail_silently=False,
+        )
 
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('name', 'target')
 
 class KillAdmin(admin.ModelAdmin):
     list_display = ('id', 'killer_username', 'victim_username', 'message', 'timestamp')
+    actions = ['confirm', 'unconfirm']
+
+    @admin.action(description='Confirm')
+    def confirm(self, request, queryset):
+        queryset.update(confirmed=True)
+
+    @admin.action(description='Unconfirm')
+    def unconfirm(self, request, queryset):
+        queryset.update(confirmed=False)
 
 class GameAdmin(admin.ModelAdmin):
     list_display = ('id', 'inprogress', 'winner')
@@ -26,6 +49,15 @@ class GameAdmin(admin.ModelAdmin):
 
     @admin.action(description='Reset game')
     def reset(self, request, queryset):
+        for player in User.objects.all():
+            # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
+            send_mail(
+                '[Assassery] Game Reset',
+                "The game is being reset! All players are now alive, and targets have been reallocated.",
+                None,
+                [player.email],
+                fail_silently=False,
+            )
         queryset.update(inprogress=True)
         KillFeed.objects.all().delete()
         Assassin.objects.all().filter(dead=True).update(dead=False)

@@ -61,6 +61,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'AveryAssassins@gmail.com'
 EMAIL_HOST_PASSWORD = 'Avery$2020!'
 EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = 'AveryAssassins@gmail.com'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

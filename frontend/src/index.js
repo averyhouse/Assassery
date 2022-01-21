@@ -41,6 +41,7 @@ class RootContainerComponent extends Component {
             width: window.innerWidth, height: window.innerHeight
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.killViaQR = false;
     }
 
     componentDidMount() {
@@ -111,10 +112,10 @@ class RootContainerComponent extends Component {
                         {this.props.game.inProgress && this.props.auth.assassin &&
                             <li class="link"><Link to={`/status`} onClick={this.toggleMobileMenu}>TEAM STATUS</Link></li>
                         }
-                        {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead &&
+                        {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead && this.killViaQR &&
                             <li class="link"><Link to={`/scan`} onClick={this.toggleMobileMenu}>QR SCANNER</Link></li>
                         }
-                        {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead &&
+                        {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead && this.killViaQR &&
                             <li class="link"><Link to={`/qr`} onClick={this.toggleMobileMenu}>YOUR QR CODE</Link></li>
                         }
                     </ul>

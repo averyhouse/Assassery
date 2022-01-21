@@ -33,7 +33,7 @@ class Team(models.Model):
     target = models.OneToOneField('self', on_delete=models.CASCADE, related_name='hunter_team', null=True, blank=True)
 
     def getMembers(self):
-        return Assassin.objects.get(team=self)
+        return Assassin.objects.filter(team=self)
 
 class Assassin(models.Model):
     """
@@ -61,6 +61,13 @@ class KillFeed(models.Model):
     victim_username = models.CharField(max_length=USERNAME_LENGTH)
     message = models.CharField(max_length=255, default="spraying them with water")
     timestamp = models.DateTimeField(auto_now_add=True)
+    confirmed = models.BooleanField(default=True)
+
+    def getKiller(self):
+        return User.objects.get(username=self.killer_username).assassin
+
+    def getVictim(self):
+        return User.objects.get(username=self.victim_username).assassin
 
     def __str__(self):
         return self.killer_username + " killed " + self.victim_username + " by " + self.message
