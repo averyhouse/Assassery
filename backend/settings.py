@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from assassins.vars import email_password, secret_key
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,10 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secret_key
+SECRET_KEY = '895=)w_a^0+w!+2h7gxce)+4y_)@5xbs_u#w=7l1nb#8#d%)gu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     # 'a291c76d.ngrok.io',
@@ -59,7 +59,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'AveryAssassins@gmail.com'
-EMAIL_HOST_PASSWORD = email_password
+EMAIL_HOST_PASSWORD = 'Avery$2020!'
 EMAIL_USE_SSL = False
 DEFAULT_FROM_EMAIL = 'AveryAssassins@gmail.com'
 
