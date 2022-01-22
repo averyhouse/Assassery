@@ -1,9 +1,8 @@
-from rest_framework import viewsets, permissions, generics, authentication
-from rest_framework.response import Response
+from rest_framework import generics
 from django.http.response import HttpResponse
 import json
 import requests
-from .vars import *
+from assassins.vars import *
 
 
 def post_message(fbid, message):
