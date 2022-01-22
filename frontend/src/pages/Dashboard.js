@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { auth, game } from '../actions';
 import KillFeed from '../components/KillFeed';
 import Leaderboard from '../components/Leaderboard';
-import '../assets/css/Dashboard.css';
+import '../assets/css/Dashboard.scss';
 
 class Dashboard extends Component {
 
@@ -20,7 +20,7 @@ class Dashboard extends Component {
         fetch(
             "/api/game/dashboard/", {
             method: "GET",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
         }).then(res => {
             if (res.status === 200) {
                 res.json().then(
@@ -39,15 +39,15 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                {!this.props.game.inProgress && 
+                {!this.props.game.inProgress &&
                     <h1 id="title">Winner: {this.props.game.winner}</h1>
                 }
                 <div class='flex-container'>
                     <div class='flex-element'>
-                        <KillFeed kills={this.state.killfeed}/>
+                        <KillFeed kills={this.state.killfeed} />
                     </div>
                     <div class='flex-element'>
-                        <Leaderboard players={this.state.leaderboard}/>
+                        <Leaderboard players={this.state.leaderboard} />
                     </div>
                 </div>
             </div>
