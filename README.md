@@ -20,4 +20,4 @@ To launch the site on localhost:8000, run `pipenv shell` and `python manage.py r
 Testing Facebook integration requires a secure web URL for the Assassery Messenger bot. You can use [Ngrok](https://ngrok.com/) and pass the url (`<url>/messenger/api`)
 to the Assassery bot. 
 
-API keys and such are stored in a file called `vars.py` in the `assassins` folder. It is not in the repository: contact me personally if you need them.
+API keys and such are stored in a file called `vars.py` in the top level of the project. It is not in the repository: contact me personally if you need them.
