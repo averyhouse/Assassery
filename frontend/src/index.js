@@ -14,6 +14,7 @@ import { auth, game } from './actions';
 import './assets/css/index.scss';
 
 // Pages //
+import Rules from './pages/Rules';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -68,6 +69,12 @@ class RootContainerComponent extends Component {
     }
 
     toggleMobileMenu() {
+        if (document.getElementById("hamburger").className != "change") {
+            document.getElementById("hamburger").className = "change";
+        } else {
+            document.getElementById("hamburger").className = "no-change"
+        }
+
         let nav = document.getElementsByClassName("nav-list")[0];
         if (nav.classList.contains("open")) {
             nav.classList.remove("open");
@@ -94,29 +101,38 @@ class RootContainerComponent extends Component {
         let login;
         console.log(this.props.auth);
         if (!this.props.auth.isAuthenticated) {
-            login = <Link to={`/login`} onClick={this.toggleMobileMenu}>LOGIN</Link>
+            login = <Link class="lighter" to={`/login`} onClick={this.toggleMobileMenu}>LOGIN</Link>
         } else {
-            login = <Link to="#" onClick={() => { this.props.logout(); this.toggleMobileMenu(); }}>LOGOUT</Link>
+            login = <Link class="lighter" to="#" onClick={() => { this.props.logout(); this.toggleMobileMenu(); }}>LOGOUT</Link>
         }
         return (
             <Router>
                 <div class="navbar">
                     <ul class="nav-list">
-                        <li class="menu"><Link to="#" onClick={this.toggleMobileMenu}>ham</Link></li>
+                        <li class="menu"><Link class="ham-link" to="#" onClick={this.toggleMobileMenu}>
+                            <div id="hamburger">
+                                <div class="bar1"></div>
+                                <div class="bar2"></div>
+                                <div class="bar3"></div>
+                            </div>
+                        </Link></li>
                         <li class="logo">
                             <Link to={`/`}><img height="50" src={AssasseryLogo} alt={"Logo is missing!"} /></Link>
                         </li>
                         <li class="link">
                             {login}
                         </li>
+                        <li class="link">
+                            <Link to={`/rules`}>RULES</Link>
+                        </li>
                         {this.props.game.inProgress && this.props.auth.assassin &&
-                            <li class="link"><Link to={`/status`} onClick={this.toggleMobileMenu}>TEAM STATUS</Link></li>
+                            <li class="link"><Link class="lighter" to={`/status`} onClick={this.toggleMobileMenu}>TEAM STATUS</Link></li>
                         }
                         {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead && this.killViaQR &&
                             <li class="link"><Link to={`/scan`} onClick={this.toggleMobileMenu}>QR SCANNER</Link></li>
                         }
                         {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead && this.killViaQR &&
-                            <li class="link"><Link to={`/qr`} onClick={this.toggleMobileMenu}>YOUR QR CODE</Link></li>
+                            <li class="link"><Link class="lighter" to={`/qr`} onClick={this.toggleMobileMenu}>YOUR QR CODE</Link></li>
                         }
                     </ul>
                 </div>
@@ -125,6 +141,7 @@ class RootContainerComponent extends Component {
                     <main>
                         <Switch>
                             <Route exact path="/" component={Dashboard} />
+                            <Route path="/rules" component={Rules} />
                             <Route path="/login" component={Login} />
                             <Route path="/register" component={Register} />
                             <PrivateRoute path="/qr" component={QRGenerator} />

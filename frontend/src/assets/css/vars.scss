@@ -3,6 +3,7 @@ $averyred: #842a30;
 $vibrantred: #7a0707;
 $errorred: #ffcccc;
 $darkgray: #333;
+$lightergray: #383838;
 $selectgray: #111;
 $tablebordergray: #ddd;
 $offwhite: #f1f1f1;
@@ -22,6 +23,8 @@ $navbarlinkheight: 3em;
 $smallwidth: 640px;
 $medwidth: 641px;
 $largewidth: 769px;
+
+$navtransitiontiming: 0.4s;
 
 /* Default contents behavior */
 .wrapper {
