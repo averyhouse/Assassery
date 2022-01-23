@@ -27,12 +27,11 @@
         margin-right: auto;
     }
     @include large() {
-        width: 45%;
-        max-width: 20rem;
+        width: 80%;
         margin: auto;
     }
     max-width: 100%;
-    border-radius: 50%;
+    border-radius: 15%;
     display: block;
     background: $pastelpurple;
 }
@@ -64,6 +63,7 @@ label {
         display: inline-block;
         float: right;
         padding: 1em;
+        width: 45%;
     }
 }
 

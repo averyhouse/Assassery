@@ -32,12 +32,12 @@
   },
   "dependencies": {
     "node-sass": "^4.13.1",
+    "qrcode.react": "^1.0.1",
+    "react-qr-reader": "^2.2.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "sass-loader": "^8.0.2",
-    "qrcode.react": "^1.0.1",
-    "react-qr-reader": "^2.2.1"
+    "sass-loader": "^8.0.2"
   }
 }

@@ -8,7 +8,6 @@ export class TargetTeam extends Team {
     constructor(props) {
         super(props);
         this.handleKill = this.handleKill.bind(this);
-        this.state = { test: 0 }
     }
 
     handleKill(alias) {
@@ -43,7 +42,7 @@ export class TargetTeam extends Team {
                     <td>{alias}</td>
                     <td>{name}</td>
                     <td>{dead && <button class="kill-button-dead">Already dead</button>}
-                        {!dead && <button onClick={_ => this.handleKill(alias)} class="kill-button-alive">I have killed them</button>}</td>
+                        {!dead && <button onClick={() => this.showKillModal(true)} class="kill-button-alive">I have killed them</button>}</td>
                 </tr >
             )
         })
