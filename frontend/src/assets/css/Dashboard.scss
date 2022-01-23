@@ -1,0 +1,16 @@
+.flex-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-element {
+    flex: 1;
+    justify-content: space-evenly;
+    width: 90%;
+    margin: auto;
+}
+
+#title {
+    text-align: center;
+    font-family: arial, sans-serif;
+}
