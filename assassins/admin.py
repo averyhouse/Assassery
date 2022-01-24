@@ -45,9 +45,14 @@ class UserAdmin(admin.ModelAdmin):
 
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('name', 'target')
+    actions = ['clear']
+
+    @admin.action(description='Clear target')
+    def clear(self, request, queryset):
+        queryset.update(target=None)
 
 class KillAdmin(admin.ModelAdmin):
-    list_display = ('id', 'killer_username', 'victim_username', 'message', 'timestamp')
+    list_display = ('id', 'killer_username', 'victim_username', 'message', 'timestamp', 'confirmed')
     actions = ['confirm', 'unconfirm']
 
     @admin.action(description='Confirm')

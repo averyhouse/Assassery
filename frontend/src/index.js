@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Link, Route, Switch, Redirect } from 'react-router-dom';
-import { Provider, connect } from 'react-redux';
+import { Provider, connect, useStore } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -41,15 +41,32 @@ class RootContainerComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            width: window.innerWidth, height: window.innerHeight
+            width: window.innerWidth,
+            height: window.innerHeight,
+            showDeathModal: true
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.confirmDeath = this.confirmDeath.bind(this)
+        this.denyDeath = this.denyDeath.bind(this)
         this.killViaQR = false;
+    }
+
+    confirmDeath() {
+        this.setState({
+            showDeathModal: false
+        });
+    }
+
+    denyDeath() {
+        this.setState({
+            showDeathModal: false
+        });
     }
 
     componentDidMount() {
         this.props.loadUser();
         this.props.loadGame();
+        this.props.loadDashboard();
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
     }
@@ -102,6 +119,7 @@ class RootContainerComponent extends Component {
         let { PrivateRoute } = this;
         let login;
         console.log(this.props.auth);
+        console.log(this.state);
         if (!this.props.auth.isAuthenticated) {
             login = <Link class="lighter" to={`/login`} onClick={this.toggleMobileMenu}>LOGIN</Link>
         } else {
@@ -151,7 +169,7 @@ class RootContainerComponent extends Component {
                             <PrivateRoute path="/status" component={Status} />
                             <Route component={NotFound} />
                         </Switch>
-                        {/* <DeathModal></DeathModal> */}
+                        {this.state.showDeathModal && <DeathModal confirm={this.confirmDeath} deny={this.denyDeath}></DeathModal>}
                     </main>
                 </div>
             </Router>
@@ -176,6 +194,9 @@ const mapDispatchToProps = dispatch => {
         },
         loadGame: () => {
             return dispatch(game.loadGame());
+        },
+        loadDashboard: () => {
+            return dispatch(game.loadDashboard());
         }
     }
 }

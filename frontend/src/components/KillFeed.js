@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import '../assets/css/KillFeed.scss';
 
 export default class KillFeed extends Component {
-    
+
     renderTableHeader() {
-        let header = Object.keys({timestamp: '', message: ''})
+        let header = Object.keys({ timestamp: '', message: '' })
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
@@ -25,13 +25,16 @@ export default class KillFeed extends Component {
     }
 
     renderTableData() {
+        console.log(this.props.kills)
         return this.props.kills.map((kill, index) => {
-            const { timestamp, message } = kill
+            const { timestamp, message, confirmed } = kill
             return (
-                <tr key={name}>
-                    <td>{timestamp}</td>
-                    <td>{message}</td>
-                </tr>
+                <>
+                    {confirmed && <tr key={timestamp}>
+                        <td>{timestamp}</td>
+                        <td>{message}</td>
+                    </tr>}
+                </>
             )
         })
     }

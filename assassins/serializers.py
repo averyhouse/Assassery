@@ -52,5 +52,5 @@ class UserSerializer(serializers.ModelSerializer):
 class KillSerializer(serializers.ModelSerializer):
     class Meta:
         model = KillFeed
-        fields = ('killer_username', 'victim_username', 'message', 'timestamp')
+        fields = ('killer_username', 'victim_username', 'message', 'timestamp', 'confirmed')
 

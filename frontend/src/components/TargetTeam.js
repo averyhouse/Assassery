@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import Team from './Team.js';
 import '../assets/css/Team.scss';
 import { connect } from 'react-redux';
+import KillModal from './KillModal.js';
 
 export class TargetTeam extends Team {
 
     constructor(props) {
         super(props);
         this.handleKill = this.handleKill.bind(this);
+        this.isKillPending = this.isKillPending.bind(this);
+        this.state = {
+            showKillModal: false,
+            targetAlias: null
+        };
     }
 
     handleKill(alias) {
@@ -34,6 +40,11 @@ export class TargetTeam extends Team {
         window.location.reload(false);
     }
 
+    isKillPending(alias) {
+        console.log(alias, this.props.killfeed);
+        return this.props.killfeed.some((kill) => kill.victim_username == alias && !kill.confirmed)
+    }
+
     renderTableData() {
         return this.props.team.members.map((player, index) => {
             const { alias, name, dead } = player
@@ -42,17 +53,34 @@ export class TargetTeam extends Team {
                     <td>{alias}</td>
                     <td>{name}</td>
                     <td>{dead && <button class="kill-button-dead">Already dead</button>}
-                        {!dead && <button onClick={() => this.showKillModal(true)} class="kill-button-alive">I have killed them</button>}</td>
+                        {!dead && !this.isKillPending(alias) &&
+                            <button onClick={() => this.setState({ showKillModal: true, targetAlias: alias })} class="kill-button-alive">I have killed them</button>}
+                        {!dead && this.isKillPending(alias) &&
+                            <button class="kill-button-dead">Pending</button>}
+                    </td>
                 </tr >
             )
         })
+    }
+
+    render() {
+        return (
+            <div>
+                {super.render()}
+                {this.state.showKillModal && <KillModal
+                    exit={() => this.setState({ showKillModal: false })}
+                    confirm={() => { this.handleKill(this.state.targetAlias); this.setState({ showKillModal: false }) }}>
+                </KillModal>}
+            </div>
+        )
     }
 }
 
 const mapStateToProps = state => {
     return {
         token: state.auth.token,
-        username: state.auth.user.username
+        username: state.auth.user.username,
+        killfeed: state.game.killfeed
     };
 }
 

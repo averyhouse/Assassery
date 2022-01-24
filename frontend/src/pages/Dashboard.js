@@ -17,26 +17,11 @@ class Dashboard extends Component {
     componentDidMount() {
         this.props.loadUser();
         this.props.loadGame();
-        fetch(
-            "/api/game/dashboard/", {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-        }).then(res => {
-            if (res.status === 200) {
-                res.json().then(
-                    data => this.setState(data)
-                )
-            } else if (res.status >= 500) {
-                console.log("Server Error!");
-                throw res;
-            } else {
-                console.log("Error!");
-                throw res;
-            }
-        })
+        this.props.loadDashboard();
     }
 
     render() {
+        console.log(this.props.game);
         return (
             <div>
                 {!this.props.game.inProgress &&
@@ -44,10 +29,10 @@ class Dashboard extends Component {
                 }
                 <div class='flex-container'>
                     <div class='flex-element'>
-                        <KillFeed kills={this.state.killfeed} />
+                        <KillFeed kills={this.props.game.killfeed} />
                     </div>
                     <div class='flex-element'>
-                        <Leaderboard players={this.state.leaderboard} />
+                        <Leaderboard players={this.props.game.leaderboard} />
                     </div>
                 </div>
             </div>
@@ -68,6 +53,9 @@ const mapDispatchToProps = dispatch => {
         },
         loadGame: () => {
             return dispatch(game.loadGame());
+        },
+        loadDashboard: () => {
+            return dispatch(game.loadDashboard());
         }
     }
 }
