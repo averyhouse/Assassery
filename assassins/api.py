@@ -165,7 +165,6 @@ class UserAPI(generics.GenericAPIView):
 
     def get(self, request):
         user = self.request.user
-
         try:
             assassin = user.player
             assassin = AssassinSerializer(assassin).data

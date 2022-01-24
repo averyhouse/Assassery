@@ -10,7 +10,6 @@ class RegisterForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            photo: camera_icon,
             name: '',
             username: '',
             email: '',
@@ -59,15 +58,15 @@ class RegisterForm extends Component {
         }
     }
 
-    handleChangePhoto(event) {
-        var file = event.target.files[0];
-        this.setState({ photo: file });
-        var reader = new FileReader();
-        reader.onload = (e) => {
-            document.getElementById("photo").src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-    }
+    // handleChangePhoto(event) {
+    //     var file = event.target.files[0];
+    //     this.setState({ photo: file });
+    //     var reader = new FileReader();
+    //     reader.onload = (e) => {
+    //         document.getElementById("photo").src = e.target.result;
+    //     }
+    //     reader.readAsDataURL(file);
+    // }
 
     render() {
         return (
@@ -77,7 +76,7 @@ class RegisterForm extends Component {
                         <div class="registerForm">
                             <h1 id="registerTitle">Register</h1>
                             <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
-                                <div class="image-form">
+                                {/* <div class="image-form">
                                     <label>
                                         <div class="image-upload">
                                             <label for="file-input">
@@ -100,7 +99,7 @@ class RegisterForm extends Component {
                                     {this.props.errors.find(obj => obj.field == 'non_field_errors') &&
                                         <div class="error">{this.props.errors.find(obj => obj.field == 'non_field_errors').message}.</div>
                                     }<br />
-                                </div>
+                                </div> */}
                                 <div class="text-form">
                                     <label>
                                         <input

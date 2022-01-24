@@ -13,7 +13,6 @@ class User(AbstractUser):
     # messenger = models.CharField(max_length=30, null=True, blank=True)
     name = models.CharField(max_length=30)
     username = models.CharField(max_length=USERNAME_LENGTH, unique=True)
-    photo = models.ImageField(upload_to='photos', null=False, blank=False)
     email = models.EmailField('email address', unique=True)
     USERNAME_FIELD = 'email' # specifies that the email field should be used as a unique identifier
     REQUIRED_FIELDS = ['username', 'name'] # removes photo from REQUIRED_FIELDS
