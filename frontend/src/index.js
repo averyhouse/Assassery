@@ -23,6 +23,8 @@ import QRScanner from './pages/QRScanner';
 import Status from './pages/Status';
 import NotFound from './pages/NotFound';
 
+import DeathModal from './components/DeathModal';
+
 // Images //
 import AssasseryLogo from './assets/images/assassery_dark_logo.png';
 import camera_icon from './assets/images/camera_icon.png';
@@ -149,6 +151,7 @@ class RootContainerComponent extends Component {
                             <PrivateRoute path="/status" component={Status} />
                             <Route component={NotFound} />
                         </Switch>
+                        {/* <DeathModal></DeathModal> */}
                     </main>
                 </div>
             </Router>

@@ -35,13 +35,16 @@ class Team(models.Model):
     def getMembers(self):
         return Assassin.objects.filter(team=self)
 
+    def __str__(self):
+        return self.name
+
 class Assassin(models.Model):
     """
     The Assassin model stores information about a particular player in the game.
     It does not exist without the game running!
     """
     player = models.OneToOneField(User, on_delete=models.CASCADE, related_name='player', null=False, blank=False)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_members', null=False, blank=False)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_members', null=True, blank=False)
     dead = models.BooleanField(default=False)
     killcount = models.PositiveIntegerField(default=0, null=False, blank=False)
     deathcount = models.PositiveIntegerField(default=0, null=False, blank=False)

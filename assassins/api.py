@@ -31,8 +31,11 @@ class RegistrationAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        user_obj = UserSerializer(user, context=self.get_serializer_context())
+        assassin = Assassin(player=user)
+        assassin.save()
         return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "user": user_obj.data,
             "token": AuthToken.objects.create(user)[1]
         })
 
