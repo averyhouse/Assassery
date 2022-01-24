@@ -124,7 +124,8 @@ class DashboardAPI(generics.GenericAPIView):
             return t.strftime("%m/%d/%Y, %H:%M:%S")
 
         kills = KillFeed.objects.order_by('-timestamp')[:5]
-        kills = [{'timestamp' : time(k),
+        kills = [{'id' : k.id,
+                  'timestamp' : time(k),
                   'message' : str(k),
                   'confirmed' : k.confirmed,
                   'killer_username': k.killer_username,
@@ -360,12 +361,14 @@ class KillAPI(generics.GenericAPIView):
         game = games[0]
 
         try:
-            kill = KillFeed.objects.get(timestamp=request.data['timestamp'])
+            kill = KillFeed.objects.get(id=request.data['id'])
         except KillFeed.DoesNotExist:
             return Response({
                 'result': 'failure',
                 'message': 'Game is over or kill has timed out.'
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        print("got past first treu")
 
         try:
             victim_user = User.objects.get(username=kill.victim_username)
@@ -375,6 +378,8 @@ class KillAPI(generics.GenericAPIView):
                 'message': 'Killed user does not exist.'
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+        print("got past 2nd treu")
+
         try:
             killer_user = User.objects.get(username=kill.killer_username)
         except User.DoesNotExist:
@@ -382,6 +387,8 @@ class KillAPI(generics.GenericAPIView):
                 'result': 'failure',
                 'message': 'Killer user does not exist.'
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        print("got past 3rd treu")
 
         try:
             victim = victim_user.player
@@ -391,6 +398,8 @@ class KillAPI(generics.GenericAPIView):
                 'message': 'Victim does not exist.'
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+        print("got past 4th treu")
+
         try:
             killer = killer_user.player
         except User.player.RelatedObjectDoesNotExist:
@@ -398,6 +407,8 @@ class KillAPI(generics.GenericAPIView):
                 'result': 'failure',
                 'message': 'Killer does not exist.'
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        print("got past 5th treu")
 
         if victim.dead:
             return Response({

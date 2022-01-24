@@ -42,19 +42,40 @@ class RootContainerComponent extends Component {
         super(props);
         this.state = {
             width: window.innerWidth,
-            height: window.innerHeight,
-            showDeathModal: true
+            height: window.innerHeight
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.confirmDeath = this.confirmDeath.bind(this)
-        this.denyDeath = this.denyDeath.bind(this)
+        this.confirmDeath = this.confirmDeath.bind(this);
+        this.denyDeath = this.denyDeath.bind(this);
+        this.amDead = this.amDead.bind(this);
         this.killViaQR = false;
     }
 
+    amDead() {
+        if (!this.props.auth.user) return false;
+        return this.props.game.killfeed.some((kill) => kill.victim_username == this.props.auth.user.username && !kill.confirmed);
+    }
+
     confirmDeath() {
-        this.setState({
-            showDeathModal: false
+        let data = this.props.game.killfeed.find((kill) => kill.victim_username == this.props.auth.user.username && !kill.confirmed);
+        console.log(data);
+        if (!data) {
+            return false;
+        }
+
+        let headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${this.props.auth.token}`
+        };
+
+        fetch(
+            "/api/game/kill/", {
+            method: "PUT",
+            headers: headers,
+            body: JSON.stringify(data)
         });
+        window.location.reload(false);
+        return true;
     }
 
     denyDeath() {
@@ -118,8 +139,6 @@ class RootContainerComponent extends Component {
     render() {
         let { PrivateRoute } = this;
         let login;
-        console.log(this.props.auth);
-        console.log(this.state);
         if (!this.props.auth.isAuthenticated) {
             login = <Link class="lighter" to={`/login`} onClick={this.toggleMobileMenu}>LOGIN</Link>
         } else {
@@ -169,7 +188,7 @@ class RootContainerComponent extends Component {
                             <PrivateRoute path="/status" component={Status} />
                             <Route component={NotFound} />
                         </Switch>
-                        {this.state.showDeathModal && <DeathModal confirm={this.confirmDeath} deny={this.denyDeath}></DeathModal>}
+                        {this.amDead() && <DeathModal confirm={this.confirmDeath} deny={this.denyDeath}></DeathModal>}
                     </main>
                 </div>
             </Router>

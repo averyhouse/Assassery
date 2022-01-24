@@ -41,8 +41,7 @@ export class TargetTeam extends Team {
     }
 
     isKillPending(alias) {
-        console.log(alias, this.props.killfeed);
-        return this.props.killfeed.some((kill) => kill.victim_username == alias && !kill.confirmed)
+        return this.props.killfeed.some((kill) => kill.victim_username == alias && !kill.confirmed);
     }
 
     renderTableData() {
