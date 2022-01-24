@@ -1,16 +1,31 @@
 from django.contrib import admin
 from django.core.mail import send_mail
+from django import forms
+from django.contrib.admin.helpers import ActionForm
+
 from .models import Assassin, User, KillFeed, Team, Game
 import random
 
+class TeamCreationForm(ActionForm):
+    name_field = forms.CharField()
+
 class AssAssmin(admin.ModelAdmin):
     list_display = ('id', 'get_playername', 'team', 'dead', 'killcount', 'deathcount')
+    action_form = TeamCreationForm
+    actions = ['team']
 
     def get_playername(self, obj):
         return obj.player.username if obj.player is not None else None
 
     get_playername.admin_order_field  = 'player'  #Allows column order sorting
     get_playername.short_description = 'Player'  #Renames column head
+
+    @admin.action(description='Add to team')
+    def team(self, request, queryset):
+        team_name = request.POST['name_field']
+        team = Team(name=team_name)
+        team.save()
+        queryset.update(team=team)
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'name', 'email') #, 'messenger')
