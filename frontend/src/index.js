@@ -42,7 +42,8 @@ class RootContainerComponent extends Component {
         super(props);
         this.state = {
             width: window.innerWidth,
-            height: window.innerHeight
+            height: window.innerHeight,
+            killer: null
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.confirmDeath = this.confirmDeath.bind(this);
@@ -53,7 +54,14 @@ class RootContainerComponent extends Component {
 
     amDead() {
         if (!this.props.auth.user) return false;
-        return this.props.game.killfeed.some((kill) => kill.victim_username == this.props.auth.user.username && !kill.confirmed);
+        let kill = this.props.game.killfeed.find((kill) => kill.victim_username == this.props.auth.user.username && !kill.confirmed);
+        if (!kill) {
+            return false;
+        }
+        if (!this.state.killer) {
+            this.setState({ killer: kill.killer_username });
+        }
+        return true
     }
 
     confirmDeath(bool) {
@@ -189,7 +197,7 @@ class RootContainerComponent extends Component {
                             <PrivateRoute path="/status" component={Status} />
                             <Route component={NotFound} />
                         </Switch>
-                        {this.amDead() && <DeathModal confirm={() => this.confirmDeath(true)} deny={() => this.confirmDeath(false)}></DeathModal>}
+                        {this.amDead() && <DeathModal confirm={() => this.confirmDeath(true)} deny={() => this.confirmDeath(false)} killer={this.state.killer}></DeathModal>}
                     </main>
                 </div>
             </Router>
