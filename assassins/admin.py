@@ -79,6 +79,7 @@ class GameAdmin(admin.ModelAdmin):
                 [player.email],
                 fail_silently=False,
             )
+        Game.objects.all().update(winner="N/A")
         queryset.update(inprogress=True)
         KillFeed.objects.all().delete()
         Assassin.objects.all().filter(dead=True).update(dead=False)
@@ -139,11 +140,13 @@ class GameAdmin(admin.ModelAdmin):
             # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
             send_mail(
                 '[Assery] Game Start',
-                "Let the games begin!",
+                "Let the games begin!\n\n Your targets have been assigned. Log in to avery2.caltech.edu to see them. " + \
+                "\n\nHere is a guide on how to log a kill you have made:\n https://docs.google.com/document/d/16irSyqTtzYafEopDNMAxaCVOsJ9JfDmC4detWVXZ3IE/edit?usp=sharing",
                 None,
                 [player.email],
                 fail_silently=False,
             )
+        Game.objects.all().update(winner="N/A")
         Team.objects.all().update(target=None)
         teams = list(Team.objects.all())
         random.shuffle(teams)

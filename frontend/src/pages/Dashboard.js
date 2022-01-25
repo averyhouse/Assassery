@@ -25,7 +25,7 @@ class Dashboard extends Component {
         return (
             <div>
                 {!this.props.game.inProgress &&
-                    <h1 id="title">Winner: {this.props.game.winner}</h1>
+                    <h1 id="title">Last round's winner: {this.props.game.winner} <br></br>Stay tuned for the next reset!</h1>
                 }
                 <div class='flex-container'>
                     <div class='flex-element'>
