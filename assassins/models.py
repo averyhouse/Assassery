@@ -145,7 +145,7 @@ class KillFeed(models.Model):
         if not live_targets:
             killer_message += "You have completely eliminated the enemy team. Check your dashboard to see your new targets!"
         else:
-            killer_message += "The remaining members of your target team are " + "\n".join(str(target) for target in live_targets) + "."
+            killer_message += "The remaining members of your target team are:\n" + "\n".join(str(target) for target in live_targets) + "."
 
         for assassin in killer_team.getMembers():
             send_mail(

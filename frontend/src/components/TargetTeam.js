@@ -10,10 +10,17 @@ export class TargetTeam extends Team {
         super(props);
         this.handleKill = this.handleKill.bind(this);
         this.isKillPending = this.isKillPending.bind(this);
+        this.handleChangeMessage = this.handleChangeMessage.bind(this);
         this.state = {
             showKillModal: false,
-            targetAlias: null
+            message: "",
+            targetAlias: null,
+            targetName: null
         };
+    }
+
+    handleChangeMessage(event) {
+        this.setState({ message: event.target.value });
     }
 
     handleKill(alias) {
@@ -27,9 +34,11 @@ export class TargetTeam extends Team {
             victim_username: alias
         };
 
-        // if (this.state.message) {
-        //     data["message"] = this.state.message;
-        // }
+        if (this.state.message) {
+            data["message"] = this.state.message;
+        } else {
+            data["message"] = "splashing them with water.";
+        }
 
         fetch(
             "/api/game/kill/", {
@@ -53,7 +62,7 @@ export class TargetTeam extends Team {
                     <td>{name}</td>
                     <td>{dead && <button class="kill-button-dead">Already dead</button>}
                         {!dead && !this.isKillPending(alias) &&
-                            <button onClick={() => this.setState({ showKillModal: true, targetAlias: alias })} class="kill-button-alive">I have killed them</button>}
+                            <button onClick={() => this.setState({ showKillModal: true, targetAlias: alias, targetName: name })} class="kill-button-alive">I have killed them</button>}
                         {!dead && this.isKillPending(alias) &&
                             <button class="kill-button-dead">Pending</button>}
                     </td>
@@ -68,7 +77,12 @@ export class TargetTeam extends Team {
                 {super.render()}
                 {this.state.showKillModal && <KillModal
                     exit={() => this.setState({ showKillModal: false })}
-                    confirm={() => { this.handleKill(this.state.targetAlias); this.setState({ showKillModal: false }) }}>
+                    confirm={() => { this.handleKill(this.state.targetAlias); this.setState({ showKillModal: false }) }}
+                    handleChangeMessage={this.handleChangeMessage}
+                    message={this.state.message}
+                    targetAlias={this.state.targetAlias}
+                    targetName={this.state.targetName}
+                >
                 </KillModal>}
             </div>
         )

@@ -16,3 +16,4 @@ frontend/package-lock.json
 
 # messenger/vars.py
 vars.py
+db.sqlite3
