@@ -25,7 +25,6 @@ export default class KillFeed extends Component {
     }
 
     renderTableData() {
-        console.log(this.props.kills)
         return this.props.kills.map((kill, index) => {
             const { timestamp, message, confirmed } = kill
             return (

@@ -27,7 +27,6 @@ class RegistrationAPI(generics.GenericAPIView):
     serializer_class = CreateUserSerializer
 
     def post(self, request, *args, **kwargs):
-        print(request.FILES)
         # if 'messenger' not in request.data:
         # request.data['messenger'] = None
         serializer = self.get_serializer(data=request.data)
@@ -210,7 +209,6 @@ class KillAPI(generics.GenericAPIView):
 
     # We use post to handle the killing aspect, making an unconfirmed kill
     def post(self, request):
-        print(request.data)
         # data = request.data.copy()
         # data['timestamp'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
         serializer = self.get_serializer(data=request.data)
@@ -297,7 +295,6 @@ class KillAPI(generics.GenericAPIView):
 
     # We use put to update the kill to be confirmed once the victim confirms it
     def put(self, request):
-        print(request.data)
         if request.data['confirm']:
             try:
                 kill = KillFeed.objects.get(id=request.data['id'])

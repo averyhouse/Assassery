@@ -34,7 +34,6 @@ export default class Team extends Component {
     }
 
     renderTableData() {
-        console.log(this.props)
         return this.props.team.members.map((player, index) => {
             const { alias, name, dead } = player
             return (

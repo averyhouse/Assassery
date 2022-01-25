@@ -73,7 +73,6 @@ export const register = (name, email, password, username, photo) => {
         data.append("password", password);
         data.append("username", username);
         data.append("photo", photo);
-        console.log(data.getAll("photo"))
         return fetch("/api/auth/register/", {
             method: "POST",
             headers: {

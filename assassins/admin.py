@@ -34,7 +34,6 @@ class UserAdmin(admin.ModelAdmin):
     @admin.action(description='Test email')
     def email(self, request, queryset):
         emails = [user.email for user in queryset]
-        print(emails)
         send_mail(
             '[Assery] Test mail',
             'Have a nice day!',

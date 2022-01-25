@@ -21,7 +21,6 @@ class Dashboard extends Component {
     }
 
     render() {
-        console.log(this.props.game);
         return (
             <div>
                 {!this.props.game.inProgress &&

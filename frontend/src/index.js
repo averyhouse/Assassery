@@ -70,7 +70,6 @@ class RootContainerComponent extends Component {
             return false;
         }
         data['confirm'] = bool
-        console.log(data)
 
         let headers = {
             "Content-Type": "application/json",

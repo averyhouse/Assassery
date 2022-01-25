@@ -45,7 +45,7 @@ export class TargetTeam extends Team {
             method: "POST",
             headers: headers,
             body: JSON.stringify(data)
-        }).then((res) => { console.log(res) })
+        })
         window.location.reload(false);
     }
 

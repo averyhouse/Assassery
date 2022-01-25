@@ -84,7 +84,7 @@ export class LoginForm extends Component {
           }<br />
           <label>
             <input type="checkbox" onChange={this.togglePasswordVisibility} />Show password
-                    </label>
+          </label>
           <input type="submit" value="Sign in" />
         </form>
       </div>
