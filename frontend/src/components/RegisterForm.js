@@ -19,7 +19,7 @@ class RegisterForm extends Component {
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        this.handleChangePhoto = this.handleChangePhoto.bind(this);
+        // this.handleChangePhoto = this.handleChangePhoto.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 

@@ -57,7 +57,8 @@ class KillAdmin(admin.ModelAdmin):
 
     @admin.action(description='Confirm')
     def confirm(self, request, queryset):
-        queryset.update(confirmed=True)
+        for obj in queryset:
+            obj.resolveKill()
 
     @admin.action(description='Unconfirm')
     def unconfirm(self, request, queryset):
@@ -65,7 +66,7 @@ class KillAdmin(admin.ModelAdmin):
 
 class GameAdmin(admin.ModelAdmin):
     list_display = ('id', 'inprogress', 'winner')
-    actions = ['reset']
+    actions = ['reset', 'pause', 'resume', 'stop', 'start']
 
     @admin.action(description='Reset game')
     def reset(self, request, queryset):
@@ -89,6 +90,69 @@ class GameAdmin(admin.ModelAdmin):
             teams[i].save()
         teams[-1].target = teams[0]
         teams[-1].save()
+
+    @admin.action(description='Stop game')
+    def stop(self, request, queryset):
+        for player in User.objects.all():
+            # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
+            send_mail(
+                '[Assassery] Game Stop',
+                "The game has ended! Please wait for further instructions.",
+                None,
+                [player.email],
+                fail_silently=False,
+            )
+        queryset.update(inprogress=False)
+        KillFeed.objects.all().delete()
+        Assassin.objects.all().filter(dead=True).update(dead=False)
+        Team.objects.all().update(target=None)
+
+    @admin.action(description='Pause game')
+    def pause(self, request, queryset):
+        for player in User.objects.all():
+            # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
+            send_mail(
+                '[Assassery] Game Pause',
+                "The game is being paused! We will resume shortly.",
+                None,
+                [player.email],
+                fail_silently=False,
+            )
+        queryset.update(inprogress=False)
+
+    @admin.action(description='Resume game')
+    def resume(self, request, queryset):
+        for player in User.objects.all():
+        # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
+            send_mail(
+                '[Assassery] Game Unause',
+                "The game is being resumed!",
+                None,
+                [player.email],
+                fail_silently=False,
+            )
+        queryset.update(inprogress=True)
+
+    @admin.action(description='Start game')
+    def start(self, request, queryset):
+        for player in User.objects.all():
+            # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
+            send_mail(
+                '[Assassery] Game Start',
+                "Let the games begin!",
+                None,
+                [player.email],
+                fail_silently=False,
+            )
+        Team.objects.all().update(target=None)
+        teams = list(Team.objects.all())
+        random.shuffle(teams)
+        for i in range(len(teams) - 1):
+            teams[i].target = teams[i + 1]
+            teams[i].save()
+        teams[-1].target = teams[0]
+        teams[-1].save()
+        queryset.update(inprogress=True)  
 
 admin.site.register(Assassin, AssAssmin)
 admin.site.register(User, UserAdmin)

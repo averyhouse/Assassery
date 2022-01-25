@@ -56,12 +56,13 @@ class RootContainerComponent extends Component {
         return this.props.game.killfeed.some((kill) => kill.victim_username == this.props.auth.user.username && !kill.confirmed);
     }
 
-    confirmDeath() {
+    confirmDeath(bool) {
         let data = this.props.game.killfeed.find((kill) => kill.victim_username == this.props.auth.user.username && !kill.confirmed);
-        console.log(data);
         if (!data) {
             return false;
         }
+        data['confirm'] = bool
+        console.log(data)
 
         let headers = {
             "Content-Type": "application/json",
@@ -73,7 +74,7 @@ class RootContainerComponent extends Component {
             method: "PUT",
             headers: headers,
             body: JSON.stringify(data)
-        });
+        })
         window.location.reload(false);
         return true;
     }
@@ -188,7 +189,7 @@ class RootContainerComponent extends Component {
                             <PrivateRoute path="/status" component={Status} />
                             <Route component={NotFound} />
                         </Switch>
-                        {this.amDead() && <DeathModal confirm={this.confirmDeath} deny={this.denyDeath}></DeathModal>}
+                        {this.amDead() && <DeathModal confirm={() => this.confirmDeath(true)} deny={() => this.confirmDeath(false)}></DeathModal>}
                     </main>
                 </div>
             </Router>

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import settings
 from django.contrib.auth.models import User, BaseUserManager, AbstractUser
+from django.core.mail import send_mail
 import datetime
 
 USERNAME_LENGTH = 30
@@ -43,7 +44,7 @@ class Assassin(models.Model):
     It does not exist without the game running!
     """
     player = models.OneToOneField(User, on_delete=models.CASCADE, related_name='player', null=False, blank=False)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_members', null=True, blank=False)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team_members', null=True, blank=True)
     dead = models.BooleanField(default=False)
     killcount = models.PositiveIntegerField(default=0, null=False, blank=False)
     deathcount = models.PositiveIntegerField(default=0, null=False, blank=False)
@@ -71,8 +72,106 @@ class KillFeed(models.Model):
     def getVictim(self):
         return User.objects.get(username=self.victim_username).assassin
 
+    def resolveKill(self):
+        games = Game.objects.all()
+
+        if not games:
+            return False, 'Game not in progress.'
+
+        game = games[0]
+
+        if self.confirmed:
+            return False, 'Kill already confirmed.'
+
+        try:
+            victim_user = User.objects.get(username=self.victim_username)
+        except User.DoesNotExist:
+            return False, 'Killed user does not exist.'
+
+        try:
+            killer_user = User.objects.get(username=self.killer_username)
+        except User.DoesNotExist:
+            return False, 'Killer user does not exist.'
+
+        try:
+            victim = victim_user.player
+        except User.player.RelatedObjectDoesNotExist:
+            return False, 'Victim does not exist.'
+
+        try:
+            killer = killer_user.player
+        except User.player.RelatedObjectDoesNotExist:
+            return False, 'Killer does not exist.'
+
+        if victim.dead:
+            return False, 'Victim already dead.'
+
+        killer_team = killer.team
+        target_team = killer_team.target
+        victim_team = victim.team
+
+        if not target_team or target_team.id != victim_team.id:
+            return False, 'Victim not in target team.'
+
+        victim.dead = True
+        victim.deathcount += 1
+        victim.save()
+
+        killer.killcount += 1
+        killer.save()
+
+        self.confirmed = True
+        self.save()
+
+        live_targets = victim_team.team_members.filter(dead=False)
+        if not live_targets:
+            next_target = victim_team.target
+            victim_team.target = None
+            victim_team.save()
+            if not next_target or killer_team.id == next_target.id:
+                killer_team.target = None
+                game.inprogress = False
+                game.winner = killer_team.name
+                game.save()
+            else:
+                killer_team.target = next_target
+            killer_team.save()
+
+        # Notify the killer's team that one target is down
+        killer_message = "Congratulations! Your team eliminated " + \
+                         victim.player.name + ", a.k.a. " + \
+                         victim.player.username + ". \n\n"
+
+        if not live_targets:
+            killer_message += "You have completely eliminated the enemy team. Check your dashboard to see your new targets!"
+        else:
+            killer_message += "The remaining members of your target team are " + "\n".join(str(target) for target in live_targets) + "."
+
+        for assassin in killer_team.getMembers():
+            send_mail(
+                '[Assassery] Target Down!',
+                killer_message,
+                None,
+                [assassin.player.email],
+                fail_silently=False
+            )
+        # Notify the target team that one player is down
+        target_message = "Your team member, " + victim.player.name + " was eliminated by " + killer.player.username + \
+                         ". \nThey will respawn at the next game reset."
+        for assassin in victim_team.getMembers():
+            send_mail(
+                '[Assassery] Team Member Down!',
+                target_message,
+                None,
+                [assassin.player.email],
+                fail_silently=False
+            )
+
+        return True, 'Success!'
+
     def __str__(self):
         return self.killer_username + " killed " + self.victim_username + " by " + self.message
+
 
 class Game(models.Model):
     """
