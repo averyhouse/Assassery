@@ -34,14 +34,24 @@ export default class Team extends Component {
     }
 
     renderTableData() {
+        console.log(this.props)
         return this.props.team.members.map((player, index) => {
             const { alias, name, dead } = player
             return (
-                <tr key={name}>
-                    <td>{alias}</td>
-                    <td>{name}</td>
-                    <td>{dead && "Yes"}{!dead && "No"}</td>
-                </tr>
+                <>
+                    {this.props.you == alias &&
+                        <tr key={name} class="me" >
+                            <td>{alias}</td>
+                            <td>{name}</td>
+                            <td>{dead && "Yes"}{!dead && "No"}</td>
+                        </tr >}
+                    {this.props.you != alias &&
+                        <tr key={name} >
+                            <td>{alias}</td>
+                            <td>{name}</td>
+                            <td>{dead && "Yes"}{!dead && "No"}</td>
+                        </tr >}
+                </>
             )
         })
     }

@@ -98,6 +98,9 @@ class StatusAPI(generics.GenericAPIView):
                 'message': 'Player does not exist.'
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+        data['username'] = user.username
+        data['dead'] = assassin.dead
+
         team = assassin.team
         data['team'] = serialize_team(team)
 
