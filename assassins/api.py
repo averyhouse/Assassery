@@ -281,7 +281,7 @@ class KillAPI(generics.GenericAPIView):
 
         # Send confirmation email
         send_mail(
-            '[Assassery] Confirm your death!',
+            '[Assery] Confirm your death!',
             "Hello, \nOur records say that " + kill['killer_username'] + " killed you..." + \
             "\nIs this true? \nLog into avery2.caltech.edu to confirm.",
             None,
@@ -323,7 +323,7 @@ class KillAPI(generics.GenericAPIView):
                 kill.delete()
 
                 send_mail(
-                    '[Assassery] Your kill has been denied!',
+                    '[Assery] Your kill has been denied!',
                     "Your alleged victim, " + kill.victim_username + ", has denied that you killed them! " + \
                     "\nPlease contact the game admin (egorokho@caltech.edu) to dispute this.",
                     None,

@@ -36,7 +36,7 @@ class UserAdmin(admin.ModelAdmin):
         emails = [user.email for user in queryset]
         print(emails)
         send_mail(
-            '[Assassery] Test mail',
+            '[Assery] Test mail',
             'Have a nice day!',
             None,
             emails,
@@ -73,7 +73,7 @@ class GameAdmin(admin.ModelAdmin):
         for player in User.objects.all():
             # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
             send_mail(
-                '[Assassery] Game Reset',
+                '[Assery] Game Reset',
                 "The game is being reset! All players are now alive, and targets have been reallocated.",
                 None,
                 [player.email],
@@ -96,7 +96,7 @@ class GameAdmin(admin.ModelAdmin):
         for player in User.objects.all():
             # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
             send_mail(
-                '[Assassery] Game Stop',
+                '[Assery] Game Stop',
                 "The game has ended! Please wait for further instructions.",
                 None,
                 [player.email],
@@ -112,7 +112,7 @@ class GameAdmin(admin.ModelAdmin):
         for player in User.objects.all():
             # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
             send_mail(
-                '[Assassery] Game Pause',
+                '[Assery] Game Pause',
                 "The game is being paused! We will resume shortly.",
                 None,
                 [player.email],
@@ -125,7 +125,7 @@ class GameAdmin(admin.ModelAdmin):
         for player in User.objects.all():
         # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
             send_mail(
-                '[Assassery] Game Unause',
+                '[Assery] Game Unause',
                 "The game is being resumed!",
                 None,
                 [player.email],
@@ -138,7 +138,7 @@ class GameAdmin(admin.ModelAdmin):
         for player in User.objects.all():
             # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
             send_mail(
-                '[Assassery] Game Start',
+                '[Assery] Game Start',
                 "Let the games begin!",
                 None,
                 [player.email],

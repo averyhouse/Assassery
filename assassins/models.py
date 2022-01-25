@@ -149,7 +149,7 @@ class KillFeed(models.Model):
 
         for assassin in killer_team.getMembers():
             send_mail(
-                '[Assassery] Target Down!',
+                '[Assery] Target Down!',
                 killer_message,
                 None,
                 [assassin.player.email],
@@ -160,7 +160,7 @@ class KillFeed(models.Model):
                          ". \nThey will respawn at the next game reset."
         for assassin in victim_team.getMembers():
             send_mail(
-                '[Assassery] Team Member Down!',
+                '[Assery] Team Member Down!',
                 target_message,
                 None,
                 [assassin.player.email],

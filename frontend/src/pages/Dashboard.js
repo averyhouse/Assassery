@@ -29,10 +29,10 @@ class Dashboard extends Component {
                 }
                 <div class='flex-container'>
                     <div class='flex-element'>
-                        <KillFeed kills={this.props.game.killfeed} />
+                        <Leaderboard players={this.props.game.leaderboard} />
                     </div>
                     <div class='flex-element'>
-                        <Leaderboard players={this.props.game.leaderboard} />
+                        <KillFeed kills={this.props.game.killfeed} />
                     </div>
                 </div>
             </div>
