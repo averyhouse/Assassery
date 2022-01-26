@@ -34,7 +34,6 @@ export default class Rules extends Component {
                 <h2>Technical Rules</h2>
 
                 If water touches the target, they are eliminated. The honor code applies here. If you were hit, you should admit it.
-
                 <blockquote>
                     <em>Note:</em> Blocking is allowed, but you can only block with something that is not clothing, a backpack, or something else you would normally have on you.
                     The shield must be carried for the sole purpose of blocking, e.g., carrying an umbrella on a sunny day. Exercise good judgement.
@@ -60,8 +59,14 @@ export default class Rules extends Component {
                         You are not safe while eating at Hameetman, etc.
                     </li>
                     <li>
-                        Don’t target someone if it would cause property damage, e.g., if their laptop is out or they are working on a set on a piece of paper.
+                        Do not target someone if it would cause property damage, e.g., if their laptop is out or they are working on a set on a piece of paper.
                         Common sense applies!
+                    </li>
+                    <li>
+                        The Avery dining hall and lobby are safe zones.
+                    </li>
+                    <li>
+                        You absolutely may not physically move someone out of a safe zone.
                     </li>
                 </ul>
             </div>

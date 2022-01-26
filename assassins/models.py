@@ -153,7 +153,7 @@ class KillFeed(models.Model):
                 killer_message,
                 None,
                 [assassin.player.email],
-                fail_silently=False
+                fail_silently=True
             )
         # Notify the target team that one player is down
         target_message = "Your team member, " + victim.player.name + " was eliminated by " + killer.player.username + \
@@ -164,7 +164,7 @@ class KillFeed(models.Model):
                 target_message,
                 None,
                 [assassin.player.email],
-                fail_silently=False
+                fail_silently=True
             )
 
         return True, 'Success!'

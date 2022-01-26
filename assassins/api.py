@@ -284,7 +284,7 @@ class KillAPI(generics.GenericAPIView):
             "\nIs this true? \nLog into avery2.caltech.edu to confirm.",
             None,
             [victim.player.email],
-            fail_silently=False,
+            fail_silently=True,
         )
 
         kill_feed = serializer.save()
@@ -325,7 +325,7 @@ class KillAPI(generics.GenericAPIView):
                     "\nPlease contact the game admin (egorokho@caltech.edu) to dispute this.",
                     None,
                     [killer_user.email],
-                    fail_silently=False,
+                    fail_silently=True,
                 )
             except KillFeed.DoesNotExist:
                 return Response({'result': 'success'})
