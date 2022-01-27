@@ -103,6 +103,11 @@ class StatusAPI(generics.GenericAPIView):
         team = assassin.team
         data['team'] = serialize_team(team)
 
+        kills = sum(a.killcount for a in team.getMembers())
+        deaths = sum(a.deathcount for a in team.getMembers())
+        data['kills'] = kills
+        data['deaths'] = deaths
+
         target = team.target
         data['target'] = serialize_team(target) if target else None
 
@@ -126,7 +131,7 @@ class DashboardAPI(generics.GenericAPIView):
             t = kill.timestamp
             return t.strftime("%m/%d/%Y, %H:%M:%S")
 
-        kills = KillFeed.objects.order_by('-timestamp')[:5]
+        kills = KillFeed.objects.order_by('-timestamp')
         kills = [{'id': k.id,
                   'timestamp': time(k),
                   'message': str(k),
@@ -134,7 +139,7 @@ class DashboardAPI(generics.GenericAPIView):
                   'killer_username': k.killer_username,
                   'victim_username': k.victim_username} for k in kills]
 
-        leads = Assassin.objects.order_by('-killcount', 'deathcount')[:5]
+        leads = Assassin.objects.order_by('-killcount', 'deathcount')
         leads = [(p.player.username, p.killcount, p.deathcount) for p in leads]
         leads = [{'alias': a, 'kills': k, 'deaths': d} for a, k, d in leads]
 

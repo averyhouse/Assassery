@@ -15,7 +15,11 @@ export default class Team extends Component {
             <div>
                 {this.props.team != null &&
                     <div>
-                        <h1 id='title'>{this.props.relation}: {this.props.team.name}</h1>
+                        <h1 id='title'>{this.props.relation}: {this.props.team.name} </h1>
+                        {this.props.showKda &&
+                            <h2 class="subtitle">Kills: {this.props.kills}</h2>}
+                        {this.props.showKda &&
+                            <h2 class="subtitle">Deaths: {this.props.deaths}</h2>}
                         <table id='members'>
                             <tbody>
                                 <tr>{this.renderTableHeader()}</tr>

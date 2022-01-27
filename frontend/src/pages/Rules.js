@@ -66,7 +66,7 @@ export default class Rules extends Component {
                         The Avery dining hall and lobby are safe zones.
                     </li>
                     <li>
-                        You absolutely may not physically move someone out of a safe zone.
+                        You absolutely may not physically restrain or move people.
                     </li>
                 </ul>
             </div>

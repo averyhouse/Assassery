@@ -59,10 +59,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'avery.house.assery@gmail.com'
+EMAIL_HOST_USER = 'avery.house.assassins@gmail.com'
 EMAIL_HOST_PASSWORD = email_password
 EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = 'avery.house.assery@gmail.com'
+DEFAULT_FROM_EMAIL = 'avery.house.assassins@gmail.com'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

@@ -22,6 +22,8 @@ import QRGenerator from './pages/QRGenerator';
 import QRScanner from './pages/QRScanner';
 import Status from './pages/Status';
 import NotFound from './pages/NotFound';
+import FullKillFeed from './pages/FullKillFeed';
+import FullLeaderboard from './pages/FullLeaderboard';
 
 import DeathModal from './components/DeathModal';
 
@@ -172,6 +174,8 @@ class RootContainerComponent extends Component {
                         <li class="link">
                             <Link to={`/rules`}>RULES</Link>
                         </li>
+                        <li class="link"><Link class="lighter" to={`/leaderboard`} onClick={this.toggleMobileMenu}>FULL LEADERBOARD</Link></li>
+                        <li class="link"><Link to={`/killfeed`} onClick={this.toggleMobileMenu}>FULL KILL FEED</Link></li>
                         {this.props.game.inProgress && this.props.auth.assassin &&
                             <li class="link"><Link class="lighter" to={`/status`} onClick={this.toggleMobileMenu}>TEAM STATUS</Link></li>
                         }
@@ -189,6 +193,8 @@ class RootContainerComponent extends Component {
                         <Switch>
                             <Route exact path="/" component={Dashboard} />
                             <Route path="/rules" component={Rules} />
+                            <Route path="/leaderboard" component={FullLeaderboard} />
+                            <Route path="/killfeed" component={FullKillFeed} />
                             <Route path="/login" component={Login} />
                             <Route path="/register" component={Register} />
                             <PrivateRoute path="/qr" component={QRGenerator} />

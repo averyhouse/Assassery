@@ -135,6 +135,14 @@ class KillFeed(models.Model):
                 game.save()
             else:
                 killer_team.target = next_target
+                for assassin in next_target.getMembers():
+                    send_mail(
+                        '[Assery] Hunter Team Eliminated!!',
+                        "The team hunting you has been completely eliminated. You now have new hunters!",
+                        None,
+                        [assassin.player.email],
+                        fail_silently=True
+                    )
             killer_team.save()
 
         # Notify the killer's team that one target is down

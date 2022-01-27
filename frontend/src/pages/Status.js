@@ -48,7 +48,7 @@ class Status extends Component {
         return (
             <div class='flex-container'>
                 <div class='flex-element'>
-                    <Team relation="Your Team" team={this.state.team} you={this.state.username} />
+                    <Team relation="Your Team" team={this.state.team} you={this.state.username} kills={this.state.kills} deaths={this.state.deaths} showKda={true} />
                 </div>
                 <div class='flex-element'>
                     <TargetTeam relation="Target Team" team={this.state.target} dead={this.state.dead} />
