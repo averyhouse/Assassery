@@ -145,6 +145,21 @@ class DashboardAPI(generics.GenericAPIView):
 
         return Response({'killfeed': kills, 'leaderboard': leads})
 
+class TeamLeaderboardAPI(generics.GenericAPIView):
+
+    def get(self, request):
+        teams = []
+        for team in Team.objects.all():
+            kills = sum(a.killcount for a in team.getMembers())
+            deaths = sum(a.deathcount for a in team.getMembers())
+            if deaths == 0:
+                kdr = "N/A"
+            else:
+                kdr = kills / deaths
+            teams.append({'name': team.name, 'kills': kills, 'deaths': deaths, 'ratio': round(kdr, 2)})
+        teams.sort(key=lambda x: x['ratio'] if x['deaths'] != 0 else 2 * x['kills'], reverse=True)
+        return Response({'teams': teams})
+
 
 # curl --request GET \
 #   --url http://localhost:8000/api/game/assassin/ \

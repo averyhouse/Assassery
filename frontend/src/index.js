@@ -24,6 +24,7 @@ import Status from './pages/Status';
 import NotFound from './pages/NotFound';
 import FullKillFeed from './pages/FullKillFeed';
 import FullLeaderboard from './pages/FullLeaderboard';
+import FullTeamLeaderboard from './pages/FullTeamLeaderboard';
 
 import DeathModal from './components/DeathModal';
 
@@ -175,15 +176,16 @@ class RootContainerComponent extends Component {
                             <Link to={`/rules`}>RULES</Link>
                         </li>
                         <li class="link"><Link class="lighter" to={`/leaderboard`} onClick={this.toggleMobileMenu}>FULL LEADERBOARD</Link></li>
-                        <li class="link"><Link to={`/killfeed`} onClick={this.toggleMobileMenu}>FULL KILL FEED</Link></li>
+                        <li class="link"><Link to={`/teams`} onClick={this.toggleMobileMenu}>TEAM LEADERBOARD</Link></li>
+                        <li class="link"><Link class="lighter" to={`/killfeed`} onClick={this.toggleMobileMenu}>FULL KILL FEED</Link></li>
                         {this.props.game.inProgress && this.props.auth.assassin &&
-                            <li class="link"><Link class="lighter" to={`/status`} onClick={this.toggleMobileMenu}>TEAM STATUS</Link></li>
+                            <li class="link"><Link to={`/status`} onClick={this.toggleMobileMenu}>TEAM STATUS</Link></li>
                         }
                         {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead && this.killViaQR &&
-                            <li class="link"><Link to={`/scan`} onClick={this.toggleMobileMenu}>QR SCANNER</Link></li>
+                            <li class="link"><Link class="lighter" to={`/scan`} onClick={this.toggleMobileMenu}>QR SCANNER</Link></li>
                         }
                         {this.props.game.inProgress && this.props.auth.assassin && !this.props.auth.assassin.dead && this.killViaQR &&
-                            <li class="link"><Link class="lighter" to={`/qr`} onClick={this.toggleMobileMenu}>YOUR QR CODE</Link></li>
+                            <li class="link"><Link to={`/qr`} onClick={this.toggleMobileMenu}>YOUR QR CODE</Link></li>
                         }
                     </ul>
                 </div>
@@ -195,6 +197,7 @@ class RootContainerComponent extends Component {
                             <Route path="/rules" component={Rules} />
                             <Route path="/leaderboard" component={FullLeaderboard} />
                             <Route path="/killfeed" component={FullKillFeed} />
+                            <Route path="/teams" component={FullTeamLeaderboard} />
                             <Route path="/login" component={Login} />
                             <Route path="/register" component={Register} />
                             <PrivateRoute path="/qr" component={QRGenerator} />
@@ -230,6 +233,9 @@ const mapDispatchToProps = dispatch => {
         },
         loadDashboard: () => {
             return dispatch(game.loadDashboard());
+        },
+        loadTeamLeaderboard: () => {
+            return dispatch(game.loadTeamLeaderboard());
         }
     }
 }

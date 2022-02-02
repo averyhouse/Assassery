@@ -21,3 +21,12 @@ Testing Facebook integration requires a secure web URL for the Assassery Messeng
 to the Assassery bot. 
 
 API keys and such are stored in a file called `vars.py` at the top level of the project. It is not in the repository: contact me personally if you need them.
+
+TODO (in no particular order):
+- Make leaderboard use kill-death ratio or kills - deaths instead of ordered ranking
+- Make git pull leave the database unaffected
+- Add lines between rounds in kill feed
+- Fix text size for kill confirm modal on mobile
+- Add tool to unconfirm a kill in admin
+- Add "active" checkbox for kills instead of deleting them
+- Update rules

@@ -1,11 +1,13 @@
 const initialState = {
     isLoadingGame: true,
     isLoadingDashboard: true,
+    isLoadingTeamLeaderboard: true,
     inProgress: false,
     winner: 'N/A',
     errors: {},
     killfeed: [],
-    leaderboard: []
+    leaderboard: [],
+    teamLeaderboard: []
 };
 
 
@@ -24,6 +26,12 @@ export default function game(state = initialState, action) {
 
         case 'DASHBOARD_LOADED':
             return { ...state, isLoadingDashboard: false, killfeed: action.killfeed, leaderboard: action.leaderboard };
+
+        case 'TEAM_LEADERBOARD_LOADING':
+            return { ...state, isLoadingTeamLeaderboard: true };
+
+        case 'TEAM_LEADERBOARD_LOADED':
+            return { ...state, isLoadingTeamLeaderboard: false, teamLeaderboard: action.teams }
 
         default:
             return state;
