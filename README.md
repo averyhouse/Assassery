@@ -23,6 +23,7 @@ to the Assassery bot.
 API keys and such are stored in a file called `vars.py` at the top level of the project. It is not in the repository: contact me personally if you need them.
 
 TODO (in no particular order):
+- Fix global emailing by putting sleeps in between individual emails.
 - Make leaderboard use kill-death ratio or kills - deaths instead of ordered ranking
 - Make git pull leave the database unaffected
 - Add lines between rounds in kill feed
