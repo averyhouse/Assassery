@@ -61,13 +61,13 @@ export class TargetTeam extends Team {
                     <td>{alias}</td>
                     <td>{name}</td>
                     <td>{dead && <button class="kill-button-dead">Already dead</button>}
+                        {!dead && this.isKillPending(alias) &&
+                            <button class="kill-button-dead">Pending</button>}
                         {!dead && !this.isKillPending(alias) && !this.props.dead &&
                             <button onClick={() => this.setState({ showKillModal: true, targetAlias: alias, targetName: name })} class="kill-button-alive">I have killed them</button>}
                         {!dead && !this.isKillPending(alias) && this.props.dead &&
                             <button class="kill-button-dead">No</button>
                         }
-                        {!dead && this.isKillPending(alias) &&
-                            <button class="kill-button-dead">Pending</button>}
                     </td>
                 </tr >
             )
