@@ -19,14 +19,19 @@
 }
 
 .modal {
-  width: 50vw;
-  height: 50vh;
+  width: 80vw;
+  height: 80vh;
+  border-radius: 8px;
   background: white;
   color: white;
   z-index: 10;
-  border-radius: 16px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
   outline: 10px solid $ultraviolet;
+  @include lg {
+    width: 50vw;
+    height: 50vh;
+    border-radius: 16px;
+  }
 }
 
 .modalHeader {
