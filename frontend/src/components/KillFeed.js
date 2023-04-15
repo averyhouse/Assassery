@@ -29,7 +29,12 @@ export default class KillFeed extends Component {
             const { timestamp, message, confirmed } = kill
             return (
                 <>
-                    {confirmed && <tr key={timestamp}>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {confirmed && 
+                    <tr key={timestamp}>
                         <td>{timestamp}</td>
                         <td>{message}</td>
                     </tr>}
