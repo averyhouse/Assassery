@@ -30,8 +30,7 @@ export default class KillFeed extends Component {
             return (
                 <>
                     <tr>
-                        <td></td>
-                        <td></td>
+                        <td style={{lineHeight: '10px'}} colSpan={2}>&nbsp;</td>
                     </tr>
                     {confirmed && 
                     <tr key={timestamp}>
