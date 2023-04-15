@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django import forms
 from django.contrib.admin.helpers import ActionForm
 
@@ -69,6 +69,19 @@ class GameAdmin(admin.ModelAdmin):
 
     @admin.action(description='Reset game')
     def reset(self, request, queryset):
+        bcc_list = []
+        for player in User.objects.all():
+            bcc_list.append(player.email)
+
+        email = EmailMessage(
+            '[Assery] Game Reset',
+            "The game is being reset! All players are now alive, and targets have been reallocated.",
+            None,
+            ['avery.house.assassins@gmail.com'],
+            bcc_list
+        )
+        email.send(fail_silently=True)
+
         # for player in User.objects.all():
         #     # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
         #     send_mail(
@@ -93,6 +106,18 @@ class GameAdmin(admin.ModelAdmin):
 
     @admin.action(description='Stop game')
     def stop(self, request, queryset):
+        bcc_list = []
+        for player in User.objects.all():
+            bcc_list.append(player.email)
+
+        email = EmailMessage(
+            '[Assery] Game Stop',
+            "The game has ended! Please wait for further instructions.",
+            None,
+            ['avery.house.assassins@gmail.com'],
+            bcc_list
+        )
+        email.send(fail_silently=True)
         # for player in User.objects.all():
         #     # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
         #     send_mail(
@@ -109,6 +134,18 @@ class GameAdmin(admin.ModelAdmin):
 
     @admin.action(description='Pause game')
     def pause(self, request, queryset):
+        bcc_list = []
+        for player in User.objects.all():
+            bcc_list.append(player.email)
+
+        email = EmailMessage(
+            '[Assery] Game Pause',
+            "The game is being paused! We will resume shortly.",
+            None,
+            ['avery.house.assassins@gmail.com'],
+            bcc_list
+        )
+        email.send(fail_silently=True)
         # for player in User.objects.all():
         #     # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
         #     send_mail(
@@ -122,6 +159,18 @@ class GameAdmin(admin.ModelAdmin):
 
     @admin.action(description='Resume game')
     def resume(self, request, queryset):
+        bcc_list = []
+        for player in User.objects.all():
+            bcc_list.append(player.email)
+
+        email = EmailMessage(
+            '[Assery] Game Resume',
+            "The game is being resumed!",
+            None,
+            ['avery.house.assassins@gmail.com'],
+            bcc_list
+        )
+        email.send(fail_silently=True)
         # for player in User.objects.all():
         # # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
         #     send_mail(
@@ -135,6 +184,19 @@ class GameAdmin(admin.ModelAdmin):
 
     @admin.action(description='Start game')
     def start(self, request, queryset):
+        bcc_list = []
+        for player in User.objects.all():
+            bcc_list.append(player.email)
+
+        email = EmailMessage(
+            '[Assery] Game Start',
+            "Let the games begin!\n\n Your targets have been assigned. Log in to avery2.caltech.edu to see them. " + \
+            "\n\nHere is a guide on how to log a kill you have made:\n https://docs.google.com/document/d/16irSyqTtzYafEopDNMAxaCVOsJ9JfDmC4detWVXZ3IE/edit?usp=sharing",
+            None,
+            ['avery.house.assassins@gmail.com'],
+            bcc_list
+        )
+        email.send(fail_silently=True)
         # for player in User.objects.all():
         #     # We do this in a for loop so that each person gets an email, even if some of the emails are invalid
         #     send_mail(
@@ -161,3 +223,4 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Team, TeamAdmin)
 admin.site.register(KillFeed, KillAdmin)
 admin.site.register(Game, GameAdmin)
+
