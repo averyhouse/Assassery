@@ -4,7 +4,7 @@ import '../assets/css/Leaderboard.scss';
 export default class Leaderboard extends Component {
 
     renderTableHeader() {
-        let header = Object.keys({ name: '', kills: '', deaths: '', ratio: '' })
+        let header = Object.keys({ name: '', kills: '', deaths: '', killscore: '' })
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}</th>
         })
