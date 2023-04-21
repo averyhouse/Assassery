@@ -118,7 +118,7 @@ class RegisterForm extends Component {
                                             id="username"
                                             type="text"
                                             value={this.state.username}
-                                            placeholder="Username"
+                                            placeholder="Display name"
                                             onChange={this.handleChangeUsername}
                                         />
                                     </label>
