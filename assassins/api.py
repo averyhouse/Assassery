@@ -319,6 +319,7 @@ class KillAPI(generics.GenericAPIView):
 
         kill_feed = serializer.save()
         kill_feed.confirmed = False
+        kill_feed.legit_kill = True
         kill_feed.save()
 
         return Response({'result': 'success'})
@@ -347,7 +348,10 @@ class KillAPI(generics.GenericAPIView):
                 kill = KillFeed.objects.get(id=request.data['id'])
                 killer_user = User.objects.get(username=kill.killer_username)
                 killer = killer_user.player
-                kill.delete()
+                # kill.delete()
+                # set confirmed to be true to increase tech debt ;)
+                kill.confirmed = True
+                kill.legit_kill = False
 
                 send_mail(
                     '[Assery] Your kill has been denied!',

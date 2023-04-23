@@ -65,6 +65,7 @@ class KillFeed(models.Model):
     message = models.CharField(max_length=255, default="spraying them with water")
     timestamp = models.DateTimeField(auto_now_add=True)
     confirmed = models.BooleanField(default=True)
+    legit_kill = models.BooleanField(default=True)
 
     def getKiller(self):
         return User.objects.get(username=self.killer_username).assassin

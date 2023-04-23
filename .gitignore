@@ -1,12 +1,12 @@
 # Python
 __pycache__
+.venv/
 
 # Jetbrains IDEs
 .idea/
 
 # Misc
 .DS_Store
-backend/assassins/migrations
 
 # Frontend
 frontend/node_modules
