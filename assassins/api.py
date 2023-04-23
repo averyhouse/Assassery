@@ -33,7 +33,17 @@ class RegistrationAPI(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         user_obj = UserSerializer(user, context=self.get_serializer_context())
-        assassin = Assassin(player=user)
+
+        # if the team doesn't exist, make it
+        team_name = request.data.get('group')
+        team = Team.objects.filter(name=team_name)
+        if not team:
+            # make team
+            team = Team(name=team_name)
+            team.save()
+
+        # add team to assassin
+        assassin = Assassin(player=user, team=team)
         assassin.save()
         return Response({
             "user": user_obj.data,

@@ -13,12 +13,14 @@ class RegisterForm extends Component {
             name: '',
             username: '',
             email: '',
-            password: ''
+            password: '',
+            team: '',
         };
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangeUsername = this.handleChangeUsername.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangeTeam = this.handleChangeTeam.bind(this);
         // this.handleChangePhoto = this.handleChangePhoto.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -39,6 +41,10 @@ class RegisterForm extends Component {
         this.setState({ password: event.target.value });
     }
 
+    handleChangeTeam(event) {
+        this.setState({ team: event.target.value });
+    }
+
     validateForm() {
         return this.state.email.length > 0 && this.state.password.length > 0
             && this.state.name.length > 0 && this.state.alias.length > 0;
@@ -47,7 +53,7 @@ class RegisterForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.props.register(this.state.name, this.state.email,
-            this.state.password, this.state.username, this.state.photo);
+            this.state.password, this.state.username, this.state.photo, this.state.team);
     }
 
     togglePasswordVisibility() {
@@ -127,6 +133,15 @@ class RegisterForm extends Component {
                                     }<br />
                                     <label>
                                         <input
+                                            id="team"
+                                            type="text"
+                                            value={this.state.team}
+                                            placeholder="Team name (CASE + SPACE + SYMBOL SENSTIVE)"
+                                            onChange={this.handleChangeTeam}
+                                        />
+                                    </label>
+                                    <label>
+                                        <input
                                             id="email"
                                             type="text"
                                             value={this.state.email}
@@ -180,8 +195,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        register: (name, email, password, username, photo) =>
-            dispatch(auth.register(name, email, password, username, photo)),
+        register: (name, email, password, username, photo, team) =>
+            dispatch(auth.register(name, email, password, username, photo, team)),
     };
 }
 

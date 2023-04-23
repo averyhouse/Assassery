@@ -65,7 +65,7 @@ export const login = (email, password) => {
     }
 }
 
-export const register = (name, email, password, username, photo) => {
+export const register = (name, email, password, username, photo, team) => {
     return (dispatch, getState) => {
         var data = new FormData();
         data.append("name", name);
@@ -73,6 +73,7 @@ export const register = (name, email, password, username, photo) => {
         data.append("password", password);
         data.append("username", username);
         data.append("photo", photo);
+        data.append("team", team);
         return fetch("/api/auth/register/", {
             method: "POST",
             headers: {
