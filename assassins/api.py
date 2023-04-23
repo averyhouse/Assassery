@@ -41,9 +41,12 @@ class RegistrationAPI(generics.GenericAPIView):
             # make team
             team = Team(name=team_name)
             team.save()
+        else:
+            team = team[0]
 
         # add team to assassin
-        assassin = Assassin(player=user, team=team)
+        assassin = Assassin(player=user)
+        assassin.team = team
         assassin.save()
         return Response({
             "user": user_obj.data,

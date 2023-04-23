@@ -140,6 +140,7 @@ class RegisterForm extends Component {
                                             onChange={this.handleChangeTeam}
                                         />
                                     </label>
+                                    <br />
                                     <label>
                                         <input
                                             id="email"
