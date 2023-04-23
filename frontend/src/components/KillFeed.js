@@ -26,13 +26,13 @@ export default class KillFeed extends Component {
 
     renderTableData() {
         return this.props.kills.map((kill, index) => {
-            const { timestamp, message, confirmed } = kill
+            const { timestamp, message, confirmed, legit_kill } = kill
             return (
                 <>
                     <tr>
                         <td style={{lineHeight: '2px'}} colSpan={2}>&nbsp;</td>
                     </tr>
-                    {confirmed && 
+                    {confirmed && legit_kill && 
                     <tr key={timestamp}>
                         <td>{timestamp}</td>
                         <td>{message}</td>

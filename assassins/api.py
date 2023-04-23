@@ -149,6 +149,7 @@ class DashboardAPI(generics.GenericAPIView):
                   'timestamp': time(k),
                   'message': str(k),
                   'confirmed': k.confirmed,
+                  'legit_kill': k.legit_kill,
                   'killer_username': k.killer_username,
                   'victim_username': k.victim_username} for k in kills]
 

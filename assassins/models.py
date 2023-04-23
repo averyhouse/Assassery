@@ -118,6 +118,7 @@ class KillFeed(models.Model):
 
         # keep confirmed to be true.
         self.confirmed = True
+        self.legit_kill = False
         self.save()
 
         for assassin in killer_team.getMembers():
