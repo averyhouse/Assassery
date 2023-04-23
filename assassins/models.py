@@ -73,6 +73,77 @@ class KillFeed(models.Model):
     def getVictim(self):
         return User.objects.get(username=self.victim_username).assassin
 
+    def unresolveKill(self):
+        games = Game.objects.all()
+        if not games:
+            return False, 'Game not in progress.'
+        game = games[0]
+
+        if not self.legit_kill:
+            return False, 'Kill already unresolved'
+
+        try:
+            victim_user = User.objects.get(username=self.victim_username)
+        except User.DoesNotExist:
+            return False, 'Killed user does not exist.'
+
+        try:
+            killer_user = User.objects.get(username=self.killer_username)
+        except User.DoesNotExist:
+            return False, 'Killer user does not exist.'
+
+        try:
+            victim = victim_user.player
+        except User.player.RelatedObjectDoesNotExist:
+            return False, 'Victim does not exist.'
+
+        try:
+            killer = killer_user.player
+        except User.player.RelatedObjectDoesNotExist:
+            return False, 'Killer does not exist.'
+
+        killer_team = killer.team
+        target_team = killer_team.target
+        victim_team = victim.team
+
+        if not target_team or target_team.id != victim_team.id:
+            return False, 'Victim not in target team.'
+
+        victim.dead = False
+        victim.deathcount -= 1
+        victim.save()
+
+        killer.killcount -= 1
+        killer.save()
+
+        # keep confirmed to be true.
+        self.confirmed = True
+        self.save()
+
+        for assassin in killer_team.getMembers():
+            send_mail(
+                '[Assery] Kill reverted!',
+                'Your kill got reverted! It did not count. Please email the game admins if you believe this judgment to be false',
+                None,
+                [assassin.player.email],
+                fail_silently=True
+            )
+        # Notify the target team that one player is down
+        target_message = "Your team member, " + victim.player.name + " was not eliminated by " + killer.player.username + \
+                         ". \nThey have respawned."
+        for assassin in victim_team.getMembers():
+            send_mail(
+                '[Assery] Team Member back!',
+                target_message,
+                None,
+                [assassin.player.email],
+                fail_silently=True
+            )
+
+        return True, 'Success!'
+
+
+
     def resolveKill(self):
         games = Game.objects.all()
 

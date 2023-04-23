@@ -51,17 +51,34 @@ class TeamAdmin(admin.ModelAdmin):
         queryset.update(target=None)
 
 class KillAdmin(admin.ModelAdmin):
-    list_display = ('id', 'killer_username', 'victim_username', 'message', 'timestamp', 'confirmed')
-    actions = ['confirm', 'unconfirm']
+    list_display = ('id', 'killer_username', 'victim_username', 'message', 'timestamp', 'confirmed', 'legit_kill')
+    actions = ['confirm', 'unconfirm', 'undo_kill', 'redo_kill']
 
     @admin.action(description='Confirm')
     def confirm(self, request, queryset):
-        for obj in queryset:
-            obj.resolveKill()
+        print(queryset)
+        for kill_feed in queryset:
+            kill_feed.resolveKill()
 
     @admin.action(description='Unconfirm')
     def unconfirm(self, request, queryset):
-        queryset.update(confirmed=False)
+        for kill_feed in queryset:
+            kill_feed.confirmed = False
+
+    @admin.action(description='Confirmed by accident')
+    def undo_kill(self, requst, queryset):
+        # confirmed by accident
+        for kill_feed in queryset:
+            # undo da kill
+            kill_feed.unresolveKill()
+
+    @admin.action(description='Denied but legit kill')
+    def redo_kill(self, requst, queryset):
+        # denied but actually confirmed
+        for kill_feed in queryset:
+            kill_feed.confirmed = False
+            kill_feed.resolveKill()
+            kill_feed.legit_kill = True
 
 class GameAdmin(admin.ModelAdmin):
     list_display = ('id', 'inprogress', 'winner')

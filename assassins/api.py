@@ -335,6 +335,7 @@ class KillAPI(generics.GenericAPIView):
                     'message': 'Game is over or kill has timed out.'
                 }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+            # resolve da kill, so it happened.
             result, error = kill.resolveKill()
 
             if not result:
