@@ -13,7 +13,7 @@ class AssassinSerializer(serializers.ModelSerializer):
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('name', 'username', 'password', 'email', 'team') # 'messenger', 'photo')
+        fields = ('name', 'username', 'password', 'email') # 'messenger', 'photo')
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate_email(self, value):

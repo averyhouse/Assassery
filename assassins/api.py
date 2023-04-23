@@ -35,7 +35,7 @@ class RegistrationAPI(generics.GenericAPIView):
         user_obj = UserSerializer(user, context=self.get_serializer_context())
 
         # if the team doesn't exist, make it
-        team_name = request.data.get('group')
+        team_name = request.data.get('team')
         team = Team.objects.filter(name=team_name)
         if not team:
             # make team
