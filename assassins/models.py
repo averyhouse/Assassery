@@ -66,6 +66,7 @@ class KillFeed(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     confirmed = models.BooleanField(default=True)
     legit_kill = models.BooleanField(default=True)
+    hide_kill = models.BooleanField(default=False)
 
     def getKiller(self):
         return User.objects.get(username=self.killer_username).assassin

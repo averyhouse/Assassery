@@ -51,7 +51,7 @@ class TeamAdmin(admin.ModelAdmin):
         queryset.update(target=None)
 
 class KillAdmin(admin.ModelAdmin):
-    list_display = ('id', 'killer_username', 'victim_username', 'message', 'timestamp', 'confirmed', 'legit_kill')
+    list_display = ('id', 'killer_username', 'victim_username', 'message', 'timestamp', 'confirmed', 'legit_kill', 'hide_kill')
     actions = ['confirm', 'unconfirm', 'undo_kill', 'redo_kill']
 
     @admin.action(description='Confirm')
