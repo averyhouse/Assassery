@@ -22,7 +22,7 @@ export default class Rules extends Component {
                 The targets will be shuffled at random intervals. At this point, everyone dead will respawn and have another chance.<br></br>
                 Your goal is to maximize your team kills and minimize deaths over the duration of this phase.<br></br>
 
-                There will be three qualification rounds, starting January 25.
+                There will be three qualification rounds, starting April 25.
 
                 <h3><em>Phase 2: Playoffs</em></h3>
 
@@ -32,12 +32,23 @@ export default class Rules extends Component {
                 The finals will be only a duel.
 
                 <h2>Technical Rules</h2>
-
-                If water touches the target, they are eliminated. The honor code applies here. If you were hit, you should admit it.
-                <blockquote>
-                    <em>Note:</em> Blocking is allowed, but you can only block with something that is not clothing, a backpack, or something else you would normally have on you.
-                    The shield must be carried for the sole purpose of blocking, e.g., carrying an umbrella on a sunny day. Exercise good judgement.
-                </blockquote>
+                <ul>
+                    <li>
+                        Your goal is to <br>kill as many people</br> as possible while staying alive. You may only <br>kill your targets</br>.
+                    </li>
+                    <li>
+                        When your targets all die, you will get new targets.
+                    </li>
+                    <li>
+                        You die when your assassin shoots you with an Avery Assassins water gun, with water landing <br>somewhere on your body</br>. Clothes count.
+                    </li>
+                    <li>
+                        You may not use clothing or backpacks to defend against water. However, shields are permitted (e.g. cardboard box, umbrella).
+                    </li>
+                    <li>
+                        If you shoot your assassin, they are rooted for 2 minutes; in the meantime, they cannot move. Each player can only be rooted once per day. <br>Both of you have to be in an unsafe zone</br>.
+                    </li>
+                </ul>
 
                 Modifications to the guns are allowed, as long as the gun stays mostly original.
                 This means that all of the parts that come with the gun must be used, but additional parts may be added.
@@ -51,22 +62,78 @@ export default class Rules extends Component {
                         You can shoot out of a doorway from a room, but you cannot shoot into that doorway.
                     </li>
                     <li>
+                        All participants present in class, including PE, are safe.
+                    </li>
+                    <li>
                         Lecture halls are safe zones for obvious reasons, but the walk to and from class is fair game.
                         You also cannot target someone in a zoom lecture.
                     </li>
                     <li>Bathrooms are safe zones.</li>
                     <li>
-                        You are not safe while eating at Hameetman, etc.
+                        The second floor gym in Braun, as well as the Braun basketball/racquetball courts, MPR, the Brown basketball gym and small gym, as well as the Barn are safe zones.
+                    </li>
+                    <li>
+                        Indoor eating areas are safe, e.g. Red Door (1st floor only), indoor Browne, indoor Broad.
                     </li>
                     <li>
                         Do not target someone if it would cause property damage, e.g., if their laptop is out or they are working on a set on a piece of paper.
                         Common sense applies!
                     </li>
                     <li>
-                        The Avery dining hall and lobby are safe zones.
+                        The Avery dining hall and lobby are safe zones. The hallway leading to the dining hall is <br>not safe</br>.
                     </li>
                     <li>
-                        You absolutely may not physically restrain or move people.
+                        You absolutely <br>may not</br> physically restrain or move people.
+                    </li>
+                </ul>
+
+                <h2>Assery Store (Round 2+ in Qualification)</h2>
+
+                <br>Rank I</br> Store:
+                <ul>
+                    <li>
+                        <br>(2)</br><u>Knowledge</u>: Uncover the nickname of a participant of your choice for the round.
+                    </li>
+                    <li>
+                        <br>(3)</br><u>Pilfer</u>: Steal either the remaining points or power-ups from the next team you kill.
+                    </li>
+                    <li>
+                        <br>(4)</br><u>Knowledge</u> {II}: Uncover the assassins of a random team.
+                    </li>
+                    <li>
+                        <br>(5)</br><u>Immunity</u>: Guaranteed safety from a safe area to another, one-way trip. Time limit is 7 minutes. Must report in advance the starting and ending point.
+                    </li>
+                    <li>
+                        <br>(5)</br><u>Concealment</u>: Hide all information about a kill.
+                    </li>
+                </ul>
+
+                <br>Rank II</br> Store:
+                <ul>
+                    <li>
+                        <br>(6)</br><u>??????????</u>: ??????????
+                    </li>
+                    <li>
+                        <br>(7)</br><u>??????????</u> {II}: ??????????
+                    </li>
+                    <li>
+                        <br>(8)</br><u>??????????</u> {II}: ??????????
+                    </li>
+                    <li>
+                        <br>(8)</br><u>??????????</u> {III}: ??????????
+                    </li>
+                </ul>
+
+                <br>Rank III</br> Store:
+                <ul>
+                    <li>
+                        <br>(?)</br><u>??????????</u>: ??????????
+                    </li>
+                    <li>
+                        <br>(?)</br><u>??????????</u> {III}: ??????????
+                    </li>
+                    <li>
+                        <br>(?)</br><u>??????????</u>: ??????????
                     </li>
                 </ul>
             </div>
