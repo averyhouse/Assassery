@@ -34,19 +34,19 @@ export default class Rules extends Component {
                 <h2>Technical Rules</h2>
                 <ul>
                     <li>
-                        Your goal is to <br>kill as many people</br> as possible while staying alive. You may only <br>kill your targets</br>.
+                        Your goal is to <b>kill as many people</b> as possible while staying alive. You may only <b>kill your targets</b>.
                     </li>
                     <li>
                         When your targets all die, you will get new targets.
                     </li>
                     <li>
-                        You die when your assassin shoots you with an Avery Assassins water gun, with water landing <br>somewhere on your body</br>. Clothes count.
+                        You die when your assassin shoots you with an Avery Assassins water gun, with water landing <b>somewhere on your body</b>. Clothes count.
                     </li>
                     <li>
                         You may not use clothing or backpacks to defend against water. However, shields are permitted (e.g. cardboard box, umbrella).
                     </li>
                     <li>
-                        If you shoot your assassin, they are rooted for 2 minutes; in the meantime, they cannot move. Each player can only be rooted once per day. <br>Both of you have to be in an unsafe zone</br>.
+                        If you shoot your assassin, they are rooted for 2 minutes; in the meantime, they cannot move. Each player can only be rooted once per day. <b>Both of you have to be in an unsafe zone</b>.
                     </li>
                 </ul>
 
@@ -80,60 +80,60 @@ export default class Rules extends Component {
                         Common sense applies!
                     </li>
                     <li>
-                        The Avery dining hall and lobby are safe zones. The hallway leading to the dining hall is <br>not safe</br>.
+                        The Avery dining hall and lobby are safe zones. The hallway leading to the dining hall is <b>not safe</b>.
                     </li>
                     <li>
-                        You absolutely <br>may not</br> physically restrain or move people.
+                        You absolutely <b>may not</b> physically restrain or move people.
                     </li>
                 </ul>
 
                 <h2>Assery Store (Round 2+ in Qualification)</h2>
 
-                <br>Rank I</br> Store:
+                <b>Rank I</b> Store:
                 <ul>
                     <li>
-                        <br>(2)</br><u>Knowledge</u>: Uncover the nickname of a participant of your choice for the round.
+                        <b>(2)</b><u>Knowledge</u>: Uncover the nickname of a participant of your choice for the round.
                     </li>
                     <li>
-                        <br>(3)</br><u>Pilfer</u>: Steal either the remaining points or power-ups from the next team you kill.
+                        <b>(3)</b><u>Pilfer</u>: Steal either the remaining points or power-ups from the next team you kill.
                     </li>
                     <li>
-                        <br>(4)</br><u>Knowledge</u> &#123;II&#125;: Uncover the assassins of a random team.
+                        <b>(4)</b><u>Knowledge</u> &#123;II&#125;: Uncover the assassins of a random team.
                     </li>
                     <li>
-                        <br>(5)</br><u>Immunity</u>: Guaranteed safety from a safe area to another, one-way trip. Time limit is 7 minutes. Must report in advance the starting and ending point.
+                        <b>(5)</b><u>Immunity</u>: Guaranteed safety from a safe area to another, one-way trip. Time limit is 7 minutes. Must report in advance the starting and ending point.
                     </li>
                     <li>
-                        <br>(5)</br><u>Concealment</u>: Hide all information about a kill.
+                        <b>(5)</b><u>Concealment</u>: Hide all information about a kill.
                     </li>
                 </ul>
 
-                <br>Rank II</br> Store:
+                <b>Rank II</b> Store:
                 <ul>
                     <li>
-                        <br>(6)</br><u>??????????</u>: ??????????
+                        <b>(6)</b><u>??????????</u>: ??????????
                     </li>
                     <li>
-                        <br>(7)</br><u>??????????</u> &#123;II&#125;: ??????????
+                        <b>(7)</b><u>??????????</u> &#123;II&#125;: ??????????
                     </li>
                     <li>
-                        <br>(8)</br><u>??????????</u> &#123;II&#125;: ??????????
+                        <b>(8)</b><u>??????????</u> &#123;II&#125;: ??????????
                     </li>
                     <li>
-                        <br>(8)</br><u>??????????</u> &#123;III&#125;: ??????????
+                        <b>(8)</b><u>??????????</u> &#123;III&#125;: ??????????
                     </li>
                 </ul>
 
-                <br>Rank III</br> Store:
+                <b>Rank III</b> Store:
                 <ul>
                     <li>
-                        <br>(?)</br><u>??????????</u>: ??????????
+                        <b>(?)</b><u>??????????</u>: ??????????
                     </li>
                     <li>
-                        <br>(?)</br><u>??????????</u> &#123;III&#125;: ??????????
+                        <b>(?)</b><u>??????????</u> &#123;III&#125;: ??????????
                     </li>
                     <li>
-                        <br>(?)</br><u>??????????</u>: ??????????
+                        <b>(?)</b><u>??????????</u>: ??????????
                     </li>
                 </ul>
             </div>
