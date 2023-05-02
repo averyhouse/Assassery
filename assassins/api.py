@@ -167,7 +167,7 @@ class TeamLeaderboardAPI(generics.GenericAPIView):
         for team in Team.objects.all():
             kills = sum(a.killcount for a in team.getMembers())
             deaths = sum(a.deathcount for a in team.getMembers())
-            kdr = kills - deaths
+            kdr = 2 * kills - deaths
             teams.append({'name': team.name, 'kills': kills, 'deaths': deaths, 'ratio': round(kdr, 2)})
         teams.sort(key=lambda x: x['ratio'] if x['deaths'] != 0 else 2 * x['kills'], reverse=True)
         return Response({'teams': teams})
