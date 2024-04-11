@@ -35,7 +35,9 @@ API keys and such are stored in a file called `vars.py` at the top level of the 
 
 ### Setting up avery2 server
 
-1. SSH into your account, then `cd srv/assassery`
+Make sure your user is added to group `sudo usermod -a -G assassery $USER` (MAKE SURE TO LOGIN AND LOGOUT)
+
+1. SSH into your account, then `cd srv/assassery` then if permissions are messing up: `sudo chown -R www-data:assassery Assassery`
 2. Run `source venv/bin/activate`
 3. Now, `cd Assassery` and start a tmux session, so run `tmux` right after
 4. Now in the `tmux` session, split horizontally (Ctrl+B + %) and run
