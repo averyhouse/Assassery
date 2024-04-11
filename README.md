@@ -44,3 +44,5 @@ Make sure your user is added to group `sudo usermod -a -G assassery $USER` (MAKE
    1. `cd frontend && npm run dev` in the first pane
    1. `python3 manage.py runserver 127.0.0.1:3000` in the second pane
 5. Now detach from tmux (Ctrl+B + D) and exit the server
+
+If it's already running, reattch using: `tmux attach` (since that should be the only one on the server)
