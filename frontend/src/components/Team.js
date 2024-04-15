@@ -50,7 +50,6 @@ export default class Team extends Component {
                         </tr >}
                     {this.props.you != alias &&
                         <tr key={name} >
-                            <td>{alias}</td>
                             <td>{name}</td>
                             <td>{dead && "Yes"}{!dead && "No"}</td>
                         </tr >}
