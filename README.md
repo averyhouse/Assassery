@@ -37,7 +37,9 @@ API keys and such are stored in a file called `vars.py` at the top level of the 
 
 Make sure your user is added to group `sudo usermod -a -G assassery $USER` (MAKE SURE TO LOGIN AND LOGOUT)
 
-1. SSH into your account, then `cd srv/assassery` then if permissions are messing up: `sudo chown -R www-data:assassery Assassery`
+For git pulling & other things: `sudo chown -R www-data:assassery Assassery` then `sudo su www-data -s /bin/bash`
+
+1. SSH into your account, then `cd srv/assassery` then `sudo su` (just for running, I don't feel like dealing with permissions)
 2. Run `source venv/bin/activate`
 3. Now, `cd Assassery` and start a tmux session, so run `tmux` right after
 4. Now in the `tmux` session, split horizontally (Ctrl+B + %) and run
