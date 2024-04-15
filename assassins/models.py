@@ -71,8 +71,10 @@ class KillFeed(models.Model):
     def getKiller(self):
         return User.objects.get(username=self.killer_username).assassin
 
+    # TODO: Make a migration to make it actually take from username, but I am
+    # lazy so not doing it now.
     def getVictim(self):
-        return User.objects.get(username=self.victim_username).assassin
+        return User.objects.get(name=self.victim_username).assassin
 
     def unresolveKill(self):
         games = Game.objects.all()
@@ -84,7 +86,7 @@ class KillFeed(models.Model):
             return False, 'Kill already unresolved'
 
         try:
-            victim_user = User.objects.get(username=self.victim_username)
+            victim_user = User.objects.get(name=self.victim_username)
         except User.DoesNotExist:
             return False, 'Killed user does not exist.'
 
@@ -158,7 +160,7 @@ class KillFeed(models.Model):
             return False, 'Kill already confirmed.'
 
         try:
-            victim_user = User.objects.get(username=self.victim_username)
+            victim_user = User.objects.get(name=self.victim_username)
         except User.DoesNotExist:
             return False, 'Killed user does not exist.'
 
@@ -252,7 +254,7 @@ class KillFeed(models.Model):
         return True, 'Success!'
 
     def __str__(self):
-        return self.killer_username + " killed " + self.victim_username + " by " + self.message
+        return self.victim_username + "died by " + self.message
 
 
 class Game(models.Model):

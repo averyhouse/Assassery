@@ -14,7 +14,6 @@ export class TargetTeam extends Team {
         this.state = {
             showKillModal: false,
             message: "",
-            targetAlias: null,
             targetName: null
         };
     }
@@ -29,6 +28,9 @@ export class TargetTeam extends Team {
             "Authorization": `Token ${this.props.token}`
         };
 
+        // TODO: change to name, when the migration is over, we just leaving it
+        // "username" (which is actually name in backend code, but I don't feel
+        // like making a new field) for now.
         let data = {
             killer_username: this.props.username,
             victim_username: alias
@@ -50,22 +52,22 @@ export class TargetTeam extends Team {
     }
 
     isKillPending(alias) {
+        // TODO: need to change victim_username to actual name
         return this.props.killfeed.some((kill) => kill.victim_username == alias && !kill.confirmed);
     }
 
     renderTableData() {
         return this.props.team.members.map((player, index) => {
-            const { alias, name, dead } = player
+            const { name, dead } = player
             return (
                 <tr key={name}>
-                    <td>{alias}</td>
                     <td>{name}</td>
                     <td>{dead && <button class="kill-button-dead">Already dead</button>}
-                        {!dead && this.isKillPending(alias) &&
+                        {!dead && this.isKillPending(name) &&
                             <button class="kill-button-dead">Pending</button>}
-                        {!dead && !this.isKillPending(alias) && !this.props.dead &&
-                            <button onClick={() => this.setState({ showKillModal: true, targetAlias: alias, targetName: name })} class="kill-button-alive">I have killed them</button>}
-                        {!dead && !this.isKillPending(alias) && this.props.dead &&
+                        {!dead && !this.isKillPending(name) && !this.props.dead &&
+                            <button onClick={() => this.setState({ showKillModal: true, targetName: name })} class="kill-button-alive">I have killed them</button>}
+                        {!dead && !this.isKillPending(name) && this.props.dead &&
                             <button class="kill-button-dead">No</button>
                         }
                     </td>
@@ -80,10 +82,9 @@ export class TargetTeam extends Team {
                 {super.render()}
                 {this.state.showKillModal && <KillModal
                     exit={() => this.setState({ showKillModal: false })}
-                    confirm={() => { this.handleKill(this.state.targetAlias); this.setState({ showKillModal: false }) }}
+                    confirm={() => { this.handleKill(this.state.targetName); this.setState({ showKillModal: false }) }}
                     handleChangeMessage={this.handleChangeMessage}
                     message={this.state.message}
-                    targetAlias={this.state.targetAlias}
                     targetName={this.state.targetName}
                 >
                 </KillModal>}

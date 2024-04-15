@@ -94,9 +94,19 @@ class StatusAPI(generics.GenericAPIView):
             for member in team_members.all():
                 dead = member.dead
                 player = member.player
-                alias = player.username
                 name = player.name
+                alias = player.username
                 members.append({"alias": alias, "name": name, "dead": dead})
+            return {"name": team.name, "members": members}
+
+        def serialize_enemy_team(team):
+            team_members = team.team_members
+            members = []
+            for member in team_members.all():
+                dead = member.dead
+                player = member.player
+                name = player.name
+                members.append({"name": name, "dead": dead})
             return {"name": team.name, "members": members}
 
         user = self.request.user
@@ -122,7 +132,7 @@ class StatusAPI(generics.GenericAPIView):
         data['deaths'] = deaths
 
         target = team.target
-        data['target'] = serialize_team(target) if target else None
+        data['target'] = serialize_enemy_team(target) if target else None
 
         try:
             hunter = team.hunter_team
@@ -130,7 +140,8 @@ class StatusAPI(generics.GenericAPIView):
             data['hunter'] = None
             return Response(data)
 
-        data['hunter'] = serialize_team(hunter)
+        # TODO: Unsure, changing this for now.
+        data['hunter'] = serialize_enemy_team(hunter)
         return Response(data)
 
 
