@@ -10,6 +10,13 @@ export default class Team extends Component {
         })
     }
 
+    renderTableHeader2() {
+        let header = Object.keys({ name: '', dead: '' })
+        return header.map((key, index) => {
+            return <th key={index}>{key.toUpperCase()}</th>
+        })
+    }
+
     render() {
         return (
             <div>
@@ -22,7 +29,8 @@ export default class Team extends Component {
                             <h2 class="subtitle">Deaths: {this.props.deaths}</h2>}
                         <table id='members'>
                             <tbody>
-                                <tr>{this.renderTableHeader()}</tr>
+                                { this.props.relation == "Your Team" && <tr>{this.renderTableHeader()}</tr> }
+                                { this.props.relation == "Target Team" && <tr>{this.renderTableHeader2()}</tr> }
                                 {this.renderTableData()}
                             </tbody>
                         </table>
