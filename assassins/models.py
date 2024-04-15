@@ -223,8 +223,7 @@ class KillFeed(models.Model):
 
         # Notify the killer's team that one target is down
         killer_message = "Congratulations! Your team eliminated " + \
-                         victim.player.name + ", a.k.a. " + \
-                         victim.player.username + ". \n\n"
+                         victim.player.name + ". \n\n"
 
         if not live_targets:
             killer_message += "You have completely eliminated the enemy team. Check your dashboard to see your new targets!"
@@ -254,7 +253,7 @@ class KillFeed(models.Model):
         return True, 'Success!'
 
     def __str__(self):
-        return self.victim_username + "died by " + self.message
+        return self.victim_username + " died by " + self.message
 
 
 class Game(models.Model):

@@ -1,17 +1,17 @@
 import React from "react";
 import '../assets/css/Modal.scss';
 
-const KillModal = ({ exit, confirm, handleChangeMessage, message, targetAlias, targetName }) => {
+const KillModal = ({ exit, confirm, handleChangeMessage, message, targetName }) => {
     return (
         <>
             <div class="darkBG" onClick={exit} />
             <div class="centered">
                 <div class="modal">
                     <div class="modalHeader">
-                        <h5 class="heading">Kill {targetAlias}</h5>
+                        <h5 class="heading">Kill {targetName}</h5>
                     </div>
                     <div class="modalContent">
-                        Are you sure you killed {targetName}, a.k.a. {targetAlias}? <br></br>
+                        Are you sure you killed {targetName}? <br></br>
 
                         <div class="iflarge">
                             The kill will be pending while {targetName} confirms it, so be patient and don't press the button again.<br></br>
