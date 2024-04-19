@@ -10,6 +10,7 @@ export default class Rules extends Component {
                 Assery is a team-based assassination game.
                 Your team of 3 will target another team, and you will be targeted by an unknown team.
                 The goal is to shoot members of the opposing teams with water guns while avoiding getting shot yourself.
+                Most importantly, have fun!
 
                 <h2>Game Organization</h2>
 
@@ -58,7 +59,7 @@ export default class Rules extends Component {
                 You are not allowed to shoot someone inside a safe zone.
                 <ul>
                     <li>
-                        All residential rooms are safe zones, as well as lounges to prevent property damage.
+                        All residential rooms are safe zones, as well as lounges (all Avery lounges, including common spaces in Bechtel suites) to prevent property damage.
                         You can shoot out of a doorway from a room, but you cannot shoot into that doorway.
                     </li>
                     <li>
