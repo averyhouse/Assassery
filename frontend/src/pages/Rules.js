@@ -88,7 +88,7 @@ export default class Rules extends Component {
                     </li>
                 </ul>
 
-                <h2>Assery Store (Round 2+ in Qualification)</h2>
+                {/* <h2>Assery Store (Round 2+ in Qualification)</h2>
 
                 <b>Rank I</b> Store:
                 <ul>
@@ -136,7 +136,7 @@ export default class Rules extends Component {
                     <li>
                         <b>(?)</b><u>??????????</u>: ??????????
                     </li>
-                </ul>
+                </ul> */}
             </div>
         );
     }
