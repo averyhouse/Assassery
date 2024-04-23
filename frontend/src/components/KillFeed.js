@@ -32,7 +32,7 @@ export default class KillFeed extends Component {
                     <tr>
                         <td style={{lineHeight: '2px'}} colSpan={2}>&nbsp;</td>
                     </tr>
-                    {!hide_kill && confirmed && legit_kill && 
+                    {confirmed && legit_kill && 
                     <tr key={timestamp}>
                         <td>{timestamp}</td>
                         <td>{message}</td>
