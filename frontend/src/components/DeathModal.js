@@ -1,7 +1,7 @@
 import React from "react";
 import '../assets/css/Modal.scss';
 
-const DeathModal = ({ confirm, deny, killer }) => {
+const DeathModal = ({ confirm, deny }) => {
     return (
         <>
             <div class="darkBG" />
@@ -11,7 +11,7 @@ const DeathModal = ({ confirm, deny, killer }) => {
                         <h5 class="heading">You have died!</h5>
                     </div>
                     <div class="modalContent">
-                        Our records indicate that you have been assassinated by {killer}! You will not be able to continue to play until you confirm or deny this.
+                        Our records indicate that you have been assassinated by someone :O! You will not be able to continue to play until you confirm or deny this.
                     </div>
                     <div class="modalActions">
                         <div class="actionsContainer">
