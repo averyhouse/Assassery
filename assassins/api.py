@@ -106,7 +106,16 @@ class StatusAPI(generics.GenericAPIView):
                 dead = member.dead
                 player = member.player
                 name = player.name
-                members.append({"name": name, "dead": dead})
+
+                kf = KillFeed.objects.filter(victim_username=name).last()
+                confirmed = False
+                if kf:
+                    confirmed = kf.confirmed
+
+                if kf:
+                    members.append({"name": name, "dead": dead, "in_kf": True, "confirmed": confirmed})
+                else:
+                    members.append({"name": name, "dead": dead, "in_kf": False, "confirmed": confirmed})
             return {"name": team.name, "members": members}
 
         user = self.request.user
@@ -134,6 +143,9 @@ class StatusAPI(generics.GenericAPIView):
         target = team.target
         data['target'] = serialize_enemy_team(target) if target else None
 
+        return Response(data)
+
+        # get rid of hunter
         try:
             hunter = team.hunter_team
         except Team.hunter_team.RelatedObjectDoesNotExist:
@@ -323,6 +335,13 @@ class KillAPI(generics.GenericAPIView):
             return Response({
                 'result': 'failure',
                 'message': 'Victim not in target team.'
+            }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        kf = KillFeed.objects.filter(victim_username=kill['victim_username']).last()
+        if kf:
+            return Response({
+                'result': 'failure',
+                'message': 'there is already a killfeed'
             }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
         # Send confirmation email

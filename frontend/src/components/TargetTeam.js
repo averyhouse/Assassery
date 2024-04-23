@@ -51,23 +51,22 @@ export class TargetTeam extends Team {
         window.location.reload(false);
     }
 
-    isKillPending(alias) {
-        // TODO: need to change victim_username to actual name
-        return this.props.killfeed.some((kill) => kill.victim_username == alias && !kill.confirmed);
+        isKillPending(in_kf, confirmed) {
+        return in_kf && !confirmed;
     }
 
     renderTableData() {
         return this.props.team.members.map((player, index) => {
-            const { name, dead } = player
+            const { name, dead, in_kf, confirmed } = player
             return (
                 <tr key={name}>
                     <td>{name}</td>
                     <td>{dead && <button class="kill-button-dead">Already dead</button>}
-                        {!dead && this.isKillPending(name) &&
+                        {!dead && this.isKillPending(in_kf, confirmed) &&
                             <button class="kill-button-dead">Pending</button>}
-                        {!dead && !this.isKillPending(name) && !this.props.dead &&
+                        {!dead && !this.isKillPending(in_kf, confirmed) && !this.props.dead &&
                             <button onClick={() => this.setState({ showKillModal: true, targetName: name })} class="kill-button-alive">I have killed them</button>}
-                        {!dead && !this.isKillPending(name) && this.props.dead &&
+                        {!dead && !this.isKillPending(in_kf, confirmed) && this.props.dead &&
                             <button class="kill-button-dead">No</button>
                         }
                     </td>
