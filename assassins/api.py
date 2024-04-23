@@ -11,7 +11,7 @@ from .serializers import AssassinSerializer, CreateUserSerializer, UserSerialize
 from django.http import QueryDict
 
 
-# from datetime import datetime
+from datetime import datetime, timedelta
 
 class AssassinViewSet(viewsets.ModelViewSet):
     queryset = Assassin.objects.all()
@@ -153,10 +153,14 @@ class DashboardAPI(generics.GenericAPIView):
     def get(self, request):
         def time(kill):
             t = kill.timestamp
-            return t.strftime("%m/%d/%Y, %H:%M:%S")
+            new_time = t + timedelta(hours=7)
+            return new_time.strftime("%m/%d/%Y, %H:%M:%S")
 
         kills = KillFeed.objects.order_by('-timestamp')
-        kills = [{'id': k.id,
+        ret_kills = []
+        for k in kills:
+            if not k.hide_kill:
+                ret_kills.append({'id': k.id,
                   'timestamp': time(k),
                   'message': str(k),
                   'confirmed': k.confirmed,
@@ -164,13 +168,13 @@ class DashboardAPI(generics.GenericAPIView):
                   'hide_kill': k.hide_kill,
                   'killer_username': k.killer_username,
                   # HOTFIX 4/22/24
-                  'victim_username': User.objects.get(name=k.victim_username).username} for k in kills]
+                  'victim_username': User.objects.get(name=k.victim_username).username})
 
         leads = Assassin.objects.order_by('-killcount', 'deathcount')
         leads = [(p.player.username, p.killcount, p.deathcount) for p in leads]
         leads = [{'alias': a, 'kills': k, 'deaths': d} for a, k, d in leads]
 
-        return Response({'killfeed': kills, 'leaderboard': leads})
+        return Response({'killfeed': ret_kills, 'leaderboard': leads})
 
 class TeamLeaderboardAPI(generics.GenericAPIView):
 
