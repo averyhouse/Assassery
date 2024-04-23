@@ -253,7 +253,11 @@ class KillFeed(models.Model):
         return True, 'Success!'
 
     def __str__(self):
-        return self.victim_username + " died by " + self.message
+        # HOTFIX 4/22/24, this was because I refuse to change the model
+        # Will need to also change this when the model changes, username is
+        # name here.
+        u = User.objects.get(name=self.victim_username)
+        return u.username + " died by " + self.message
 
 
 class Game(models.Model):
