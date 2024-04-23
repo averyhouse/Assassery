@@ -163,7 +163,8 @@ class DashboardAPI(generics.GenericAPIView):
                   'legit_kill': k.legit_kill,
                   'hide_kill': k.hide_kill,
                   'killer_username': k.killer_username,
-                  'victim_username': k.victim_username} for k in kills]
+                  # HOTFIX 4/22/24
+                  'victim_username': User.objects.get(name=k.victim_username).username} for k in kills]
 
         leads = Assassin.objects.order_by('-killcount', 'deathcount')
         leads = [(p.player.username, p.killcount, p.deathcount) for p in leads]
