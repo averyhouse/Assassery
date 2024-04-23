@@ -166,7 +166,7 @@ class DashboardAPI(generics.GenericAPIView):
                   'confirmed': k.confirmed,
                   'legit_kill': k.legit_kill,
                   'hide_kill': k.hide_kill,
-                  'killer_username': k.killer_username,
+                #   'killer_username': k.killer_username,
                   # HOTFIX 4/22/24
                   'victim_username': User.objects.get(name=k.victim_username).username})
 
