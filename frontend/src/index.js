@@ -57,7 +57,7 @@ class RootContainerComponent extends Component {
 
     amDead() {
         if (!this.props.auth.user) return false;
-        let kill = this.props.game.killfeed.find((kill) => kill.victim_username == this.props.auth.user.name && !kill.confirmed);
+        let kill = this.props.game.killfeed.find((kill) => kill.victim_username == this.props.auth.user.username && !kill.confirmed);
         if (!kill) {
             return false;
         }
@@ -68,7 +68,7 @@ class RootContainerComponent extends Component {
     }
 
     confirmDeath(bool) {
-        let data = this.props.game.killfeed.find((kill) => kill.victim_username == this.props.auth.user.name && !kill.confirmed);
+        let data = this.props.game.killfeed.find((kill) => kill.victim_username == this.props.auth.user.username && !kill.confirmed);
         if (!data) {
             return false;
         }

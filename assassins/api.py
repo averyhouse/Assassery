@@ -280,7 +280,7 @@ class KillAPI(generics.GenericAPIView):
             killer_user = User.objects.get(username=kill['killer_username'])
 
         try:
-            victim_user = User.objects.get(name=kill['victim_username'])
+            victim_user = User.objects.get(username=kill['victim_username'])
         except User.DoesNotExist:
             return Response({
                 'result': 'failure',
