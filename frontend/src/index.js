@@ -205,7 +205,7 @@ class RootContainerComponent extends Component {
                             <PrivateRoute path="/status" component={Status} />
                             <Route component={NotFound} />
                         </Switch>
-                        {this.amDead() && <DeathModal confirm={() => this.confirmDeath(true)} deny={() => this.confirmDeath(false)} killer={this.state.killer}></DeathModal>}
+                        {this.amDead() && <DeathModal confirm={() => this.confirmDeath(true)} deny={() => this.confirmDeath(false)}></DeathModal>}
                     </main>
                 </div>
             </Router>
