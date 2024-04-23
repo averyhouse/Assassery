@@ -371,6 +371,7 @@ class KillAPI(generics.GenericAPIView):
                 # set confirmed to be true to increase tech debt ;)
                 kill.confirmed = True
                 kill.legit_kill = False
+                kill.save()
 
                 send_mail(
                     '[Assery] Your kill has been denied!',
