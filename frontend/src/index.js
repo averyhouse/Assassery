@@ -61,9 +61,6 @@ class RootContainerComponent extends Component {
         if (!kill) {
             return false;
         }
-        if (!this.state.killer) {
-            this.setState({ killer: kill.killer_username });
-        }
         return true
     }
 
