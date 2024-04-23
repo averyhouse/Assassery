@@ -47,7 +47,7 @@ export default class Rules extends Component {
                         You may not use clothing or backpacks to defend against water. However, shields are permitted (e.g. cardboard box, umbrella).
                     </li>
                     <li>
-                        If you shoot your assassin, they are rooted for 2 minutes; in the meantime, they cannot move. Each player can only be rooted once per day. <b>Both of you have to be in an unsafe zone</b>.
+                        If you shoot your assassin, they are rooted for 2 minutes; in the meantime, they cannot move. Each player can only be rooted once per hour. <b>Both of you have to be in an unsafe zone</b>.
                     </li>
                 </ul>
 
