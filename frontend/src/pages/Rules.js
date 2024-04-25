@@ -74,7 +74,7 @@ export default class Rules extends Component {
                         The second floor gym in Braun, as well as the Braun basketball/racquetball courts, MPR, the Brown basketball gym and small gym, as well as the Barn are safe zones.
                     </li>
                     <li>
-                        Indoor eating areas are safe, e.g. Red Door (1st floor only), indoor Browne, indoor Broad.
+                        Indoor eating areas are safe, e.g. Red Door (all floors, first and second and basement only), indoor Browne, indoor Broad.
                     </li>
                     <li>
                         Do not target someone if it would cause property damage, e.g., if their laptop is out or they are working on a set on a piece of paper.
