@@ -82,6 +82,7 @@ class RootContainerComponent extends Component {
             headers: headers,
             body: JSON.stringify(data)
         })
+
         window.location.reload(false);
         return true;
     }

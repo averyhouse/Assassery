@@ -51,7 +51,7 @@ export class TargetTeam extends Team {
         window.location.reload(false);
     }
 
-        isKillPending(in_kf, confirmed) {
+    isKillPending(in_kf, confirmed) {
         return in_kf && !confirmed;
     }
 

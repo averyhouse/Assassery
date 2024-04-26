@@ -30,6 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     # 'a291c76d.ngrok.io',
     '127.0.0.1',
+    'localhost',
     'assassery.herokuapp.com'
 ]
 
