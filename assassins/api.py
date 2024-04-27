@@ -165,7 +165,7 @@ class DashboardAPI(generics.GenericAPIView):
     def get(self, request):
         def time(kill):
             t = kill.timestamp
-            new_time = t + timedelta(hours=5)
+            new_time = t - timedelta(hours=7)
             return new_time.strftime("%m/%d/%Y, %H:%M:%S")
 
         kills = KillFeed.objects.order_by('-timestamp')
